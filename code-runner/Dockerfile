@@ -1,0 +1,21 @@
+#  Copyright (C) 2017  Nicholas Anderssohn
+
+FROM ubuntu:16.04
+EXPOSE 8080
+RUN apt-get -y update && apt-get -y install software-properties-common
+RUN apt-get -y update && apt-get -y install openjdk-8-jdk
+RUN add-apt-repository ppa:longsleep/golang-backports
+RUN apt-get -y update
+RUN apt-get -y install golang-go
+RUN mkdir -p /go/src
+RUN mkdir /go/pkg /go/bin
+ENV PATH=$PATH:/usr/local/go/bin
+ENV GOPATH=/go
+RUN mkdir -p /go/src/hello-class/code-runner
+# # RUN mkdir /go/src/code-runner/codeserver && mkdir output && mkdir go/src/code-runner/codeserver/output
+# # COPY codeRunner /go/src/code-runner/
+# # CMD /go/src/code-runner/codeRunner
+
+WORKDIR /go/src/hello-class/code-runner
+COPY . .
+CMD go run main.go
