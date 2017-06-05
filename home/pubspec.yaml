@@ -1,0 +1,15 @@
+name: dart_app_base
+description: Base App
+version: 0.0.1
+author: Nick Anderssohn <ncadevelopment@gmail.com>
+environment:
+  sdk: any
+dependencies:
+  browser: any
+  js: any
+  sass: any
+  image: any
+transformers:
+- $dart2js:
+    minify: true
+- sass
