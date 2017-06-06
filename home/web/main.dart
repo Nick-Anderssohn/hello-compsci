@@ -1,6 +1,9 @@
-import 'dart:html';
+// Copyright (C) 2017  Nicholas Anderssohn
 
+import '../lib/app.dart';
+
+App app = new App();
 void main() {
-  querySelector('#test').text = 'Your Dart app is running.';
-  querySelector('#test').classes.add('test');
+  print("test");
+  app.run();
 }

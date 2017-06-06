@@ -1,7 +1,7 @@
-name: dart_app_base
-description: Base App
+name: hello_class_homepage
+description: homepage for Hello, Class!
 version: 0.0.1
-author: Nick Anderssohn <ncadevelopment@gmail.com>
+author: Nick Anderssohn <nicholas.anderssohn@gmail.com>
 environment:
   sdk: any
 dependencies:
@@ -9,6 +9,7 @@ dependencies:
   js: any
   sass: any
   image: any
+  simple_streams: any
 transformers:
 - $dart2js:
     minify: true

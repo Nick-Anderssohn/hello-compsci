@@ -1,3 +1,8 @@
-.test {
-  font-size: 30px;
+@import "modules/colors";
+@import "partials/header";
+@import "partials/roundedbtn";
+
+.body {
+  margin: 0px;
+  background-color: white;
 }
