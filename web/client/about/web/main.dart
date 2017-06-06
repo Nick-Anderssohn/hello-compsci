@@ -1,6 +1,7 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 import 'dart:html';
+import 'package:hello_class/hello_class.dart';
 
 final String curEndpoint = '/about';
 void main() {
@@ -12,8 +13,5 @@ _handleHomeOnClick(var e) {
 }
 
 _getNEWURL(String newEndpoint) {
-  String newURL = window.location.href;
-  var index = newURL.lastIndexOf(curEndpoint);
-  newURL = newURL.substring(0, index);
-  return newURL + newEndpoint;
+  return StrConv.getNewURL(window.location.href, curEndpoint, newEndpoint);
 }

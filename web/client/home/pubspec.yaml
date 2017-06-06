@@ -9,6 +9,10 @@ dependencies:
   js: any
   sass: any
   image: any
+  hello_class:
+    git:
+      url: https://github.com/Nick-Anderssohn/hc-dart-lib.git
+      ref: master
 transformers:
 - $dart2js:
     minify: true
