@@ -35,3 +35,8 @@ $top-bar-height: 22px;
     background-color: $grey;
   }
 }
+
+.selected-option {
+  @extend .top-bar-option;
+  background-color: $nice-grey;
+}
