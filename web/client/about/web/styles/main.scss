@@ -9,6 +9,11 @@
 @import "partials/page";
 
 .body {
+  position: fixed;
   margin: 0px;
-  background-color: $snow;
+  background-color: $silver-snow;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  width: 100%;
 }

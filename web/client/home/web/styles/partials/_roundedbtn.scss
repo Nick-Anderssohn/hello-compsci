@@ -21,8 +21,8 @@
   width: $create-session-btn-width;
   left: calc(50% - #{$create-session-btn-width} - #{$session-btn-separator});
   top: calc(50% - #{$rounded-btn-line-height} / 2);
-  -webkit-animation: createbtn-slide-left 2s forwards;
-  animation: createbtn-slide-left 2s forwards;
+  -webkit-animation: createbtn-slide-left 1s forwards;
+  animation: createbtn-slide-left 1s forwards;
 }
 
 .join-session-btn {
@@ -31,6 +31,6 @@
   width: $create-session-btn-width;
   left: calc(50% + #{$session-btn-separator});
   top: calc(50% - #{$rounded-btn-line-height} / 2);
-  -webkit-animation: joinbtn-slide-left 2s forwards;
-  animation: joinbtn-slide-left 2s forwards;
+  -webkit-animation: joinbtn-slide-left 1s forwards;
+  animation: joinbtn-slide-left 1s forwards;
 }

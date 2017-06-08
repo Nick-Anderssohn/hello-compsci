@@ -3,5 +3,5 @@ $top-bar-height: 22px;
 $create-session-btn-width: 250px;
 $session-btn-separator: 10px;
 $rounded-btn-line-height: 40px;
-$page-width: 900px;
-$page-height: 650px;
+$page-width: calc(100% - 2 * #{$page-left});
+$page-height: calc(100% - 3 * #{$page-top});
