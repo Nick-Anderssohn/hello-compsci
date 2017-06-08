@@ -10,7 +10,7 @@ dependencies:
   sass: any
   image: any
   simple_streams: any
-  hello_class:
+  hello_class_lib:
     git:
       url: https://github.com/Nick-Anderssohn/hc-dart-lib.git
       ref: master

@@ -1,7 +1,7 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 import 'dart:html';
-import 'package:hello_class/hello_class.dart';
+import 'package:hello_class_lib/hello_class.dart';
 
 final String curEndpoint = '/about';
 void main() {

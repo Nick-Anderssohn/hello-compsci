@@ -2,8 +2,7 @@
 
 import 'dart:html';
 import 'page/page.dart';
-import 'package:hello_class/hello_class.dart';
-
+import 'package:hello_class_lib/hello_class.dart';
 class App {
   DivElement page;
   List<PageBtn> options = [];
