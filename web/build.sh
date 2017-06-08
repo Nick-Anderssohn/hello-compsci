@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# update styles
+cd client
+./update_styles.sh
+cd ..
+
 # build home
 cd client/home
 pub get

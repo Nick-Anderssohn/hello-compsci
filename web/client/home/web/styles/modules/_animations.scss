@@ -1,0 +1,27 @@
+@-webkit-keyframes createbtn-slide-left {
+    100% {
+      left: -2 * $create-session-btn-width - 10px;
+      opacity: -1;
+    }
+}
+
+@keyframes createbtn-slide-left {
+    100% {
+      left: -2 * $create-session-btn-width - 10px;
+      opacity: -1;
+     }
+}
+
+@-webkit-keyframes joinbtn-slide-left {
+    100% {
+      left: -$create-session-btn-width - 10px;
+      opacity: -1;
+    }
+}
+
+@keyframes joinbtn-slide-left {
+    100% {
+      left: -$create-session-btn-width - 10px;
+      opacity: -1;
+     }
+}

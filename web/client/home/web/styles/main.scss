@@ -1,8 +1,19 @@
 @import "modules/colors";
+@import "modules/fontstyles";
+@import "modules/positions";
+@import "modules/dimensions";
+@import "modules/parts";
+@import "modules/animations";
 @import "partials/header";
 @import "partials/roundedbtn";
+@import "partials/page";
 
 .body {
+  position: fixed;
   margin: 0px;
-  background-color: white;
+  background-color: $silver-snow;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  width: 100%;
 }

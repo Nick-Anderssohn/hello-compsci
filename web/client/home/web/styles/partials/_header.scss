@@ -1,22 +1,28 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 .title {
-  background-color: white;
-  color: $friendly-red;
+  background-color: $silver-snow;
+  color: $darkslategray-font;
   margin: 0px;
-  margin-top: 10px;
+  margin-top: $title-margin-top;
   font-size: 35px;
-  font-family: "Courier";
-  line-height: 45px;
+  font-family: $main-font-family;
+  line-height: $title-line-height;
   text-align: center;
 }
 
-$top-bar-height: 22px;
+
 .top-bar {
-  // background-color: $nice-grey;
+  background-color: $snow;
   width: 100%;
   height: $top-bar-height;
-  margin: 10px;
+  padding-left: 10px;
+  padding-right: 100px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-width: 1px;
+  border-top: $darkslategray-thin-border;
+  border-bottom: $darkslategray-thin-border;
 }
 
 .top-bar-option {
@@ -24,19 +30,19 @@ $top-bar-height: 22px;
   padding-left: 5px;
   padding-right: 5px;
   border: none;
-  font-family: "Courier";
+  font-family: $main-font-family;
   font-size: 18px;
-  color: $friendly-blue;
+  color: $darkslategray-font;
   text-align: center;
   cursor: pointer;
   line-height: $top-bar-height;
   border-radius: 5px;
   &:hover {
-    background-color: $grey;
+    background-color: $dark-silver-snow;
   }
 }
 
 .selected-option {
   @extend .top-bar-option;
-  background-color: $nice-grey;
+  background-color: $dark-silver-snow;
 }

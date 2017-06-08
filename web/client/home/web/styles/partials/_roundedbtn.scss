@@ -1,34 +1,36 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 .rounded-btn {
-    line-height: 40px;
-    border-radius: 15px;
-    border-style: solid;
-    border-width: 3px;
-    text-align: center;
-    font-family: "Courier";
-    
-    &:hover {
-        background-color: $nice-grey;
-        cursor: pointer;
-    }
+  background-color: $snow;
+  line-height: $rounded-btn-line-height;
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 3px;
+  text-align: center;
+  font-family: $main-font-family;
+
+  &:hover {
+    background-color: $silver-snow;
+    cursor: pointer;
+  }
 }
 
-$create-session-btn-width: 250px;
-$session-btn-separator: 10px;
 .create-session-btn {
-    @extend .rounded-btn;
-    position: absolute;
-    width: $create-session-btn-width;
-    left: calc(50% - #{$create-session-btn-width} - #{$session-btn-separator});
-    top: 500px;
+  @extend .rounded-btn;
+  position: absolute;
+  width: $create-session-btn-width;
+  left: calc(50% - #{$create-session-btn-width} - #{$session-btn-separator});
+  top: calc(50% - #{$rounded-btn-line-height} / 2);
+  -webkit-animation: createbtn-slide-left 2s forwards;
+  animation: createbtn-slide-left 2s forwards;
 }
 
 .join-session-btn {
-    @extend .rounded-btn;
-    position: absolute;
-    width: $create-session-btn-width;
-    left: calc(50% + #{$session-btn-separator});
-    top: 500px;
-    
+  @extend .rounded-btn;
+  position: absolute;
+  width: $create-session-btn-width;
+  left: calc(50% + #{$session-btn-separator});
+  top: calc(50% - #{$rounded-btn-line-height} / 2);
+  -webkit-animation: joinbtn-slide-left 2s forwards;
+  animation: joinbtn-slide-left 2s forwards;
 }
