@@ -6,5 +6,13 @@
   left: $page-left;
   background-color: $snow;
   border: $darkslategray-thin-border;
+}
 
+.left-menu {
+  // float:left;
+  position: absolute;
+  width: $page-left;
+  height: 100%;
+  background-color: $silver-snow;
+  z-index: 1;
 }

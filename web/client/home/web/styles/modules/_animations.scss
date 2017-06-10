@@ -1,27 +1,37 @@
 @-webkit-keyframes createbtn-slide-left {
     100% {
       left: -2 * $create-session-btn-width - 10px;
-      opacity: -1;
+      // opacity: -1;
     }
 }
 
 @keyframes createbtn-slide-left {
     100% {
       left: -2 * $create-session-btn-width - 10px;
-      opacity: -1;
+      // opacity: -1;
      }
 }
 
 @-webkit-keyframes joinbtn-slide-left {
     100% {
       left: -$create-session-btn-width - 10px;
-      opacity: -1;
+      // opacity: -1;
     }
 }
 
 @keyframes joinbtn-slide-left {
     100% {
       left: -$create-session-btn-width - 10px;
-      opacity: -1;
+      // opacity: -1;
      }
+}
+
+.createbtn-slide-left-class {
+  -webkit-animation: createbtn-slide-left 1s forwards;
+  animation: createbtn-slide-left 1s forwards;
+}
+
+.joinbtn-slide-left-class {
+  -webkit-animation: joinbtn-slide-left 1s forwards;
+  animation: joinbtn-slide-left 1s forwards;
 }
