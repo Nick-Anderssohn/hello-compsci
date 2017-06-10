@@ -1,56 +1,76 @@
 @-webkit-keyframes select-create-page-btn-slide-left {
     100% {
       left: -2 * $create-session-btn-width - 10px;
-      // opacity: -1;
     }
 }
 
 @keyframes select-create-page-btn-slide-left {
     100% {
       left: -2 * $create-session-btn-width - 10px;
-      // opacity: -1;
      }
 }
 
 @-webkit-keyframes select-join-page-btn-slide-left {
     100% {
       left: -$create-session-btn-width - 10px;
-      // opacity: -1;
     }
 }
 
 @keyframes select-join-page-btn-slide-left {
     100% {
       left: -$create-session-btn-width - 10px;
-      // opacity: -1;
      }
 }
 
-@-webkit-keyframes join-session-textbox-slide-left {
+@-webkit-keyframes session-textbox-slide-in {
     100% {
       left: calc(50% - #{$textbox-width} / 2);
       // opacity: -1;
     }
 }
 
-@keyframes join-session-textbox-slide-left {
+@keyframes session-textbox-slide-in {
     100% {
       left: calc(50% - #{$textbox-width} / 2);
       // opacity: -1;
      }
 }
 
-@-webkit-keyframes joinbtn-slide-left {
+@-webkit-keyframes session-btn-slide-in {
     100% {
       left: calc(50% - #{$create-session-btn-width} / 2);
       // opacity: -1;
     }
 }
 
-@keyframes joinbtn-slide-left {
+@keyframes session-btn-slide-in {
     100% {
       left: calc(50% - #{$create-session-btn-width} / 2);
       // opacity: -1;
+     }
+}
+
+@-webkit-keyframes select-create-page-btn-slide-right {
+    100% {
+      left: calc(100% + 10px);
+    }
+}
+
+@keyframes select-create-page-btn-slide-right {
+    100% {
+      left: calc(100% + 10px);
+     }
+}
+
+@-webkit-keyframes select-join-page-btn-slide-right {
+    100% {
+      left: calc(100% + #{$create-session-btn-width} + 10px);
+    }
+}
+
+@keyframes select-join-page-btn-slide-right {
+    100% {
+      left: calc(100% + #{$create-session-btn-width} + 10px)
      }
 }
 
@@ -64,12 +84,22 @@
   animation: select-join-page-btn-slide-left 1s forwards;
 }
 
-.join-session-textbox-slide-left-class {
-  -webkit-animation: join-session-textbox-slide-left 1s forwards;
-  animation: join-session-textbox-slide-left 1s forwards;
+.select-create-page-btn-slide-right-class {
+  -webkit-animation: select-create-page-btn-slide-right 1s forwards;
+  animation: select-create-page-btn-slide-right 1s forwards;
 }
 
-.joinbtn-slide-left-class {
-  -webkit-animation: joinbtn-slide-left 1s forwards;
-  animation: joinbtn-slide-left 1s forwards;
+.select-join-page-btn-slide-right-class {
+  -webkit-animation: select-join-page-btn-slide-right 1s forwards;
+  animation: select-join-page-btn-slide-right 1s forwards;
+}
+
+.session-textbox-slide-in-class {
+  -webkit-animation: session-textbox-slide-in 1s forwards;
+  animation: session-textbox-slide-in 1s forwards;
+}
+
+.session-btn-slide-in-class {
+  -webkit-animation: session-btn-slide-in 1s forwards;
+  animation: session-btn-slide-in 1s forwards;
 }

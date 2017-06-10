@@ -16,6 +16,8 @@ class SelectorPage extends Page {
   StandardBtn selectJoinPageBtn;
   StandardBtn joinSessionBtn;
   ClickWrapper joinSessionTextbox;
+  StandardBtn createSessionBtn;
+  ClickWrapper createSessionTextbox;
 
   SelectorPage() {
     // createPage.onChangePage((var e) => changePageStream.add(e));
@@ -34,7 +36,16 @@ class SelectorPage extends Page {
       ..onBlur(_onJoinSessionTextboxBlur)
       ..onKeyDown(_handleEnter);
       (joinSessionTextbox.target as InputElement).value = "Session Name";
-      selectJoinPageBtn.onClick(_slideLeft);
+      selectJoinPageBtn.onClick(_selectJoinPageBtnClick);
+
+      createSessionBtn = new StandardBtn(querySelector('#create-session-btn'));
+      createSessionTextbox = new ClickWrapper(querySelector('#create-session-textbox'));
+      createSessionTextbox
+      ..onClick(_onCreateSessionTextboxClick)
+      ..onBlur(_onCreateSessionTextboxBlur)
+      ..onKeyDown(_handleEnter);
+      (createSessionTextbox.target as InputElement).value = "Session Name";
+      selectCreatePageBtn.onClick(_selectCreatePageBtnClick);
       hasBeenLoaded = true;
     } else {
       // createBtn.newTarget(querySelector('#create-session-btn'));
@@ -42,11 +53,18 @@ class SelectorPage extends Page {
     }
   }
 
-  _slideLeft(var e) {
+  _selectJoinPageBtnClick(var e) {
     selectJoinPageBtn.target.classes.add('select-join-page-btn-slide-left-class');
     selectCreatePageBtn.target.classes.add('select-create-page-btn-slide-left-class');
-    joinSessionTextbox.target.classes.add('join-session-textbox-slide-left-class');
-    joinSessionBtn.target.classes.add('joinbtn-slide-left-class');
+    joinSessionTextbox.target.classes.add('session-textbox-slide-in-class');
+    joinSessionBtn.target.classes.add('session-btn-slide-in-class');
+  }
+
+  _selectCreatePageBtnClick(var e) {
+    selectJoinPageBtn.target.classes.add('select-join-page-btn-slide-right-class');
+    selectCreatePageBtn.target.classes.add('select-create-page-btn-slide-right-class');
+    createSessionTextbox.target.classes.add('session-textbox-slide-in-class');
+    createSessionBtn.target.classes.add('session-btn-slide-in-class');
   }
 
   _onJoinSessionTextboxClick(var e) {
@@ -55,9 +73,21 @@ class SelectorPage extends Page {
     }
   }
 
+  _onCreateSessionTextboxClick(var e) {
+    if ((createSessionTextbox.target as InputElement).value == "Session Name") {
+      (createSessionTextbox.target as InputElement).value = "";
+    }
+  }
+
   _onJoinSessionTextboxBlur(var e) {
     if ((joinSessionTextbox.target as InputElement).value.trim() == "") {
       (joinSessionTextbox.target as InputElement).value = "Session Name";
+    }
+  }
+
+  _onCreateSessionTextboxBlur(var e) {
+    if ((createSessionTextbox.target as InputElement).value.trim() == "") {
+      (createSessionTextbox.target as InputElement).value = "Session Name";
     }
   }
 
