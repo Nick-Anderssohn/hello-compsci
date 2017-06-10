@@ -18,6 +18,9 @@ class SelectorPage extends Page {
   ClickWrapper joinSessionTextbox;
   StandardBtn createSessionBtn;
   ClickWrapper createSessionTextbox;
+  DivElement createPage;
+  DivElement joinPage;
+  DivElement selectPage;
 
   SelectorPage() {
     // createPage.onChangePage((var e) => changePageStream.add(e));
@@ -27,6 +30,9 @@ class SelectorPage extends Page {
   load() {
     print("load selector page");
     if (!hasBeenLoaded) {
+      createPage = querySelector('#create-page');
+      joinPage = querySelector('#join-page');
+      selectPage = querySelector('#select-page');
       selectCreatePageBtn = new StandardBtn(querySelector('#select-create-page-btn'));
       selectJoinPageBtn = new StandardBtn(querySelector('#select-join-page-btn'));
       joinSessionBtn = new StandardBtn(querySelector('#join-session-btn'));
@@ -54,17 +60,13 @@ class SelectorPage extends Page {
   }
 
   _selectJoinPageBtnClick(var e) {
-    selectJoinPageBtn.target.classes.add('select-join-page-btn-slide-left-class');
-    selectCreatePageBtn.target.classes.add('select-create-page-btn-slide-left-class');
-    joinSessionTextbox.target.classes.add('session-textbox-slide-in-class');
-    joinSessionBtn.target.classes.add('session-btn-slide-in-class');
+    selectPage.classes.add('page-out-left');
+    joinPage.classes.add('page-in');
   }
 
   _selectCreatePageBtnClick(var e) {
-    selectJoinPageBtn.target.classes.add('select-join-page-btn-slide-right-class');
-    selectCreatePageBtn.target.classes.add('select-create-page-btn-slide-right-class');
-    createSessionTextbox.target.classes.add('session-textbox-slide-in-class');
-    createSessionBtn.target.classes.add('session-btn-slide-in-class');
+    selectPage.classes.add('page-out-right');
+    createPage.classes.add('page-in');
   }
 
   _onJoinSessionTextboxClick(var e) {

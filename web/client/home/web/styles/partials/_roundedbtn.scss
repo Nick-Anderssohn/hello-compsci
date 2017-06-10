@@ -31,23 +31,10 @@
   top: calc(50% - #{$rounded-btn-line-height} / 2);
 }
 
-.join-session-btn {
+.session-btn {
   @extend .rounded-btn;
   position: absolute;
   width: $create-session-btn-width;
   top: calc(50% + #{$rounded-btn-line-height} / 2 + 10px);
-  left: calc(100% + (#{$textbox-width} - #{$create-session-btn-width}) / 2 + 10px);
-  // -webkit-animation: joinbtn-slide-left 1s forwards;
-  // animation: joinbtn-slide-left 1s forwards;
-}
-
-.create-session-btn {
-  @extend .rounded-btn;
-  position: absolute;
-  width: $create-session-btn-width;
-  top: calc(50% + #{$rounded-btn-line-height} / 2 + 10px);
-  left: -$create-session-btn-width - 10px - ($textbox-width - $create-session-btn-width);
-  // left: calc(-#{$create-session-btn-width}-(#{$textbox-width} - #{$create-session-btn-width}) / 2 - 10px);
-  // -webkit-animation: joinbtn-slide-left 1s forwards;
-  // animation: joinbtn-slide-left 1s forwards;
+  left: calc(50% - #{$create-session-btn-width} / 2 )
 }

@@ -25,3 +25,24 @@
   background-color: $silver-snow;
   z-index: 1;
 }
+
+.select-page {
+  position: absolute;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.join-page {
+  position: absolute;
+  left: calc(100% + 10px);
+  height: 100%;
+  width: 100%;
+}
+
+.create-page {
+  position: absolute;
+  left: calc(-100% - 10px);
+  height: 100%;
+  width: 100%;
+}
