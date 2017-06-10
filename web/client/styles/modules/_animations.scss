@@ -1,75 +1,50 @@
-@-webkit-keyframes select-create-page-btn-slide-left {
+@-webkit-keyframes page-slide-in {
     100% {
-      left: -2 * $create-session-btn-width - 10px;
-      // opacity: -1;
+      left: 0%;
     }
 }
 
-@keyframes select-create-page-btn-slide-left {
+@keyframes page-slide-in {
     100% {
-      left: -2 * $create-session-btn-width - 10px;
-      // opacity: -1;
+      left: 0%
      }
 }
 
-@-webkit-keyframes select-join-page-btn-slide-left {
+@-webkit-keyframes page-slide-out-left {
     100% {
-      left: -$create-session-btn-width - 10px;
-      // opacity: -1;
+      left: calc(-100% - 10px);
     }
 }
 
-@keyframes select-join-page-btn-slide-left {
+@keyframes page-slide-out-left {
     100% {
-      left: -$create-session-btn-width - 10px;
-      // opacity: -1;
+      left: calc(-100% - 10px);
      }
 }
 
-@-webkit-keyframes join-session-textbox-slide-left {
+@-webkit-keyframes page-slide-out-right {
     100% {
-      left: calc(50% - #{$textbox-width} / 2);
-      // opacity: -1;
+      left: calc(100% + 10px);
     }
 }
 
-@keyframes join-session-textbox-slide-left {
+@keyframes page-slide-out-right {
     100% {
-      left: calc(50% - #{$textbox-width} / 2);
-      // opacity: -1;
+      left: calc(100% + 10px);
      }
 }
 
-@-webkit-keyframes joinbtn-slide-left {
-    100% {
-      left: calc(50% - #{$create-session-btn-width} / 2);
-      // opacity: -1;
-    }
+.page-out-right {
+  -webkit-animation: page-slide-out-right 1.1s forwards;
+  animation: page-slide-out-right 1.1s forwards;
 }
 
-@keyframes joinbtn-slide-left {
-    100% {
-      left: calc(50% - #{$create-session-btn-width} / 2);
-      // opacity: -1;
-     }
+.page-out-left {
+  -webkit-animation: page-slide-out-left 1.1s forwards;
+  animation: page-slide-out-left 1.1s forwards;
 }
 
-.select-create-page-btn-slide-left-class {
-  -webkit-animation: select-create-page-btn-slide-left 1s forwards;
-  animation: select-create-page-btn-slide-left 1s forwards;
-}
-
-.select-join-page-btn-slide-left-class {
-  -webkit-animation: select-join-page-btn-slide-left 1s forwards;
-  animation: select-join-page-btn-slide-left 1s forwards;
-}
-
-.join-session-textbox-slide-left-class {
-  -webkit-animation: join-session-textbox-slide-left 1s forwards;
-  animation: join-session-textbox-slide-left 1s forwards;
-}
-
-.joinbtn-slide-left-class {
-  -webkit-animation: joinbtn-slide-left 1s forwards;
-  animation: joinbtn-slide-left 1s forwards;
+.page-in {
+  -webkit-animation: page-slide-in 1.1s forwards;
+  animation: page-slide-in 1.1s forwards;
 }

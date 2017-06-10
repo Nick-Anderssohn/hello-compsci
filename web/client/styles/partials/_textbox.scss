@@ -15,7 +15,5 @@
 .session-textbox {
   @extend .textbox;
   top: calc(50% - #{$textbox-height} - 10px);
-  left: calc(100% + 10px);
-  // -webkit-animation: join-session-textbox-slide-left 1s forwards;
-  // animation: join-session-textbox-slide-left 1s forwards;
+  left: calc(50% - #{$textbox-width} / 2);
 }
