@@ -5,13 +5,13 @@ import 'page/page.dart';
 import 'package:hello_class_lib/hello_class.dart';
 class App {
   DivElement page;
-  List<PageBtn> options = [];
   Page curPage;
-  PageBtn homeBtn;
+  StandardBtn homeBtn;
   final String curEndpoint = "/";
+  SelectorPage selectorPage;
 
   App() {
-    var selectorPage = new SelectorPage();
+    selectorPage = new SelectorPage();
     selectorPage.onChangePage(_changePage);
     curPage = selectorPage;
 
@@ -21,7 +21,9 @@ class App {
   run() {
     page = querySelector('#page');
     curPage.select();
-    homeBtn = new PageBtn(querySelector('#home-option'), curPage);
+    // homeBtn = new PageBtn(querySelector('#home-option'), curPage);
+    homeBtn = new StandardBtn(querySelector('#home-option'));
+    homeBtn.onClick(selectorPage.repositionPages);
   }
 
   _changePage(Page newPage) {

@@ -6,6 +6,7 @@ import 'join_page.dart';
 import 'standard_btn.dart';
 import 'dart:html';
 import 'clickwrapper.dart';
+import 'dart:async';
 
 class SelectorPage extends Page {
   String htmlDoc = '../resources/selector.html';
@@ -21,6 +22,11 @@ class SelectorPage extends Page {
   DivElement createPage;
   DivElement joinPage;
   DivElement selectPage;
+  DivElement curPage;
+  String left = "calc(-100% - 10px)";
+  String middle = "0px";
+  String right = "calc(100% + 10px)";
+  static const int animDuration = 1100; // milliseconds
 
   SelectorPage() {
     // createPage.onChangePage((var e) => changePageStream.add(e));
@@ -32,24 +38,28 @@ class SelectorPage extends Page {
     if (!hasBeenLoaded) {
       createPage = querySelector('#create-page');
       joinPage = querySelector('#join-page');
-      selectPage = querySelector('#select-page');
-      selectCreatePageBtn = new StandardBtn(querySelector('#select-create-page-btn'));
-      selectJoinPageBtn = new StandardBtn(querySelector('#select-join-page-btn'));
+      curPage = selectPage = querySelector('#select-page');
+      selectCreatePageBtn =
+          new StandardBtn(querySelector('#select-create-page-btn'));
+      selectJoinPageBtn =
+          new StandardBtn(querySelector('#select-join-page-btn'));
       joinSessionBtn = new StandardBtn(querySelector('#join-session-btn'));
-      joinSessionTextbox = new ClickWrapper(querySelector('#join-session-textbox'));
+      joinSessionTextbox =
+          new ClickWrapper(querySelector('#join-session-textbox'));
       joinSessionTextbox
-      ..onClick(_onJoinSessionTextboxClick)
-      ..onBlur(_onJoinSessionTextboxBlur)
-      ..onKeyDown(_handleEnter);
+        ..onClick(_onJoinSessionTextboxClick)
+        ..onBlur(_onJoinSessionTextboxBlur)
+        ..onKeyDown(_handleEnter);
       (joinSessionTextbox.target as InputElement).value = "Session Name";
       selectJoinPageBtn.onClick(_selectJoinPageBtnClick);
 
       createSessionBtn = new StandardBtn(querySelector('#create-session-btn'));
-      createSessionTextbox = new ClickWrapper(querySelector('#create-session-textbox'));
+      createSessionTextbox =
+          new ClickWrapper(querySelector('#create-session-textbox'));
       createSessionTextbox
-      ..onClick(_onCreateSessionTextboxClick)
-      ..onBlur(_onCreateSessionTextboxBlur)
-      ..onKeyDown(_handleEnter);
+        ..onClick(_onCreateSessionTextboxClick)
+        ..onBlur(_onCreateSessionTextboxBlur)
+        ..onKeyDown(_handleEnter);
       (createSessionTextbox.target as InputElement).value = "Session Name";
       selectCreatePageBtn.onClick(_selectCreatePageBtnClick);
       hasBeenLoaded = true;
@@ -60,13 +70,58 @@ class SelectorPage extends Page {
   }
 
   _selectJoinPageBtnClick(var e) {
-    selectPage.classes.add('page-out-left');
-    joinPage.classes.add('page-in');
+    _slideOutLeft(selectPage);
+    _slideIn(joinPage);
+    curPage = joinPage;
   }
 
   _selectCreatePageBtnClick(var e) {
-    selectPage.classes.add('page-out-right');
-    createPage.classes.add('page-in');
+    _slideOutRight(selectPage);
+    _slideIn(createPage);
+    curPage = createPage;
+  }
+
+  _slideOutLeft(DivElement page) async {
+    page.classes.add('page-out-left');
+    new Future.delayed(const Duration(milliseconds: animDuration), () {
+      page.style.left = left;
+      page.classes.remove('page-out-left');
+    });
+  }
+
+  _slideOutRight(DivElement page) async {
+    page.classes.add('page-out-right');
+    new Future.delayed(const Duration(milliseconds: animDuration), () {
+      page.style.left = right;
+      page.classes.remove('page-out-right');
+    });
+  }
+
+  _slideIn(DivElement page) async {
+    page.classes.add('page-in');
+    new Future.delayed(const Duration(milliseconds: animDuration), () {
+      page.style.left = middle;
+      page.classes.remove('page-in');
+    });
+  }
+
+  repositionPages(var e) {
+    if (curPage == selectPage) {
+      return;
+    }
+    if (curPage == joinPage) {
+      _slideOutRight(joinPage);
+    } else {
+      _slideOutLeft(createPage);
+    }
+    _slideIn(selectPage);
+  }
+
+  _removePageAnimations(DivElement page) {
+    page.classes
+      ..remove('page-in')
+      ..remove('page-out-right')
+      ..remove('page-out-left');
   }
 
   _onJoinSessionTextboxClick(var e) {
