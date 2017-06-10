@@ -9,10 +9,20 @@
 }
 
 .left-menu {
-  // float:left;
   position: absolute;
   width: $page-left;
   height: 100%;
   background-color: $silver-snow;
   z-index: 1;
+}
+
+.right-menu {
+  position: absolute;
+  left: calc(#{$page-left} + #{$page-width} + 2px); // + 2px so the border does not get covered
+  width: $page-left;
+  top: $page-top;
+  height: 100%;
+  background-color: $silver-snow;
+  z-index: 1;
+  // background-color: red;
 }

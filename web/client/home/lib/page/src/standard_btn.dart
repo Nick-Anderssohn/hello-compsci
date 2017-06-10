@@ -5,13 +5,16 @@ import 'dart:html';
 
 class StandardBtn extends Btn {
   SimpleStreamRouter _clickRouter;
+  SimpleStream _clickStreamer = new SimpleStream();
+  bool enabled = true;
 
   StandardBtn(Element target) : super(target) {
     _clickRouter = new SimpleStreamRouter(target.onClick);
+    _clickRouter.listen(_onElementClick);
   }
 
   onClick(handler(var e)) {
-    _clickRouter.listen(handler);
+    _clickStreamer.listen(handler);
   }
 
   cancelAllClickSubs() {
@@ -22,5 +25,11 @@ class StandardBtn extends Btn {
     cancelAllClickSubs();
     target = newTarget;
     _clickRouter = new SimpleStreamRouter(target.onClick);
+  }
+
+  _onElementClick(var e) {
+    if (enabled) {
+      _clickStreamer.add(e);
+    }
   }
 }

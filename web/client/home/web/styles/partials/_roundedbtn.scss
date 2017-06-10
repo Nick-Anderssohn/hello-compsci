@@ -36,5 +36,7 @@
   position: absolute;
   width: $create-session-btn-width;
   top: calc(50% + #{$rounded-btn-line-height} / 2 + 10px);
-  left: calc(50% - #{$create-session-btn-width} / 2);
+  left: calc(100% + (#{$textbox-width} - #{$create-session-btn-width}) / 2 + 10px);
+  // -webkit-animation: joinbtn-slide-left 1s forwards;
+  // animation: joinbtn-slide-left 1s forwards;
 }
