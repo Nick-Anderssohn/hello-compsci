@@ -8,29 +8,35 @@
   border-width: 3px;
   text-align: center;
   font-family: $main-font-family;
-
+  // color: $darkslategray-font;
   &:hover {
     background-color: $silver-snow;
     cursor: pointer;
   }
 }
 
-.create-session-btn {
+.select-create-page-btn {
   @extend .rounded-btn;
   position: absolute;
   width: $create-session-btn-width;
   left: calc(50% - #{$create-session-btn-width} - #{$session-btn-separator});
   top: calc(50% - #{$rounded-btn-line-height} / 2);
-  -webkit-animation: createbtn-slide-left 1s forwards;
-  animation: createbtn-slide-left 1s forwards;
+}
+
+.select-join-page-btn {
+  @extend .rounded-btn;
+  position: absolute;
+  width: $create-session-btn-width;
+  left: calc(50% + #{$session-btn-separator});
+  top: calc(50% - #{$rounded-btn-line-height} / 2);
 }
 
 .join-session-btn {
   @extend .rounded-btn;
   position: absolute;
   width: $create-session-btn-width;
-  left: calc(50% + #{$session-btn-separator});
-  top: calc(50% - #{$rounded-btn-line-height} / 2);
-  -webkit-animation: joinbtn-slide-left 1s forwards;
-  animation: joinbtn-slide-left 1s forwards;
+  top: calc(50% + #{$rounded-btn-line-height} / 2 + 10px);
+  left: calc(100% + (#{$textbox-width} - #{$create-session-btn-width}) / 2 + 10px);
+  // -webkit-animation: joinbtn-slide-left 1s forwards;
+  // animation: joinbtn-slide-left 1s forwards;
 }

@@ -1,0 +1,21 @@
+.textbox {
+  position: absolute;
+  line-height: $textbox-height;
+  width: $textbox-width;
+  background-color: $silver-snow;
+  font-family: $main-font-family;
+  color: $darkslategray-font;
+  border: $darkslategray-thin-border;
+
+  &:hover {
+    background-color: $dark-silver-snow;
+  }
+}
+
+.session-textbox {
+  @extend .textbox;
+  top: calc(50% - #{$textbox-height} - 10px);
+  left: calc(100% + 10px);
+  // -webkit-animation: join-session-textbox-slide-left 1s forwards;
+  // animation: join-session-textbox-slide-left 1s forwards;
+}
