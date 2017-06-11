@@ -1,0 +1,20 @@
+.textbox {
+  position: absolute;
+  line-height: $textbox-height;
+  width: $textbox-width;
+  background-color: $silver-snow;
+  font-family: $main-font-family;
+  font-size: 15px;
+  color: $darkslategray-font;
+  border: $darkslategray-thin-border;
+
+  &:hover {
+    background-color: $dark-silver-snow;
+  }
+}
+
+.session-textbox {
+  @extend .textbox;
+  top: calc(50% - #{$textbox-height} - 10px);
+  left: calc(50% - #{$textbox-width} / 2);
+}

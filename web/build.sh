@@ -1,22 +1,8 @@
 #!/bin/bash
 
-# update styles
 cd client
-./update_styles.sh
+pub get
+pub build
 cd ..
-
-# build home
-cd client/home
-pub get
-pub build
-cd ../..
-mkdir -p build/home
-cp -a client/home/build/. build/home/
-
-# build about
-cd client/about
-pub get
-pub build
-cd ../..
-mkdir -p build/about
-cp -a client/about/build/. build/about/
+mkdir -p build
+cp -a client/build/. build/
