@@ -5,12 +5,12 @@ import 'standard_btn.dart';
 import 'dart:html';
 import 'clickwrapper.dart';
 import 'dart:async';
+import 'package:simple_streams/simple_streams.dart';
 
 class SelectorPage extends Page {
   String htmlDoc = '../resources/selector.html';
-  // String htmlDoc = '../resources/join.html';
-  // Page createPage = new CreatePage();
-  // Page joinPage = new JoinPage();
+  SimpleStreamRouter joinBackArrowRouter;
+  SimpleStreamRouter createBackArrowRouter;
   StandardBtn selectCreatePageBtn;
   StandardBtn selectJoinPageBtn;
   StandardBtn joinSessionBtn;
@@ -61,9 +61,10 @@ class SelectorPage extends Page {
       (createSessionTextbox.target as InputElement).value = "Session Name";
       selectCreatePageBtn.onClick(_selectCreatePageBtnClick);
       hasBeenLoaded = true;
-    } else {
-      // createBtn.newTarget(querySelector('#create-session-btn'));
-      // selectJoinPageBtn.newTarget(querySelector('#join-session-btn'));
+      joinBackArrowRouter = new SimpleStreamRouter(querySelector('#join-back-arrow').onClick);
+      createBackArrowRouter = new SimpleStreamRouter(querySelector('#create-back-arrow').onClick);
+      joinBackArrowRouter.listen(repositionPages);
+      createBackArrowRouter.listen(repositionPages);
     }
   }
 

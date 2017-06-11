@@ -6,7 +6,8 @@ $create-session-btn-width: 250px;
 $session-btn-separator: 10px;
 $rounded-btn-line-height: 40px;
 $page-width: calc(100% - 2 * #{$page-left});
-// page-height's -3px is for the 3 borders that are above it 
-$page-height: calc(100% - (#{$page-top} + #{$title-line-height} + #{$top-bar-height} + 2 * #{$title-margin-top}) - #{$page-top} - 3px);
+$page-height: calc(100% - (#{$page-top} + #{$title-line-height} + #{$top-bar-height} + 2 * #{$title-margin-top}) - #{$page-top} - 15px);
 $textbox-height: 22px;
 $textbox-width: 400px;
+$create-arrow-width: 125px;
+$create-arrow-height: 100px;
