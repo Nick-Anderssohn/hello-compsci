@@ -7,6 +7,7 @@ class App {
   DivElement page;
   Page curPage;
   StandardBtn homeBtn;
+  List topBarOptions = []; // does not include homeBtn
   final String curEndpoint = "/";
   SelectorPage selectorPage;
 
@@ -15,7 +16,11 @@ class App {
     selectorPage.onChangePage(_changePage);
     curPage = selectorPage;
 
-    querySelector('#about-option').onClick.listen(_handleAboutOnClick);
+    topBarOptions = [
+      new StandardBtn(querySelector('#about-option'), tag: '/about'),
+      new StandardBtn(querySelector('#play-option'), tag: '/play')
+    ];
+    topBarOptions.forEach((StandardBtn btn) => btn.onClick(_handleTopBarOnClick));
   }
 
   run() {
@@ -35,8 +40,8 @@ class App {
     });
   }
 
-  _handleAboutOnClick(var e) {
-    window.location.assign(_getNEWURL('/about'));
+  _handleTopBarOnClick(StandardBtn btn) {
+    window.location.assign(_getNEWURL(btn.tag));
   }
 
   _getNEWURL(String newEndpoint) {

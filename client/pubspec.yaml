@@ -10,6 +10,7 @@ dependencies:
   sass: any
   image: any
   simple_streams: any
+  codemirror: any
 transformers:
 - $dart2js:
     minify: true

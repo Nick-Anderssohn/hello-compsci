@@ -7,8 +7,9 @@ class StandardBtn extends Btn {
   SimpleStreamRouter _clickRouter;
   SimpleStream _clickStreamer = new SimpleStream();
   bool enabled = true;
+  String tag = "";
 
-  StandardBtn(Element target) : super(target) {
+  StandardBtn(Element target, {this.tag = ""}) : super(target) {
     _clickRouter = new SimpleStreamRouter(target.onClick);
     _clickRouter.listen(_onElementClick);
   }
@@ -29,7 +30,7 @@ class StandardBtn extends Btn {
 
   _onElementClick(var e) {
     if (enabled) {
-      _clickStreamer.add(e);
+      _clickStreamer.add(this);
     }
   }
 }
