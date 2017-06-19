@@ -1,10 +1,12 @@
-library CodeEditor;
+// Copyright (C) 2017  Nicholas Anderssohn
 import 'dart:html';
+import 'package:simple_streams/simple_streams.dart';
 import 'package:codemirror/codemirror.dart';
 import 'dropdown/dropdown.dart';
 import 'page/page.dart';
 
 class CodeEditor {
+  SimpleStream _sendStream = new SimpleStream();
   CodeMirror _editor;
   DivElement target = new DivElement();
   TextAreaElement textArea;
@@ -12,12 +14,15 @@ class CodeEditor {
   DivElement output = new DivElement();
   DropDown dropDown;
   DivElement dropBtn = new DivElement();
-  StandardBtn cOption = new StandardBtn(new DivElement(), tag: 'main.c');
-  StandardBtn cppOption = new StandardBtn(new DivElement(), tag: 'main.cpp');
-  StandardBtn python3Option = new StandardBtn(new DivElement(), tag: 'main.py');
-  StandardBtn goOption = new StandardBtn(new DivElement(), tag: 'main.go');
-  StandardBtn javaOption = new StandardBtn(new DivElement(), tag: 'main.java');
-  bool waitingForOutput = false;
+  StandardBtn selectedLang;
+  List langBtns = [
+    new StandardBtn(new DivElement(), tag: 'main.c', text: "C"),
+    new StandardBtn(new DivElement(), tag: 'main.cpp', text: "C++"),
+    new StandardBtn(new DivElement(), tag: 'main.py', text: "Python 3"),
+    new StandardBtn(new DivElement(), tag: 'main.go', text: "Go"),
+    new StandardBtn(new DivElement(), tag: 'Main.java', text: "Java")
+  ];
+  // bool waitingForOutput = false;
   String get language => dropBtn.text;
          set language(String value) {
            dropBtn.text = value;
@@ -31,13 +36,14 @@ class CodeEditor {
     'continueComments': {'continueLineComment': false},
     'autoCloseTags': true,
     'mode': 'clike',
+    'matchBrackets': true,
     'extraKeys': {
       'Ctrl-Space': 'autocomplete',
       'Cmd-/': 'toggleComment',
       'Ctrl-/': 'toggleComment' }
     };
   CodeEditor(String elementId, {options: null}) {
-
+    selectedLang = langBtns[0];
     textArea = querySelector(elementId);
     runBtn..classes.add('send-code-btn')..text = "Run"..contentEditable = "false";
     textArea.classes.add('code-editor-text-area');
@@ -49,8 +55,9 @@ class CodeEditor {
     output..text = "output"..classes.add('output');
 
     runBtn.onClick.listen((var e) {
-      waitingForOutput = true;
+      // waitingForOutput = true;
       // globals.sendCodeStream.add([language, code]);
+      _sendStream.add([selectedLang.tag, code]); // [filename, code]
     });
 
 
@@ -65,28 +72,18 @@ class CodeEditor {
   }
 
   _initializeDropDown() {
-    cOption.text = "C";
-    cppOption.text = "C++";
-    python3Option.text = "Python 3";
-    goOption.text = "Go";
-    javaOption.text = 'Java';
+    for (var btn in langBtns) {
+      btn.onClick(_handleLangBtnClicked);
+      dropDown.addItem(btn.target);
+    }
+  }
 
-    cOption.onClick((var e) {
-      language = 'C';
-    });
-    cppOption.onClick((var e) {
-      language = 'C++';
-    });
-    python3Option.onClick((var e) {
-      language = 'Python 3';
-    });
-    goOption.onClick((var e) {
-      language = 'Go';
-    });
-    javaOption.onClick((var e) {
-      language = 'Java';
-    });
-    dropDown..addItem(cOption.target)..addItem(cppOption.target)/*..addItem(python2Option)*/..addItem(python3Option.target)
-    ..addItem(goOption.target)..addItem(javaOption.target);
+  onSendClicked(handler(var e)) {
+    _sendStream.listen(handler);
+  }
+
+  _handleLangBtnClicked(var e) {
+    language = e.text;
+    selectedLang = e;
   }
 }

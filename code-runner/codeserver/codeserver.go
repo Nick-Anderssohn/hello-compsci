@@ -35,8 +35,32 @@ func (cs *Server) Run() {
 func (cs *Server) handler(w http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 
+	// browsers will first send a request of type OPTIONS to verify that they are okay to send
+	// whatever request they are trying to send
+	if req.Method == "OPTIONS" {
+		cs.handleOptions(w, req)
+	} else if req.Method == "POST" {
+		cs.handlePost(w, req)
+	}
+}
+
+func (cs *Server) handleOptions(w http.ResponseWriter, req *http.Request) {
+	cs.formResponseHeader(w, req)
+	// TODO: potentially should check if req will be malformed
+	w.WriteHeader(http.StatusOK)
+}
+
+func (cs *Server) formResponseHeader(w http.ResponseWriter, req *http.Request) {
+	w.Header().Add("Access-Control-Allow-Origin", req.Header.Get("Origin"))
+	w.Header().Add("Access-Control-Allow-Methods", "POST")
+	w.Header().Add("Access-Control-Allow-Headers", "Filename")
+}
+
+func (cs *Server) handlePost(w http.ResponseWriter, req *http.Request) {
+	cs.formResponseHeader(w, req)
+
 	// get the name of the to-be code file
-	cs.codeFile = "output/" + req.Header["Filename"][0]
+	cs.codeFile = "output/" + req.Header.Get("Filename")
 
 	// read the body of the request
 	body, err := ioutil.ReadAll(req.Body)

@@ -4,10 +4,12 @@ import 'dart:html';
 import "../../lib/strconv/strconv.dart";
 import "../../lib/page/page.dart";
 import "../../lib/code_editor.dart";
+import "../../lib/connector.dart";
 
 final String curEndpoint = '/play';
 List topBarOptions = []; // does not include homeBtn
 CodeEditor codeEditor;
+Connector connector = new Connector();
 void main() {
   topBarOptions = [
     new StandardBtn(querySelector('#home-option'), tag: '/'),
@@ -16,7 +18,8 @@ void main() {
   topBarOptions.forEach((StandardBtn btn) => btn.onClick(_handleTopBarOnClick));
 
   codeEditor = new CodeEditor('#code-editor');
-  codeEditor.code = """#include "stdio.h"
+  codeEditor..onSendClicked(_handleSendClicked)
+  ..code = """#include "stdio.h"
 
 int main() {
   printf("Hello, Notes!\\n");
@@ -32,4 +35,10 @@ _handleTopBarOnClick(StandardBtn btn) {
 
 _getNEWURL(String newEndpoint) {
   return StrConv.getNewURL(window.location.href, curEndpoint, newEndpoint);
+}
+
+_handleSendClicked(var e) {
+  var filename = e[0];
+  var code = e[1];
+  connector.sendCode(filename, code).then((var e) => codeEditor.output.text = e.responseText);
 }

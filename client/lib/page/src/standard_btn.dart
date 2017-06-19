@@ -9,7 +9,10 @@ class StandardBtn extends Btn {
   bool enabled = true;
   String tag = "";
 
-  StandardBtn(Element target, {this.tag = ""}) : super(target) {
+  StandardBtn(Element target, {this.tag = "", String text = ""}) : super(target) {
+    if (text != "") {
+      target.text = text;
+    }
     _clickRouter = new SimpleStreamRouter(target.onClick);
     _clickRouter.listen(_onElementClick);
   }
