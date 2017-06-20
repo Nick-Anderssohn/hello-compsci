@@ -1,0 +1,40 @@
+// Copyright (C) 2017  Nicholas Anderssohn
+
+.rounded-btn {
+  background-color: $snow;
+  line-height: $rounded-btn-line-height;
+  border-radius: 15px;
+  border-style: solid;
+  border-width: 3px;
+  text-align: center;
+  font-family: $main-font-family;
+  // color: $darkslategray-font;
+  &:hover {
+    background-color: $silver-snow;
+    cursor: pointer;
+  }
+}
+
+.select-create-page-btn {
+  @extend .rounded-btn;
+  position: absolute;
+  width: $create-session-btn-width;
+  left: calc(50% - #{$create-session-btn-width} - #{$session-btn-separator});
+  top: calc(50% - #{$rounded-btn-line-height} / 2);
+}
+
+.select-join-page-btn {
+  @extend .rounded-btn;
+  position: absolute;
+  width: $create-session-btn-width;
+  left: calc(50% + #{$session-btn-separator});
+  top: calc(50% - #{$rounded-btn-line-height} / 2);
+}
+
+.session-btn {
+  @extend .rounded-btn;
+  position: absolute;
+  width: $create-session-btn-width;
+  top: calc(50% + #{$rounded-btn-line-height} / 2 + 10px);
+  left: calc(50% - #{$create-session-btn-width} / 2 )
+}

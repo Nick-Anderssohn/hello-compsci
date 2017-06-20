@@ -1,0 +1,64 @@
+.send-code-btn {
+  position: relative;
+  left: calc(100% - 55px);
+  margin-top: -40px;
+  line-height: 30px;
+  z-index: 1;
+  width: 40px;
+  text-align: center;
+  cursor:pointer;
+  background-color: $silver-snow;
+  color: $darkslategray-font;
+  font-family: $main-font-family;
+}
+
+//code editor
+.code-editor-text-area {
+  // height: 1000px;
+}
+
+.language-selector-btn {
+  position: absolute;
+  left: calc(100% - 90px);
+  top: 10px;
+  line-height: 30px;
+  z-index: 2;
+  width: 80px;
+  text-align: center;
+  cursor:pointer;
+  background-color: $silver-snow;
+  color: $darkslategray-font;
+  font-family: $main-font-family;
+}
+
+.code-editor-container {
+  position: relative;
+  // border: solid 1px;
+  width: 100%;
+  // left: 5%;
+  // top: 5%;
+  height: calc(100% - 200px);
+  border-bottom: solid 1px;
+}
+
+.output {
+  // position: relative;
+  margin-top: 11px;
+  color: $darkslategray-font;
+  font-family: $main-font-family;
+  height: $output-height;
+  // padding-bottom: -10px;
+  // margin-bottom: 2px;
+  overflow-y: auto;
+}
+
+// CODEMIRROR CLASSES
+.CodeMirror {
+  width: auto;
+  height: 100%;
+}
+
+.CodeMirror-scroll {
+  height: 100%;
+  overflow: visible;
+}

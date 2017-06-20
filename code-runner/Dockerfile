@@ -18,4 +18,5 @@ RUN mkdir -p /go/src/hello-class/code-runner
 
 WORKDIR /go/src/hello-class/code-runner
 COPY . .
-CMD go run main.go 8079
+# CMD go run main.go 8079
+CMD ./code-runner

@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  code-runner:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    ports:
+      - '8079:8079'
+
+  hello-class:
+    build: 'frontend-server/.'
+    image: 'hello-class'
+    ports:
+      - '80:80'

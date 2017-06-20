@@ -1,0 +1,17 @@
+name: hello_class_homepage
+description: homepage for Hello, Class!
+version: 0.0.1
+author: Nick Anderssohn <nicholas.anderssohn@gmail.com>
+environment:
+  sdk: any
+dependencies:
+  browser: any
+  js: any
+  sass: any
+  image: any
+  simple_streams: any
+  codemirror: any
+transformers:
+- $dart2js:
+    minify: true
+- sass

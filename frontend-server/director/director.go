@@ -11,7 +11,7 @@ import (
 	"net/url"
 )
 
-const playPath = "/play/runcode"
+const playPath = "/runcode"
 const playPort = "8079"
 
 // HelloClassServer is specifically for hello class. keeps track of sessions and ports
