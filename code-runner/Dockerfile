@@ -1,7 +1,7 @@
 #  Copyright (C) 2017  Nicholas Anderssohn
 
 FROM ubuntu:16.04
-EXPOSE 8080
+EXPOSE 8079
 RUN apt-get -y update && apt-get -y install software-properties-common
 RUN apt-get -y update && apt-get -y install openjdk-8-jdk
 RUN add-apt-repository ppa:longsleep/golang-backports
@@ -18,4 +18,4 @@ RUN mkdir -p /go/src/hello-class/code-runner
 
 WORKDIR /go/src/hello-class/code-runner
 COPY . .
-CMD go run main.go
+CMD go run main.go 8079

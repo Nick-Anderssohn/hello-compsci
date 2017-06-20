@@ -17,8 +17,8 @@ class App {
     curPage = selectorPage;
 
     topBarOptions = [
-      new StandardBtn(querySelector('#about-option'), tag: '/about'),
-      new StandardBtn(querySelector('#play-option'), tag: '/play')
+      new StandardBtn(querySelector('#about-option'), tags: ['/about']),
+      new StandardBtn(querySelector('#play-option'), tags: ['/play'])
     ];
     topBarOptions.forEach((StandardBtn btn) => btn.onClick(_handleTopBarOnClick));
   }
@@ -41,7 +41,7 @@ class App {
   }
 
   _handleTopBarOnClick(StandardBtn btn) {
-    window.location.assign(_getNEWURL(btn.tag));
+    window.location.assign(_getNEWURL(btn.tags[0]));
   }
 
   _getNEWURL(String newEndpoint) {

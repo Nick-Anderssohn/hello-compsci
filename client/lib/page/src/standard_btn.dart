@@ -7,9 +7,9 @@ class StandardBtn extends Btn {
   SimpleStreamRouter _clickRouter;
   SimpleStream _clickStreamer = new SimpleStream();
   bool enabled = true;
-  String tag = "";
+  List tags;
 
-  StandardBtn(Element target, {this.tag = "", String text = ""}) : super(target) {
+  StandardBtn(Element target, {this.tags = null, String text = ""}) : super(target) {
     if (text != "") {
       target.text = text;
     }

@@ -43,10 +43,13 @@
 
 .output {
   // position: relative;
-  padding-top: 12px;
+  margin-top: 11px;
   color: $darkslategray-font;
   font-family: $main-font-family;
   height: $output-height;
+  // padding-bottom: -10px;
+  // margin-bottom: 2px;
+  overflow-y: auto;
 }
 
 // CODEMIRROR CLASSES

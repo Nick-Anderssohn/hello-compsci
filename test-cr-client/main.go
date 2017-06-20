@@ -10,7 +10,9 @@ import (
 	"os"
 )
 
-const targetURL = "http://localhost:8079/test"
+// const targetURL = "http://localhost:8079/"
+
+const targetURL = "http://localhost/play/runcode/"
 
 func main() {
 	runTest("HelloWorld.java")

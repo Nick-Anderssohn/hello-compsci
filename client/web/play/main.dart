@@ -12,25 +12,25 @@ CodeEditor codeEditor;
 Connector connector = new Connector();
 void main() {
   topBarOptions = [
-    new StandardBtn(querySelector('#home-option'), tag: '/'),
-    new StandardBtn(querySelector('#about-option'), tag: '/about')
+    new StandardBtn(querySelector('#home-option'), tags: ['/']),
+    new StandardBtn(querySelector('#about-option'), tags: ['/about'])
   ];
   topBarOptions.forEach((StandardBtn btn) => btn.onClick(_handleTopBarOnClick));
 
   codeEditor = new CodeEditor('#code-editor');
-  codeEditor..onSendClicked(_handleSendClicked)
-  ..code = """#include "stdio.h"
-
-int main() {
-  printf("Hello, Notes!\\n");
-  return 0;
-}""";
+  codeEditor..onSendClicked(_handleSendClicked);
+//   ..code = """#include "stdio.h"
+//
+// int main() {
+//   printf("Hello, Notes!\\n");
+//   return 0;
+// }""";
 
   querySelector('#code-editor-container').children.add(codeEditor.target);
 }
 
 _handleTopBarOnClick(StandardBtn btn) {
-  window.location.assign(_getNEWURL(btn.tag));
+  window.location.assign(_getNEWURL(btn.tags[0]));
 }
 
 _getNEWURL(String newEndpoint) {
@@ -40,5 +40,6 @@ _getNEWURL(String newEndpoint) {
 _handleSendClicked(var e) {
   var filename = e[0];
   var code = e[1];
-  connector.sendCode(filename, code).then((var e) => codeEditor.output.text = e.responseText);
+  codeEditor.output.text = "Running...please wait";
+  connector.sendCode(filename, code).then((var e) => codeEditor.output.innerHtml = e.responseText.replaceAll(new RegExp("\n"), "\n<br>"));
 }

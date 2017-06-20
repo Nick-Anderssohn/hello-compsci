@@ -8,14 +8,14 @@ final String curEndpoint = '/about';
 List topBarOptions = []; // does not include homeBtn
 void main() {
   topBarOptions = [
-    new StandardBtn(querySelector('#home-option'), tag: '/'),
-    new StandardBtn(querySelector('#play-option'), tag: '/play')
+    new StandardBtn(querySelector('#home-option'), tags: ['/']),
+    new StandardBtn(querySelector('#play-option'), tags: ['/play'])
   ];
   topBarOptions.forEach((StandardBtn btn) => btn.onClick(_handleTopBarOnClick));
 }
 
 _handleTopBarOnClick(StandardBtn btn) {
-  window.location.assign(_getNEWURL(btn.tag));
+  window.location.assign(_getNEWURL(btn.tags[0]));
 }
 
 _getNEWURL(String newEndpoint) {

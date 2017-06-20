@@ -1,6 +1,6 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 import 'dart:html';
-
+import 'package:simple_streams/simple_streams.dart';
 
 class DropDown {
   DivElement target = new DivElement();
@@ -8,7 +8,11 @@ class DropDown {
   List<DivElement> items = new List<DivElement>();
   bool _mouseIsOver = false;
   bool _mouseIsOverParent = false;
+  SimpleStreamRouter _parentClickRouter;
+
   DropDown(DivElement parent) {
+    _parentClickRouter = new SimpleStreamRouter(parent.onClick);
+    onClick((var e) => target.hidden = !target.hidden);
     this.parent = parent;
     this.parent.children.add(target);
     target.classes.add('drop-down');
@@ -24,7 +28,10 @@ class DropDown {
     target.onMouseLeave.listen((var e) => _mouseIsOver = false);
     target.parent.onMouseEnter.listen((var e) => _mouseIsOverParent = true);
     target.parent.onMouseLeave.listen((var e) => _mouseIsOverParent = false);
+
   }
+
+  onClick(handler(var e)) => _parentClickRouter.listen(handler);
 
   //applies styling for you
   addItem(DivElement item) {
