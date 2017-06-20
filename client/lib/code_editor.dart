@@ -8,8 +8,8 @@ import 'page/page.dart';
 const String startingCCode = """#include "stdio.h"
 
 int main() {
-printf("Hello, C!\\n");
-return 0;
+  printf("Hello, C!\\n");
+  return 0;
 }""";
 
 const String startingCPPCode = """#include <iostream>
