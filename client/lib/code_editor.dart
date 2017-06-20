@@ -49,11 +49,11 @@ class CodeEditor {
   DivElement dropBtn = new DivElement();
   StandardBtn selectedLang;
   List langBtns = [
-    new StandardBtn(new DivElement(), tags: ['main.c', startingCCode], text: "C"),
-    new StandardBtn(new DivElement(), tags: ['main.cpp', startingCPPCode], text: "C++"),
-    new StandardBtn(new DivElement(), tags: ['main.py', startingPython3Code], text: "Python 3"),
-    new StandardBtn(new DivElement(), tags: ['main.go', startingGoCode], text: "Go"),
-    new StandardBtn(new DivElement(), tags: ['Main.java', startingJavaCode], text: "Java")
+    new StandardBtn(new DivElement(), tags: ['main.c', startingCCode, "clike"], text: "C"),
+    new StandardBtn(new DivElement(), tags: ['main.cpp', startingCPPCode, "clike"], text: "C++"),
+    new StandardBtn(new DivElement(), tags: ['main.py', startingPython3Code, "python"], text: "Python 3"),
+    new StandardBtn(new DivElement(), tags: ['main.go', startingGoCode, "go"], text: "Go"),
+    new StandardBtn(new DivElement(), tags: ['Main.java', startingJavaCode, "clike"], text: "Java")
   ];
   // bool waitingForOutput = false;
   String get language => dropBtn.text;
@@ -96,6 +96,7 @@ class CodeEditor {
     dropDown.onClick((var e) => selectedLang.tags[1] = code);
     _initializeDropDown();
     code = selectedLang.tags[1];
+    _editor.setMode(selectedLang.tags[2]);
   }
 
   _initializeDropDown() {
@@ -113,5 +114,6 @@ class CodeEditor {
     language = e.text;
     selectedLang = e;
     code = e.tags[1];
+    _editor.setMode(e.tags[2]);
   }
 }
