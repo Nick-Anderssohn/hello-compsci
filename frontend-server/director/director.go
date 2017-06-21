@@ -23,7 +23,7 @@ type HelloClassServer struct {
 // NewHelloClassServer returns a pointer to a HelloClassServer
 func NewHelloClassServer(ctx context.Context, endpoints []*rest.Endpoint, address string, port string) *HelloClassServer {
 	server := &HelloClassServer{sessions: make(map[string][]string)}
-	codeRunnerURL, _ := url.Parse("http://127.0.0.1:8079")
+	codeRunnerURL, _ := url.Parse("http://code-runner:8079")
 	endpoints = append(
 		endpoints,
 		&rest.Endpoint{

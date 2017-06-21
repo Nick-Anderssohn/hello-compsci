@@ -11,6 +11,7 @@ RUN mkdir -p /go/src
 RUN mkdir /go/pkg /go/bin
 ENV PATH=$PATH:/usr/local/go/bin
 ENV GOPATH=/go
+ENV GOBIN=/usr/local/bin/
 RUN mkdir -p /go/src/hello-class/code-runner
 # # RUN mkdir /go/src/code-runner/codeserver && mkdir output && mkdir go/src/code-runner/codeserver/output
 # # COPY codeRunner /go/src/code-runner/
@@ -18,5 +19,7 @@ RUN mkdir -p /go/src/hello-class/code-runner
 
 WORKDIR /go/src/hello-class/code-runner
 COPY . .
+RUN go install
+RUN rm -rf testfile runner common codeserver Dockerfile build.sh main.go readme.md
 # CMD go run main.go 8079
-CMD ./code-runner
+CMD code-runner 8079

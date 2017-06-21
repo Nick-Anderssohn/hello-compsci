@@ -17,7 +17,7 @@ func main() {
 		},
 	}
 
-	server := director.NewHelloClassServer(context.Background(), endpoints, "", "80")
+	server := director.NewHelloClassServer(context.Background(), endpoints, "0.0.0.0", "8080")
 	if err := server.Run(); err != nil {
 		fmt.Println(err.Error())
 	}

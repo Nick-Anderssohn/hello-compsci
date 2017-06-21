@@ -1,5 +1,4 @@
 // Copyright (C) 2017  Nicholas Anderssohn
-
 package codeserver
 
 import (
@@ -29,6 +28,7 @@ func NewServer(logger *log.Logger, port int) *Server {
 // Run starts the server on 0.0.0.0
 func (cs *Server) Run() {
 	http.HandleFunc("/", cs.handler)
+	http.HandleFunc("/healthcheck", HealthCheck)
 	http.ListenAndServe(":"+strconv.Itoa(cs.port), nil)
 }
 
@@ -106,4 +106,9 @@ func (cs *Server) GetOutput() (output []byte) {
 		output, _ = ioutil.ReadFile(cs.code.OutputFile)
 	}
 	return
+}
+
+// HealthCheck tells whoever sends the req that code-runner is still alive
+func HealthCheck(writer http.ResponseWriter, req *http.Request) {
+	writer.Write([]byte("ok"))
 }
