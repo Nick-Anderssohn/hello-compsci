@@ -16,7 +16,7 @@ services:
     build: 'frontend-server/.'
     image: 'hello-class'
     ports:
-      - '8080:8080'
+      - '80:80'
     networks:
       - hello-class-network
 

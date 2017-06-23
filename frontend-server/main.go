@@ -11,13 +11,13 @@ import (
 
 func main() {
 	endpoints := []*rest.Endpoint{
-		&rest.Endpoint{
+		{
 			Path:        "/",
 			HandlerFunc: http.FileServer(http.Dir("client/build/web")),
 		},
 	}
 
-	server := director.NewHelloClassServer(context.Background(), endpoints, "0.0.0.0", "8080")
+	server := director.NewHelloClassServer(context.Background(), endpoints, "0.0.0.0", "80")
 	if err := server.Run(); err != nil {
 		fmt.Println(err.Error())
 	}
