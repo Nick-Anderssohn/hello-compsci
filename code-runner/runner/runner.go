@@ -132,9 +132,9 @@ func (c *Code) Run() (err error) {
 	}
 
 	time.Sleep(time.Millisecond * 100) // give it 100 milliseconds to start running
-	readyToBuildChan <- true           // ready to build again
 
 	go waitForCMD(runCMD, done) // keep track if the process finishes or loops for too long
+	readyToBuildChan <- true    // ready to build again
 
 	return c.handleFinishRun(runCMD, &out, done)
 }
