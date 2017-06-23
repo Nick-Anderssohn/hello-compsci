@@ -14,6 +14,13 @@ import (
 )
 
 const runtimeLimit = 5 // seconds
+var readyToBuildChan chan bool
+
+// will be called right after package variables are instantiated
+func init() {
+	readyToBuildChan = make(chan bool, 1) // can hold 1
+	readyToBuildChan <- true
+}
 
 //Code runs code files and stores output
 type Code struct {
@@ -99,6 +106,8 @@ func getJavaRunArgs(codeFile string) []string {
 
 //Run runs runFile and stores a path to an output file
 func (c *Code) Run() (err error) {
+	<-readyToBuildChan // block until ready to build
+
 	//build
 	buildCMD := exec.Command(c.buildCMD, c.buildARGs...)
 	var buildOut bytes.Buffer
@@ -121,6 +130,9 @@ func (c *Code) Run() (err error) {
 		ioutil.WriteFile(c.CompilerErrFile, buildOut.Bytes(), 0644)
 		return common.GetError("Run", err)
 	}
+
+	time.Sleep(time.Millisecond * 100) // give it 100 milliseconds to start running
+	readyToBuildChan <- true           // ready to build again
 
 	go waitForCMD(runCMD, done) // keep track if the process finishes or loops for too long
 
