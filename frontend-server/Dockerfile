@@ -13,5 +13,5 @@ WORKDIR /go/src/hello-class/frontend-server/client
 RUN rm -rf lib && rm -rf web && rm pubspec.lock pubspec.yaml build.sh
 RUN rm ../Dockerfile
 WORKDIR /go/src/hello-class/frontend-server
-#HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1
 CMD frontend-server

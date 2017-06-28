@@ -13,13 +13,13 @@ import (
 	"time"
 )
 
-const runtimeLimit = 5 // seconds
-var readyToBuildChan chan bool
+const runtimeLimit = 3 // seconds
+var ReadyToBuildChan chan bool
 
 // will be called right after package variables are instantiated
 func init() {
-	readyToBuildChan = make(chan bool, 1) // can hold 1
-	readyToBuildChan <- true
+	ReadyToBuildChan = make(chan bool, 1) // can hold 1
+	ReadyToBuildChan <- true
 }
 
 //Code runs code files and stores output
@@ -106,7 +106,7 @@ func getJavaRunArgs(codeFile string) []string {
 
 //Run runs runFile and stores a path to an output file
 func (c *Code) Run() (err error) {
-	<-readyToBuildChan // block until ready to build
+	//<-ReadyToBuildChan // block until ready to build
 
 	//build
 	buildCMD := exec.Command(c.buildCMD, c.buildARGs...)
@@ -131,10 +131,7 @@ func (c *Code) Run() (err error) {
 		return common.GetError("Run", err)
 	}
 
-	time.Sleep(time.Millisecond * 100) // give it 100 milliseconds to start running
-
 	go waitForCMD(runCMD, done) // keep track if the process finishes or loops for too long
-	readyToBuildChan <- true    // ready to build again
 
 	return c.handleFinishRun(runCMD, &out, done)
 }
@@ -145,26 +142,20 @@ func waitForCMD(cmd *exec.Cmd, ch chan error) {
 
 func (c *Code) handleFinishRun(runCMD *exec.Cmd, output *bytes.Buffer, done chan error) (err error) {
 	select {
-
-	// after 5 seconds, kill the process
+	// after 3 seconds, kill the process
 	case <-time.After(time.Second * runtimeLimit):
 		runCMD.Process.Kill()
 
 		// write the timeout error the the err file
 		ioutil.WriteFile(c.CompilerErrFile, []byte("TIMEOUT: Process took too long to complete"), 0644)
 
-		//return appropriate error
-		if err != nil {
-			return common.GetError("Run", err)
-		}
-		return fmt.Errorf("Run/TIMEOUT: Process took too long to complete")
-
+		err = fmt.Errorf("Run/TIMEOUT: Process took too long to complete")
 	case <-done:
-
 		// the code was run successfully, write the output to the output file
 		if err = ioutil.WriteFile(c.OutputFile, output.Bytes(), 0644); err != nil {
-			return common.GetError("Run", err)
+			err = common.GetError("Run", err)
 		}
 	}
+	ReadyToBuildChan <- true
 	return
 }

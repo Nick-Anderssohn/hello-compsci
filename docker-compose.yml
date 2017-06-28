@@ -8,6 +8,7 @@ services:
       - '8079:8079'
     networks:
       - hello-class-network
+    container_name: 'code-runner'
 
   hello-class:
     build: 'frontend-server/.'
