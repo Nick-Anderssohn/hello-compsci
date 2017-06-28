@@ -1,25 +1,15 @@
 #  Copyright (C) 2017  Nicholas Anderssohn
-
-FROM ubuntu:16.04
+FROM golang:1.8.3-alpine
 EXPOSE 8079
-RUN apt-get -y update && apt-get -y install software-properties-common
-RUN apt-get -y update && apt-get -y install openjdk-8-jdk
-RUN add-apt-repository ppa:longsleep/golang-backports
-RUN apt-get -y update
-RUN apt-get -y install golang-go
-RUN mkdir -p /go/src
-RUN mkdir /go/pkg /go/bin
-ENV PATH=$PATH:/usr/local/go/bin
-ENV GOPATH=/go
-ENV GOBIN=/usr/local/bin/
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm
+RUN apk --update add --no-cache openjdk7 && ln -sf "${JAVA_HOME}/bin/"* "/usr/bin/"
+RUN apk add alpine-sdk
+RUN apk add python3
+RUN apk add curl
 RUN mkdir -p /go/src/hello-class/code-runner
-# # RUN mkdir /go/src/code-runner/codeserver && mkdir output && mkdir go/src/code-runner/codeserver/output
-# # COPY codeRunner /go/src/code-runner/
-# # CMD /go/src/code-runner/codeRunner
-
 WORKDIR /go/src/hello-class/code-runner
 COPY . .
 RUN go install
 RUN rm -rf testfile runner common codeserver Dockerfile build.sh main.go readme.md
-# CMD go run main.go 8079
+HEALTHCHECK --interval=5s --timeout=3s CMD curl --fail http://localhost:8079/ || exit 1
 CMD code-runner 8079

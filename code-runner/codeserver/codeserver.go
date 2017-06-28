@@ -41,6 +41,8 @@ func (cs *Server) handler(w http.ResponseWriter, req *http.Request) {
 		cs.handleOptions(w, req)
 	} else if req.Method == "POST" {
 		cs.handlePost(w, req)
+	} else {
+		HealthCheck(w, req)
 	}
 }
 
@@ -110,5 +112,5 @@ func (cs *Server) GetOutput() (output []byte) {
 
 // HealthCheck tells whoever sends the req that code-runner is still alive
 func HealthCheck(writer http.ResponseWriter, req *http.Request) {
-	writer.Write([]byte("ok"))
+	writer.Write([]byte{byte(0)})
 }

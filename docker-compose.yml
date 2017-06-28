@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   code-runner:
@@ -8,9 +8,6 @@ services:
       - '8079:8079'
     networks:
       - hello-class-network
-    container_name: code-runner
-    # 5 gb limit
-    mem_limit: 5000000000
 
   hello-class:
     build: 'frontend-server/.'
