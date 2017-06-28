@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-const runtimeLimit = 3 // seconds
+const runtimeLimit = 4 // seconds
 var ReadyToBuildChan chan bool
 
 // will be called right after package variables are instantiated
@@ -124,33 +124,41 @@ func (c *Code) Run() (err error) {
 	runCMD.Stdout = &out //store output in out
 	runCMD.Stderr = &out
 
-	done := make(chan error)
+	finishRunningChan := make(chan error)
+
+	timeoutChan := make(chan bool)
+	go startTimeoutCounter(timeoutChan)
 
 	if err = runCMD.Start(); err != nil {
 		ioutil.WriteFile(c.CompilerErrFile, buildOut.Bytes(), 0644)
 		return common.GetError("Run", err)
 	}
 
-	go waitForCMD(runCMD, done) // keep track if the process finishes or loops for too long
+	go waitForCMD(runCMD, finishRunningChan) // keep track if the process finishes or loops for too long
 
-	return c.handleFinishRun(runCMD, &out, done)
+	return c.handleFinishRun(runCMD, &out, finishRunningChan, timeoutChan)
+}
+
+func startTimeoutCounter(timeoutChan chan bool) {
+	<-time.After(time.Second * runtimeLimit)
+	timeoutChan <- true
 }
 
 func waitForCMD(cmd *exec.Cmd, ch chan error) {
 	ch <- cmd.Wait()
 }
 
-func (c *Code) handleFinishRun(runCMD *exec.Cmd, output *bytes.Buffer, done chan error) (err error) {
+func (c *Code) handleFinishRun(runCMD *exec.Cmd, output *bytes.Buffer, finishRunningChan chan error, timeoutChan chan bool) (err error) {
 	select {
 	// after 3 seconds, kill the process
-	case <-time.After(time.Second * runtimeLimit):
+	case <-timeoutChan:
 		runCMD.Process.Kill()
 
 		// write the timeout error the the err file
 		ioutil.WriteFile(c.CompilerErrFile, []byte("TIMEOUT: Process took too long to complete"), 0644)
 
 		err = fmt.Errorf("Run/TIMEOUT: Process took too long to complete")
-	case <-done:
+	case <-finishRunningChan:
 		// the code was run successfully, write the output to the output file
 		if err = ioutil.WriteFile(c.OutputFile, output.Bytes(), 0644); err != nil {
 			err = common.GetError("Run", err)
