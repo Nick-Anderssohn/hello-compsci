@@ -47,22 +47,32 @@ class CodeEditor {
   DivElement output = new DivElement();
   DropDown dropDown;
   DivElement dropBtn = new DivElement();
+  bool runBtnEnabled = true;
   StandardBtn selectedLang;
   List langBtns = [
-    new StandardBtn(new DivElement(), tags: ['main.c', startingCCode, "clike"], text: "C"),
-    new StandardBtn(new DivElement(), tags: ['main.cpp', startingCPPCode, "clike"], text: "C++"),
-    new StandardBtn(new DivElement(), tags: ['main.py', startingPython3Code, "python"], text: "Python 3"),
-    new StandardBtn(new DivElement(), tags: ['main.go', startingGoCode, "go"], text: "Go"),
-    new StandardBtn(new DivElement(), tags: ['Main.java', startingJavaCode, "clike"], text: "Java")
+    new StandardBtn(new DivElement(),
+        tags: ['main.c', startingCCode, "clike"], text: "C"),
+    new StandardBtn(new DivElement(),
+        tags: ['main.cpp', startingCPPCode, "clike"], text: "C++"),
+    new StandardBtn(new DivElement(),
+        tags: ['main.py', startingPython3Code, "python"], text: "Python 3"),
+    new StandardBtn(new DivElement(),
+        tags: ['main.go', startingGoCode, "go"], text: "Go"),
+    new StandardBtn(new DivElement(),
+        tags: ['Main.java', startingJavaCode, "clike"], text: "Java")
   ];
   // bool waitingForOutput = false;
   String get language => dropBtn.text;
-         set language(String value) {
-           dropBtn.text = value;
-           dropBtn.children.add(dropDown.target);
-         }
+  set language(String value) {
+    dropBtn.text = value;
+    dropBtn.children.add(dropDown.target);
+  }
+
   String get code => _editor.getDoc().getValue();
-  set code(String value) {_editor.getDoc().setValue(value);}
+  set code(String value) {
+    _editor.getDoc().setValue(value);
+  }
+
   Map options = {
     'lineNumbers': true,
     'theme': 'neat',
@@ -73,17 +83,23 @@ class CodeEditor {
     'extraKeys': {
       'Ctrl-Space': 'autocomplete',
       'Cmd-/': 'toggleComment',
-      'Ctrl-/': 'toggleComment' }
-    };
+      'Ctrl-/': 'toggleComment'
+    }
+  };
   CodeEditor(String elementId, {options: null}) {
     selectedLang = langBtns[0];
     textArea = querySelector(elementId);
-    runBtn..classes.add('send-code-btn')..text = "Run"..contentEditable = "false";
+    runBtn
+      ..classes.add('send-code-btn')
+      ..text = "Run"
+      ..contentEditable = "false";
     textArea.classes.add('code-editor-text-area');
     target.children..add(runBtn)..add(output);
     if (options != null) this.options = options;
     _editor = new CodeMirror.fromTextArea(textArea, options: this.options);
-    output..text = "output"..classes.add('output');
+    output
+      ..text = "output"
+      ..classes.add('output');
 
     runBtn.onClick.listen((var e) {
       _sendStream.add([selectedLang.tags[0], code]); // [filename, code]
@@ -107,7 +123,12 @@ class CodeEditor {
   }
 
   onSendClicked(handler(var e)) {
-    _sendStream.listen(handler);
+    _sendStream.listen((var e) {
+      if (runBtnEnabled) {
+        runBtnEnabled = false;
+        handler(e); // must re-enable runBtn when done
+      }
+    });
   }
 
   _handleLangBtnClicked(var e) {

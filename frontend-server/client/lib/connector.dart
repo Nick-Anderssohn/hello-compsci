@@ -9,6 +9,5 @@ class Connector {
   sendCode(String filename, String code) {
     return HttpRequest.request(window.location.href+"runcode", method: 'POST',
      requestHeaders: {"Filename": filename}, sendData: code);
-
    }
 }
