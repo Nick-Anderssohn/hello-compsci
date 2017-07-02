@@ -40,7 +40,6 @@ void main() {
 _handleSendClicked(var e) {
   var filename = e[0];
   var code = e[1];
-  print("sending");
   codeEditor.output.text = "Running...please wait";
   connector.sendCode(filename, code).then((var e) {
     codeEditor.output.innerHtml = e.responseText.replaceAll(new RegExp("\n"), "\n<br>");
