@@ -29,7 +29,7 @@ func NewServer(logger *log.Logger, port int) *Server {
 	return newServer
 }
 
-// Run starts the server on 0.0.0.0
+// BuildRun starts the server on 0.0.0.0
 func (cs *Server) Run() {
 	http.HandleFunc("/", cs.handler)
 	http.HandleFunc("/healthcheck", HealthCheck)
@@ -91,7 +91,7 @@ func (cs *Server) handleCodeReq(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// compile and run the code
-	if err = cs.code.Run(); err != nil {
+	if err = cs.code.BuildRun(); err != nil {
 		cs.logger.Printf("handler/%v\n", err.Error())
 		w.Write(cs.GetCErrOutput())
 		return

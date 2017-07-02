@@ -64,35 +64,35 @@ func TestCode_Run(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			"Test Run Go",
+			"Test BuildRun Go",
 			goCode,
 			false,
 		},
 		{
-			"Test Run C",
+			"Test BuildRun C",
 			cCode,
 			false,
 		},
 		{
-			"Test Run C++",
+			"Test BuildRun C++",
 			cppCode,
 			false,
 		},
 		{
-			"Test Run Java",
+			"Test BuildRun Java",
 			javaCode,
 			false,
 		},
 		{
-			"Test Run Python3",
+			"Test BuildRun Python3",
 			pythonThreeCode,
 			false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := tt.c.Run(); (err != nil) != tt.wantErr {
-				t.Errorf("Code.Run() error = %v, wantErr %v", err, tt.wantErr)
+			if err := tt.c.BuildRun(); (err != nil) != tt.wantErr {
+				t.Errorf("Code.BuildRun() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
