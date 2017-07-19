@@ -6,5 +6,7 @@
 *.packages
 **/.pub/*
 **/build/*
+**/.idea/*
+send_to_server.sh
 
 !**/readme.md

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  code-runner:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    ports:
+      - '8079:8079'
+    networks:
+      - hello-class-network
+    container_name: 'code-runner'
+
+  hello-class:
+    build: 'frontend-server/.'
+    image: 'hello-class'
+    ports:
+      - '8080:8080'
+    networks:
+      - hello-class-network
+
+networks:
+  hello-class-network:

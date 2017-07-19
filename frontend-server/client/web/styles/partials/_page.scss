@@ -1,0 +1,76 @@
+.page {
+  position: relative;
+  top: $page-top;
+  height: $page-height;
+  width: $page-width;
+  left: $page-left;
+  background-color: $snow;
+  border: $darkslategray-thin-border;
+}
+
+.left-menu {
+  position: absolute;
+  width: $page-left;
+  // top: $page-top;
+  height: 100%;
+  background-color: $silver-snow;
+  z-index: 1;
+}
+
+.right-menu {
+  position: absolute;
+  left: calc(#{$page-left} + #{$page-width} + 2px); // + 2px so the border does not get covered
+  width: $page-left;
+  top: $page-top + $title-line-height + $top-bar-height + 2 * $title-margin-top;
+  height: 100%;
+  background-color: $silver-snow;
+  z-index: 1;
+}
+
+.select-page {
+  position: absolute;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.join-page {
+  position: absolute;
+  left: calc(100% + 10px);
+  height: 100%;
+  width: 100%;
+}
+
+.create-page {
+  position: absolute;
+  left: calc(-100% - 10px);
+  height: 100%;
+  width: 100%;
+}
+
+.arrow {
+  width: $create-arrow-width;
+  height: $create-arrow-height;
+  position: absolute;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.create-back-arrow {
+  @extend .arrow;
+  left: calc(100% - #{$create-arrow-width} - 10px);
+  // top: 10px;
+}
+
+.join-back-arrow {
+  @extend .arrow;
+  left: 10px;
+
+  // flip 180 degrees
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}

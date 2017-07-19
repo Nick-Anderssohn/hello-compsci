@@ -1,0 +1,14 @@
+$title-line-height: 45px;
+$top-bar-height: 22px;
+$top-bar-padding-top: 5px;
+$top-bar-padding-bottom: 5px;
+$create-session-btn-width: 250px;
+$session-btn-separator: 10px;
+$rounded-btn-line-height: 40px;
+$page-width: calc(100% - 2 * #{$page-left});
+$page-height: calc(100% - (#{$page-top} + #{$title-line-height} + #{$top-bar-height} + 2 * #{$title-margin-top}) - #{$page-top} - 15px);
+$textbox-height: 22px;
+$textbox-width: 400px;
+$create-arrow-width: 125px;
+$create-arrow-height: 100px;
+$output-height: 199px;

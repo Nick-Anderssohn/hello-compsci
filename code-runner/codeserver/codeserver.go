@@ -1,8 +1,8 @@
 // Copyright (C) 2017  Nicholas Anderssohn
-
 package codeserver
 
 import (
+	"hello-class/code-runner/requestqueue"
 	"hello-class/code-runner/runner"
 	"io/ioutil"
 	"log"
@@ -16,19 +16,23 @@ type Server struct {
 	codeFile string
 	logger   *log.Logger
 	port     int
+	reqQueue *requestqueue.RequestQueue
 }
 
 // NewServer instantiates logger and returns a new CodeServer
 func NewServer(logger *log.Logger, port int) *Server {
-	return &Server{
+	newServer := &Server{
 		logger: logger,
 		port:   port,
 	}
+	newServer.reqQueue = requestqueue.NewRequestQueue(runner.ReadyToBuildChan, newServer.handleCodeReq)
+	return newServer
 }
 
-// Run starts the server on 0.0.0.0
+// BuildRun starts the server on 0.0.0.0
 func (cs *Server) Run() {
 	http.HandleFunc("/", cs.handler)
+	http.HandleFunc("/healthcheck", HealthCheck)
 	http.ListenAndServe(":"+strconv.Itoa(cs.port), nil)
 }
 
@@ -40,7 +44,11 @@ func (cs *Server) handler(w http.ResponseWriter, req *http.Request) {
 	if req.Method == "OPTIONS" {
 		cs.handleOptions(w, req)
 	} else if req.Method == "POST" {
-		cs.handlePost(w, req)
+		//cs.handleCodeReq(w, req)
+		reqInfo := requestqueue.ReqIO{w, req}
+		cs.reqQueue.ProcessRequest(&reqInfo)
+	} else {
+		HealthCheck(w, req)
 	}
 }
 
@@ -56,7 +64,7 @@ func (cs *Server) formResponseHeader(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Access-Control-Allow-Headers", "Filename")
 }
 
-func (cs *Server) handlePost(w http.ResponseWriter, req *http.Request) {
+func (cs *Server) handleCodeReq(w http.ResponseWriter, req *http.Request) {
 	cs.formResponseHeader(w, req)
 
 	// get the name of the to-be code file
@@ -83,7 +91,7 @@ func (cs *Server) handlePost(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// compile and run the code
-	if err = cs.code.Run(); err != nil {
+	if err = cs.code.BuildRun(); err != nil {
 		cs.logger.Printf("handler/%v\n", err.Error())
 		w.Write(cs.GetCErrOutput())
 		return
@@ -106,4 +114,9 @@ func (cs *Server) GetOutput() (output []byte) {
 		output, _ = ioutil.ReadFile(cs.code.OutputFile)
 	}
 	return
+}
+
+// HealthCheck tells whoever sends the req that code-runner is still alive
+func HealthCheck(writer http.ResponseWriter, req *http.Request) {
+	writer.Write([]byte{byte(0)})
 }

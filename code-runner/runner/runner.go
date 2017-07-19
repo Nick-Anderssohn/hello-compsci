@@ -4,6 +4,7 @@ package runner
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"hello-class/code-runner/common"
 	"io/ioutil"
@@ -13,7 +14,14 @@ import (
 	"time"
 )
 
-const runtimeLimit = 5 // seconds
+const runtimeLimit = 4 // seconds
+var ReadyToBuildChan chan bool
+
+// will be called right after package variables are instantiated
+func init() {
+	ReadyToBuildChan = make(chan bool, 1) // can hold 1
+	ReadyToBuildChan <- true
+}
 
 //Code runs code files and stores output
 type Code struct {
@@ -97,8 +105,10 @@ func getJavaRunArgs(codeFile string) []string {
 	return []string{"-cp", dir, fName[:len(fName)-5]}
 }
 
-//Run runs runFile and stores a path to an output file
-func (c *Code) Run() (err error) {
+//BuildRun builds and runs the saved code.
+func (c *Code) BuildRun() (err error) {
+	defer func() { ReadyToBuildChan <- true }()
+
 	//build
 	buildCMD := exec.Command(c.buildCMD, c.buildARGs...)
 	var buildOut bytes.Buffer
@@ -107,52 +117,41 @@ func (c *Code) Run() (err error) {
 
 	//write output to file
 	if err = ioutil.WriteFile(c.CompilerErrFile, buildOut.Bytes(), 0644); err != nil {
-		return common.GetError("Run", err)
+		return common.GetError("BuildRun", err)
 	}
-	//execute the runFile
-	runCMD := exec.Command(c.runCMD, c.runARGs...)
+
+	return c.run(buildOut)
+}
+
+// accepts the output buffer for the build process in case it needs to be written to a file
+func (c *Code) run(buildOut bytes.Buffer) (err error) {
+	runContext, cancel := context.WithTimeout(context.Background(), time.Second*runtimeLimit)
+	defer cancel()
+	runCMD := exec.CommandContext(runContext, c.runCMD, c.runARGs...)
 	var out bytes.Buffer
 	runCMD.Stdout = &out //store output in out
 	runCMD.Stderr = &out
+	doneChan := make(chan bool)
+	errChan := make(chan bool)
+	go func() {
+		if err = runCMD.Run(); err != nil {
+			errChan <- true
+		} else {
+			doneChan <- true
+		}
+	}()
 
-	done := make(chan error)
-
-	if err = runCMD.Start(); err != nil {
-		ioutil.WriteFile(c.CompilerErrFile, buildOut.Bytes(), 0644)
-		return common.GetError("Run", err)
-	}
-
-	go waitForCMD(runCMD, done) // keep track if the process finishes or loops for too long
-
-	return c.handleFinishRun(runCMD, &out, done)
-}
-
-func waitForCMD(cmd *exec.Cmd, ch chan error) {
-	ch <- cmd.Wait()
-}
-
-func (c *Code) handleFinishRun(runCMD *exec.Cmd, output *bytes.Buffer, done chan error) (err error) {
 	select {
-
-	// after 5 seconds, kill the process
-	case <-time.After(time.Second * runtimeLimit):
-		runCMD.Process.Kill()
-
+	case <-doneChan:
+		if err = ioutil.WriteFile(c.OutputFile, out.Bytes(), 0644); err != nil {
+			err = common.GetError("BuildRun", err)
+		}
+	case <-runContext.Done():
 		// write the timeout error the the err file
 		ioutil.WriteFile(c.CompilerErrFile, []byte("TIMEOUT: Process took too long to complete"), 0644)
-
-		//return appropriate error
-		if err != nil {
-			return common.GetError("Run", err)
-		}
-		return fmt.Errorf("Run/TIMEOUT: Process took too long to complete")
-
-	case <-done:
-
-		// the code was run successfully, write the output to the output file
-		if err = ioutil.WriteFile(c.OutputFile, output.Bytes(), 0644); err != nil {
-			return common.GetError("Run", err)
-		}
+		err = fmt.Errorf("BuildRun/TIMEOUT: Process took too long to complete")
+	case <-errChan:
+		ioutil.WriteFile(c.CompilerErrFile, buildOut.Bytes(), 0644)
 	}
 	return
 }
