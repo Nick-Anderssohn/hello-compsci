@@ -107,7 +107,6 @@ func getJavaRunArgs(codeFile string) []string {
 
 //BuildRun builds and runs the saved code.
 func (c *Code) BuildRun() (err error) {
-	//<-ReadyToBuildChan // block until ready to build
 	defer func() { ReadyToBuildChan <- true }()
 
 	//build
