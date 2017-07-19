@@ -10,28 +10,34 @@ class DropDown {
   bool _mouseIsOverParent = false;
   SimpleStreamRouter _parentClickRouter;
 
-  DropDown(DivElement parent) {
-    _parentClickRouter = new SimpleStreamRouter(parent.onClick);
-    onClick((var e) => target.hidden = !target.hidden);
-    this.parent = parent;
-    this.parent.children.add(target);
-    target.classes.add('drop-down');
+  DropDown(this.parent) {
+    _setupParent();
+    _setupTarget();
     hide();
+    window.onClick.listen(_handleClickOffOfDropDown);
+  }
 
-    window.onClick.listen((MouseEvent e) {
-      if (!_mouseIsOver && !_mouseIsOverParent) {
-        hide();
-      }
-    });
+  _setupParent() {
+    _parentClickRouter = new SimpleStreamRouter(parent.onClick);
+    parent.children.add(target);
+  }
 
+  _setupTarget() {
+    onClick((var e) => target.hidden = !target.hidden);
+    target.classes.add('drop-down');
     target.onMouseEnter.listen((var e) => _mouseIsOver = true);
     target.onMouseLeave.listen((var e) => _mouseIsOver = false);
     target.parent.onMouseEnter.listen((var e) => _mouseIsOverParent = true);
     target.parent.onMouseLeave.listen((var e) => _mouseIsOverParent = false);
-
   }
 
   onClick(handler(var e)) => _parentClickRouter.listen(handler);
+
+  _handleClickOffOfDropDown(var e) {
+    if (!_mouseIsOver && !_mouseIsOverParent) {
+      hide();
+    }
+  }
 
   //applies styling for you
   addItem(DivElement item) {

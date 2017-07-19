@@ -2,8 +2,8 @@
 import 'dart:html';
 import 'package:simple_streams/simple_streams.dart';
 import 'package:codemirror/codemirror.dart';
-import 'dropdown/dropdown.dart';
-import 'page/page.dart';
+import '../../dropdown/dropdown.dart';
+import '../../button/button.dart';
 
 const String startingCCode = """#include "stdio.h"
 

@@ -1,142 +1,144 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 import 'page.dart';
-import 'standard_btn.dart';
+import '../../button/button.dart';
 import 'dart:html';
-import 'clickwrapper.dart';
 import 'dart:async';
 import 'package:simple_streams/simple_streams.dart';
 
 class SelectorPage extends Page {
   String htmlDoc = '../resources/selector.html';
-  SimpleStreamRouter joinBackArrowRouter;
-  SimpleStreamRouter createBackArrowRouter;
-  StandardBtn selectCreatePageBtn;
-  StandardBtn selectJoinPageBtn;
-  StandardBtn joinSessionBtn;
-  ClickWrapper joinSessionTextbox;
-  StandardBtn createSessionBtn;
-  ClickWrapper createSessionTextbox;
-  DivElement createPage;
-  DivElement joinPage;
-  DivElement selectPage;
-  DivElement curPage;
-  String left = "calc(-100% - 10px)";
-  String middle = "0px";
-  String right = "calc(100% + 10px)";
-  static const int animDuration = 900; // milliseconds
+  SimpleStreamRouter _joinBackArrowRouter;
+  SimpleStreamRouter _createBackArrowRouter;
+  StandardBtn _selectCreatePageBtn;
+  StandardBtn _selectJoinPageBtn;
+  StandardBtn _joinSessionBtn;
+  ClickWrapper _joinSessionTextbox;
+  StandardBtn _createSessionBtn;
+  ClickWrapper _createSessionTextbox;
+  DivElement _createPage;
+  DivElement _joinPage;
+  DivElement _selectPage;
+  DivElement _curPage;
+  final String _left = "calc(-100% - 10px)";
+  final String _middle = "0px";
+  final String _right = "calc(100% + 10px)";
+  static const int _animDuration = 900; // milliseconds
 
-  SelectorPage() {
-    // createPage.onChangePage((var e) => changePageStream.add(e));
-    // joinPage.onChangePage((var e) => changePageStream.add(e));
-  }
+  SelectorPage();
 
   load() {
-    print("load selector page");
     if (!hasBeenLoaded) {
-      createPage = querySelector('#create-page');
-      joinPage = querySelector('#join-page');
-      curPage = selectPage = querySelector('#select-page');
-      selectCreatePageBtn =
-          new StandardBtn(querySelector('#select-create-page-btn'));
-      selectJoinPageBtn =
-          new StandardBtn(querySelector('#select-join-page-btn'));
-      joinSessionBtn = new StandardBtn(querySelector('#join-session-btn'));
-      joinSessionTextbox =
-          new ClickWrapper(querySelector('#join-session-textbox'));
-      joinSessionTextbox
-        ..onClick(_onJoinSessionTextboxClick)
-        ..onBlur(_onJoinSessionTextboxBlur)
-        ..onKeyDown(_handleEnter);
-      (joinSessionTextbox.target as InputElement).value = "Session Name";
-      selectJoinPageBtn.onClick(_selectJoinPageBtnClick);
-
-      createSessionBtn = new StandardBtn(querySelector('#create-session-btn'));
-      createSessionTextbox =
-          new ClickWrapper(querySelector('#create-session-textbox'));
-      createSessionTextbox
-        ..onClick(_onCreateSessionTextboxClick)
-        ..onBlur(_onCreateSessionTextboxBlur)
-        ..onKeyDown(_handleEnter);
-      (createSessionTextbox.target as InputElement).value = "Session Name";
-      selectCreatePageBtn.onClick(_selectCreatePageBtnClick);
+      _queryElementsFromHtml();
+      _setupJoinPage();
+      _setupCreatePage();
       hasBeenLoaded = true;
-      joinBackArrowRouter = new SimpleStreamRouter(querySelector('#join-back-arrow').onClick);
-      createBackArrowRouter = new SimpleStreamRouter(querySelector('#create-back-arrow').onClick);
-      joinBackArrowRouter.listen(repositionPages);
-      createBackArrowRouter.listen(repositionPages);
+      _joinBackArrowRouter.listen(repositionPages);
+      _createBackArrowRouter.listen(repositionPages);
     }
   }
 
+  _queryElementsFromHtml() {
+    _createPage = querySelector('#create-page');
+    _joinPage = querySelector('#join-page');
+    _curPage = _selectPage = querySelector('#select-page');
+    _selectCreatePageBtn = new StandardBtn(querySelector('#select-create-page-btn'));
+    _selectJoinPageBtn = new StandardBtn(querySelector('#select-join-page-btn'));
+    _joinSessionBtn = new StandardBtn(querySelector('#join-session-btn'));
+    _joinSessionTextbox = new ClickWrapper(querySelector('#join-session-textbox'));
+    _createSessionBtn = new StandardBtn(querySelector('#create-session-btn'));
+    _createSessionTextbox = new ClickWrapper(querySelector('#create-session-textbox'));
+    _joinBackArrowRouter = new SimpleStreamRouter(querySelector('#join-back-arrow').onClick);
+    _createBackArrowRouter = new SimpleStreamRouter(querySelector('#create-back-arrow').onClick);
+  }
+
+  _setupJoinPage() {
+    _joinSessionTextbox
+      ..onClick(_onJoinSessionTextboxClick)
+      ..onBlur(_onJoinSessionTextboxBlur)
+      ..onKeyDown(_handleEnter);
+    (_joinSessionTextbox.target as InputElement).value = "Session Name";
+    _selectJoinPageBtn.onClick(_selectJoinPageBtnClick);
+  }
+
+  _setupCreatePage() {
+    _createSessionTextbox
+      ..onClick(_onCreateSessionTextboxClick)
+      ..onBlur(_onCreateSessionTextboxBlur)
+      ..onKeyDown(_handleEnter);
+    (_createSessionTextbox.target as InputElement).value = "Session Name";
+    _selectCreatePageBtn.onClick(_selectCreatePageBtnClick);
+  }
+
   _selectJoinPageBtnClick(var e) {
-    _slideOutLeft(selectPage);
-    _slideIn(joinPage);
-    curPage = joinPage;
+    _slideOutLeft(_selectPage);
+    _slideIn(_joinPage);
+    _curPage = _joinPage;
   }
 
   _selectCreatePageBtnClick(var e) {
-    _slideOutRight(selectPage);
-    _slideIn(createPage);
-    curPage = createPage;
+    _slideOutRight(_selectPage);
+    _slideIn(_createPage);
+    _curPage = _createPage;
   }
 
   _slideOutLeft(DivElement page) async {
     page.classes.add('page-out-left');
-    new Future.delayed(const Duration(milliseconds: animDuration), () {
-      page.style.left = left;
+    new Future.delayed(const Duration(milliseconds: _animDuration), () {
+      page.style.left = _left;
       page.classes.remove('page-out-left');
     });
   }
 
   _slideOutRight(DivElement page) async {
     page.classes.add('page-out-right');
-    new Future.delayed(const Duration(milliseconds: animDuration), () {
-      page.style.left = right;
+    new Future.delayed(const Duration(milliseconds: _animDuration), () {
+      page.style.left = _right;
       page.classes.remove('page-out-right');
     });
   }
 
   _slideIn(DivElement page) async {
     page.classes.add('page-in');
-    new Future.delayed(const Duration(milliseconds: animDuration), () {
-      page.style.left = middle;
+    new Future.delayed(const Duration(milliseconds: _animDuration), () {
+      page.style.left = _middle;
       page.classes.remove('page-in');
     });
   }
 
   repositionPages(var e) {
-    if (curPage == selectPage) {
+    if (_curPage == _selectPage) {
       return;
     }
-    if (curPage == joinPage) {
-      _slideOutRight(joinPage);
+    if (_curPage == _joinPage) {
+      _slideOutRight(_joinPage);
     } else {
-      _slideOutLeft(createPage);
+      _slideOutLeft(_createPage);
     }
-    _slideIn(selectPage);
+    _slideIn(_selectPage);
   }
 
   _onJoinSessionTextboxClick(var e) {
-    if ((joinSessionTextbox.target as InputElement).value == "Session Name") {
-      (joinSessionTextbox.target as InputElement).value = "";
+    if ((_joinSessionTextbox.target as InputElement).value == "Session Name") {
+      (_joinSessionTextbox.target as InputElement).value = "";
     }
   }
 
   _onCreateSessionTextboxClick(var e) {
-    if ((createSessionTextbox.target as InputElement).value == "Session Name") {
-      (createSessionTextbox.target as InputElement).value = "";
+    if ((_createSessionTextbox.target as InputElement).value == "Session Name") {
+      (_createSessionTextbox.target as InputElement).value = "";
     }
   }
 
   _onJoinSessionTextboxBlur(var e) {
-    if ((joinSessionTextbox.target as InputElement).value.trim() == "") {
-      (joinSessionTextbox.target as InputElement).value = "Session Name";
+    if ((_joinSessionTextbox.target as InputElement).value.trim() == "") {
+      (_joinSessionTextbox.target as InputElement).value = "Session Name";
     }
   }
 
   _onCreateSessionTextboxBlur(var e) {
-    if ((createSessionTextbox.target as InputElement).value.trim() == "") {
-      (createSessionTextbox.target as InputElement).value = "Session Name";
+    if ((_createSessionTextbox.target as InputElement).value.trim() == "") {
+      (_createSessionTextbox.target as InputElement).value = "Session Name";
     }
   }
 
