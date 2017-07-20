@@ -8,7 +8,8 @@ COPY ./client .
 
 # build dart
 RUN pub get
-RUN ./build.sh
+RUN pub build
+RUN cp -R build/web/packages/codemirror build/web/play/packages/
 
 # The final container
 FROM golang:1.8.3-alpine
