@@ -4,12 +4,20 @@ import 'dart:html';
 import "../../lib/code_editor/code_editor.dart";
 import "../../lib/connector/connector.dart";
 import "../../lib/topbar/topbar.dart";
+import "../../lib/compatibility/compatibility.dart";
 
 final String curEndpoint = '/play';
 CodeEditor codeEditor;
 Connector connector = new Connector();
+CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
 TopBar topBar;
 void main() {
+  if (compatibilityChecker.checkCompatibility()) {
+    _run();
+  }
+}
+
+_run() {
   topBar = new TopBar(curEndpoint);
 
   codeEditor = new CodeEditor('#code-editor');

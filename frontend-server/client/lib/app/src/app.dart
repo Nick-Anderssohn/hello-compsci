@@ -20,6 +20,7 @@ class App {
   }
 
   run() {
+    print(window.navigator.userAgent);
     _pageDiv = querySelector('#page');
     _curPage.select();
     _homeBtn = new StandardBtn(querySelector('#home-option'));
