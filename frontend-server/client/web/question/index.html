@@ -3,6 +3,11 @@
 <html>
   <head>
     <title >Hello, Class!</title>
+    <link href="packages/codemirror/codemirror.css" rel="stylesheet">
+    <script src="packages/codemirror/codemirror.js"></script>
+    <script src="packages/codemirror/mode/clike/clike.js"></script>
+    <script src="packages/codemirror/mode/go/go.js"></script>
+    <script src="packages/codemirror/mode/python/python.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/main.css">
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
@@ -15,13 +20,16 @@
         <div id="about-option" class="top-bar-option">About</div>
       </div>
       <div id="left-menu" class="left-menu"></div>
-      <div id="page" class="page">
-        <div>Hello Class will be a web application that allows educators to host class sessions
-          that allow them post questions for their students to answer.
-          This will be directly aimed at educators teaching programming.
-          Educators can post coding questions, and the students submit code as a solution.
-          This will compile, run, check the output of the student's code, and give the
-          results to the educator.</div>
+      <div id="page" class="page-structure">
+        <div id="question-box" class="question-box">No question posted.</div>
+        <div class="response-container">
+          <div id="code-editor-container" class="code-editor-container">
+            <textarea id="code-editor"></textarea>
+          </div>
+        </div>
+        <div>
+          <!-- <input type="text" id="join-session-textbox" class="session-textbox"/> -->
+        </div>
       </div>
       <div id="right-menu" class="right-menu"></div>
   </body>

@@ -10,6 +10,7 @@ COPY ./client .
 RUN pub get
 RUN pub build
 RUN cp -R build/web/packages/codemirror build/web/play/packages/
+RUN cp -R build/web/packages/codemirror build/web/question/packages/
 
 # The final container
 FROM golang:1.8.3-alpine

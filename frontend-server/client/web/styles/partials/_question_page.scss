@@ -1,0 +1,17 @@
+.question-box {
+  height: 100px;
+  width: 100%;
+  background-color: $snow;
+  color: $darkslategray-font;
+  font-family: $main-font-family;
+  font-size: 15px;
+  border: $darkslategray-thin-border;
+  margin-bottom: 10px;
+}
+
+.response-container {
+  width: 100%;
+  height: calc(100% - 100px);
+  border: solid 1px;
+  background-color: $snow;
+}

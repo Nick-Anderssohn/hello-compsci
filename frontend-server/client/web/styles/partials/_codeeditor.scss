@@ -13,11 +13,6 @@
   font-family: $main-font-family;
 }
 
-//code editor
-.code-editor-text-area {
-  // height: 1000px;
-}
-
 .language-selector-btn {
   position: absolute;
   left: calc(100% - 90px);
@@ -34,22 +29,16 @@
 
 .code-editor-container {
   position: relative;
-  // border: solid 1px;
   width: 100%;
-  // left: 5%;
-  // top: 5%;
-  height: calc(100% - 200px);
+  height: calc(100% - #{$output-height} - 1px);
   border-bottom: solid 1px;
 }
 
 .output {
-  // position: relative;
   margin-top: 11px;
   color: $darkslategray-font;
   font-family: $main-font-family;
   height: $output-height;
-  // padding-bottom: -10px;
-  // margin-bottom: 2px;
   overflow-y: auto;
 }
 

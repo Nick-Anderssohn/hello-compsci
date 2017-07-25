@@ -1,9 +1,13 @@
-.page {
+.page-structure {
   position: relative;
   top: $page-top;
   height: $page-height;
   width: $page-width;
   left: $page-left;
+}
+
+.page {
+  @extend .page-structure;
   background-color: $snow;
   border: $darkslategray-thin-border;
 }
