@@ -1,3 +1,5 @@
+// Copyright (C) 2017  Nicholas Anderssohn
+
 .question-box {
   height: 100px;
   width: 100%;
@@ -11,7 +13,42 @@
 
 .response-container {
   width: 100%;
-  height: calc(100% - 100px);
+  height: calc(100% - 150px);
   border: solid 1px;
   background-color: $snow;
+}
+
+$submit-btn-width: 90px;
+$name-submit-space: 10px;
+$name-textbox-width: 230px;
+$name-textbox-left: calc(50% - (#{$name-textbox-width} + #{$submit-btn-width} + #{$name-submit-space}) / 2);
+
+.name-textbox {
+  @extend .textbox;
+  position: relative;
+  float: left;
+  top: 10px;
+  left: $name-textbox-left;
+  width: $name-textbox-width;
+  background-color: $snow;
+}
+
+.submit-btn {
+  position: relative;
+  float: left;
+  left: calc(#{$name-submit-space} + #{$name-textbox-left});
+  top: 10px;
+  width: $submit-btn-width;
+  line-height: 24px;
+  text-align: center;
+  cursor:pointer;
+  background-color: $snow;
+  color: $darkslategray-font;
+  font-family: $main-font-family;
+  font-size: 15px;
+  border: $darkslategray-thin-border;
+
+  &:hover {
+    background-color: $dark-silver-snow;
+  }
 }
