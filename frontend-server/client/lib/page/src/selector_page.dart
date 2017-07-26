@@ -2,6 +2,7 @@
 
 import 'page.dart';
 import '../../button/button.dart';
+import '../../textbox/textbox.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:simple_streams/simple_streams.dart';
@@ -13,9 +14,9 @@ class SelectorPage extends Page {
   StandardBtn _selectCreatePageBtn;
   StandardBtn _selectJoinPageBtn;
   StandardBtn _joinSessionBtn;
-  ClickWrapper _joinSessionTextbox;
+  TextBox _joinSessionTextbox;
   StandardBtn _createSessionBtn;
-  ClickWrapper _createSessionTextbox;
+  TextBox _createSessionTextbox;
   DivElement _createPage;
   DivElement _joinPage;
   DivElement _selectPage;
@@ -45,28 +46,18 @@ class SelectorPage extends Page {
     _selectCreatePageBtn = new StandardBtn(querySelector('#select-create-page-btn'));
     _selectJoinPageBtn = new StandardBtn(querySelector('#select-join-page-btn'));
     _joinSessionBtn = new StandardBtn(querySelector('#join-session-btn'));
-    _joinSessionTextbox = new ClickWrapper(querySelector('#join-session-textbox'));
+    _joinSessionTextbox = new TextBox(querySelector('#join-session-textbox'), defaultText: 'Session Name');
     _createSessionBtn = new StandardBtn(querySelector('#create-session-btn'));
-    _createSessionTextbox = new ClickWrapper(querySelector('#create-session-textbox'));
+    _createSessionTextbox = new TextBox(querySelector('#create-session-textbox'), defaultText: 'Session Name');
     _joinBackArrowRouter = new SimpleStreamRouter(querySelector('#join-back-arrow').onClick);
     _createBackArrowRouter = new SimpleStreamRouter(querySelector('#create-back-arrow').onClick);
   }
 
   _setupJoinPage() {
-    _joinSessionTextbox
-      ..onClick(_onJoinSessionTextboxClick)
-      ..onBlur(_onJoinSessionTextboxBlur)
-      ..onKeyDown(_handleEnter);
-    (_joinSessionTextbox.target as InputElement).value = "Session Name";
     _selectJoinPageBtn.onClick(_selectJoinPageBtnClick);
   }
 
   _setupCreatePage() {
-    _createSessionTextbox
-      ..onClick(_onCreateSessionTextboxClick)
-      ..onBlur(_onCreateSessionTextboxBlur)
-      ..onKeyDown(_handleEnter);
-    (_createSessionTextbox.target as InputElement).value = "Session Name";
     _selectCreatePageBtn.onClick(_selectCreatePageBtnClick);
   }
 
@@ -84,7 +75,7 @@ class SelectorPage extends Page {
 
   _slideOutLeft(DivElement page) async {
     page.classes.add('page-out-left');
-    new Future.delayed(const Duration(milliseconds: _animDuration), () {
+    new Future.delayed(const Duration(milliseconds: _animDuration + 100), () {
       page.style.left = _left;
       page.classes.remove('page-out-left');
     });
@@ -92,7 +83,7 @@ class SelectorPage extends Page {
 
   _slideOutRight(DivElement page) async {
     page.classes.add('page-out-right');
-    new Future.delayed(const Duration(milliseconds: _animDuration), () {
+    new Future.delayed(const Duration(milliseconds: _animDuration + 100), () {
       page.style.left = _right;
       page.classes.remove('page-out-right');
     });
@@ -100,7 +91,7 @@ class SelectorPage extends Page {
 
   _slideIn(DivElement page) async {
     page.classes.add('page-in');
-    new Future.delayed(const Duration(milliseconds: _animDuration), () {
+    new Future.delayed(const Duration(milliseconds: _animDuration + 100), () {
       page.style.left = _middle;
       page.classes.remove('page-in');
     });
@@ -117,41 +108,4 @@ class SelectorPage extends Page {
     }
     _slideIn(_selectPage);
   }
-
-  _onJoinSessionTextboxClick(var e) {
-    if ((_joinSessionTextbox.target as InputElement).value == "Session Name") {
-      (_joinSessionTextbox.target as InputElement).value = "";
-    }
-  }
-
-  _onCreateSessionTextboxClick(var e) {
-    if ((_createSessionTextbox.target as InputElement).value == "Session Name") {
-      (_createSessionTextbox.target as InputElement).value = "";
-    }
-  }
-
-  _onJoinSessionTextboxBlur(var e) {
-    if ((_joinSessionTextbox.target as InputElement).value.trim() == "") {
-      (_joinSessionTextbox.target as InputElement).value = "Session Name";
-    }
-  }
-
-  _onCreateSessionTextboxBlur(var e) {
-    if ((_createSessionTextbox.target as InputElement).value.trim() == "") {
-      (_createSessionTextbox.target as InputElement).value = "Session Name";
-    }
-  }
-
-  _handleEnter(KeyboardEvent e) {
-    if (e.keyCode == KeyCode.ENTER) {
-      print("Enter!");
-    }
-  }
-
- // currently unnecessary to disable pages since they get hidden off of the screen
-  // _toggleJoinPageEnabled() {
-  //   InputElement textInput = joinSessionTextbox.target;
-  //   textInput.disabled = !textInput.disabled;
-  //   joinSessionBtn.enabled = !joinSessionBtn.enabled;
-  // }
 }
