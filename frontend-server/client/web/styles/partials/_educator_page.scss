@@ -1,0 +1,58 @@
+.problem-menu-container {
+  width: 100%;
+  height: 310px;
+}
+
+.problem-menu-btn {
+  @extend .silver-snow-btn;
+  float: right;
+  width: 135px;
+  margin-top: 35px;
+  margin-right: 25px;
+}
+
+.posted-title {
+  font-size: 30px;
+  font-family: $main-font-family;
+  color: $darkslategray-font;
+}
+
+.posted-problem-name {
+  font-size: 25px;
+  font-family: $main-font-family;
+  color: $darkslategray-font;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.silver-snow-problem-box {
+  @extend .question-box;
+  background-color: $silver-snow;
+  margin-top: 20px;
+}
+
+.options-header {
+  font-size: 17px;
+  font-family: $main-font-family;
+  color: $darkslategray-font;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.checkbox-option {
+  font-family: $main-font-family;
+  color: $darkslategray-font;
+}
+
+.float-right-label {
+  position: relative;
+  line-height: 24px;
+  color: $darkslategray-font;
+  font-family: $main-font-family;
+  font-size: 17px;
+
+  float: right;
+  width: 135px;
+  margin-top: 35px;
+  margin-right: 25px;
+}

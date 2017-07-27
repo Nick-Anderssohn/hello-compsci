@@ -1,0 +1,20 @@
+.snow-btn {
+  position: relative;
+  line-height: 24px;
+  text-align: center;
+  cursor:pointer;
+  background-color: $snow;
+  color: $darkslategray-font;
+  font-family: $main-font-family;
+  font-size: 15px;
+  border: $darkslategray-thin-border;
+
+  &:hover {
+    background-color: $dark-silver-snow;
+  }
+}
+
+.silver-snow-btn {
+  @extend .snow-btn;
+  background-color: $silver-snow;
+}

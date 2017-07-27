@@ -12,6 +12,11 @@
   border: $darkslategray-thin-border;
 }
 
+.page-scrollable {
+  @extend .page;
+  overflow-y: scroll;
+}
+
 .left-menu {
   position: absolute;
   width: $page-left;

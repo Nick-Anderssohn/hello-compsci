@@ -34,21 +34,9 @@ $name-textbox-left: calc(50% - (#{$name-textbox-width} + #{$submit-btn-width} + 
 }
 
 .submit-btn {
-  position: relative;
+  @extend .snow-btn;
   float: left;
   left: calc(#{$name-submit-space} + #{$name-textbox-left});
   top: 10px;
   width: $submit-btn-width;
-  line-height: 24px;
-  text-align: center;
-  cursor:pointer;
-  background-color: $snow;
-  color: $darkslategray-font;
-  font-family: $main-font-family;
-  font-size: 15px;
-  border: $darkslategray-thin-border;
-
-  &:hover {
-    background-color: $dark-silver-snow;
-  }
 }

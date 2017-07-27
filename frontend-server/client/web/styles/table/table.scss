@@ -1,0 +1,37 @@
+@import "../modules/colors";
+@import "../modules/fontstyles";
+
+.table-container {
+  // position: relative;
+  float: left;
+  background-color: $dark-silver-snow;
+  height: 300px;
+  width: calc(100% - 200px);
+  overflow-y: scroll;
+}
+
+table {
+    font-family: $main-font-family;
+    font-size: 15px;
+    color: $darkslategray-font;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid $silver-snow;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+  background-color: $snow;
+}
+
+tr:nth-child(even) {
+    background-color: $silver-snow;
+}
+
+tr:nth-child(odd) {
+  background-color: $snow;
+}
