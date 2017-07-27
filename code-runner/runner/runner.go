@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-const runtimeLimit = 4 // seconds
+const runtimeLimit = 2 // seconds
 var ReadyToBuildChan chan bool
 
 // will be called right after package variables are instantiated
