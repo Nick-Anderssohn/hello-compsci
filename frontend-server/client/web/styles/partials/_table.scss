@@ -10,28 +10,28 @@
   overflow-y: scroll;
 }
 
-table {
+.std-table {
     font-family: $main-font-family;
     font-size: 15px;
     color: $darkslategray-font;
     border-collapse: collapse;
     width: 100%;
-}
 
-td, th {
-    border: 1px solid $silver-snow;
-    text-align: left;
-    padding: 8px;
-}
+    td, th {
+        border: 1px solid $silver-snow;
+        text-align: left;
+        padding: 8px;
+    }
 
-th {
-  background-color: $snow;
-}
+    th {
+      background-color: $snow;
+    }
 
-tr:nth-child(even) {
-    background-color: $silver-snow;
-}
+    tr:nth-child(even) {
+        background-color: $silver-snow;
+    }
 
-tr:nth-child(odd) {
-  background-color: $snow;
+    tr:nth-child(odd) {
+      background-color: $snow;
+    }
 }
