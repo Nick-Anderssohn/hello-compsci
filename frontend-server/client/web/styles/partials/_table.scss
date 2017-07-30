@@ -2,7 +2,6 @@
 @import "../modules/fontstyles";
 
 .table-container {
-  // position: relative;
   float: left;
   background-color: $dark-silver-snow;
   height: 300px;
@@ -17,14 +16,17 @@
     border-collapse: collapse;
     width: 100%;
 
-    td, th {
+    th {
         border: 1px solid $silver-snow;
         text-align: left;
         padding: 8px;
+        background-color: $snow;
     }
 
-    th {
-      background-color: $snow;
+    td {
+        border: 1px solid $silver-snow;
+        text-align: left;
+        padding: 5px;
     }
 
     tr:nth-child(even) {
