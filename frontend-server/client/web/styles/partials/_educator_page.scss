@@ -39,9 +39,20 @@
   margin-bottom: 10px;
 }
 
+.options-wrapper {
+  .option-position:nth-child(odd) {
+    width: 50%;
+  }
+}
+
+.option-position {
+  display: inline-block;
+}
+
 .checkbox-option {
   font-family: $main-font-family;
   color: $darkslategray-font;
+  width: 100px;
 }
 
 .float-right-label {
