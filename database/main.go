@@ -2,6 +2,10 @@
 
 package main
 
-func main() {
+import (
+	"hello-class/database/database"
+)
 
+func main() {
+	database.Test()
 }
