@@ -13,4 +13,5 @@ type Submission struct {
 	AnswerText  string
 	Graded      bool
 	Correct     bool
+	ProblemID   int
 }
