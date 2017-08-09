@@ -2,7 +2,11 @@
 
 package data
 
-import "github.com/jinzhu/gorm"
+import (
+	"hello-class/database/database"
+
+	"github.com/jinzhu/gorm"
+)
 
 // Setting stores the name and whether or not it is selected of a setting
 type Setting struct {
@@ -20,4 +24,10 @@ type Problem struct {
 	Submissions []Submission
 	Settings    []Setting
 	ClassID     int
+}
+
+// PopulateRelatedFields uses the database to populate related fields such as Submissions and Settings
+func (p *Problem) PopulateRelatedFields(db *database.Database) {
+	db.DB.Model(p).Related(&p.Settings)
+	db.DB.Model(p).Related(&p.Submissions)
 }
