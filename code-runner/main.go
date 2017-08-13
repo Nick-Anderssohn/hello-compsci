@@ -4,7 +4,7 @@ package main
 
 import (
 	"fmt"
-	"hello-class/code-runner/codeserver"
+	"hello-compsci/code-runner/codeserver"
 	"log"
 	"os"
 	"strconv"

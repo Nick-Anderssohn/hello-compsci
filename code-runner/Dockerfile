@@ -5,8 +5,8 @@ ENV JAVA_HOME=/usr/lib/jvm/default-jvm
 RUN apk --update add --no-cache openjdk7 && ln -sf "${JAVA_HOME}/bin/"* "/usr/bin/"
 RUN apk add alpine-sdk
 RUN apk add python3
-RUN mkdir -p /go/src/hello-class/code-runner
-WORKDIR /go/src/hello-class/code-runner
+RUN mkdir -p /go/src/hello-compsci/code-runner
+WORKDIR /go/src/hello-compsci/code-runner
 COPY . .
 RUN go install
 RUN rm -rf testfile runner common codeserver Dockerfile build.sh main.go readme.md

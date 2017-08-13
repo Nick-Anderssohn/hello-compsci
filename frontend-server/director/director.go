@@ -6,7 +6,7 @@ package director
 
 import (
 	"context"
-	"hello-class/frontend-server/rest"
+	"hello-compsci/frontend-server/rest"
 	"net/http/httputil"
 	"net/url"
 )

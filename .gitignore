@@ -9,5 +9,6 @@
 **/.idea/*
 **/cockroach-data/*
 send_to_server.sh
+*.pem
 
 !**/readme.md

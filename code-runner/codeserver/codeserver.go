@@ -2,8 +2,8 @@
 package codeserver
 
 import (
-	"hello-class/code-runner/requestqueue"
-	"hello-class/code-runner/runner"
+	"hello-compsci/code-runner/requestqueue"
+	"hello-compsci/code-runner/runner"
 	"io/ioutil"
 	"log"
 	"net/http"

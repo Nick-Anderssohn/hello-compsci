@@ -5,6 +5,7 @@ package rest
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 )
@@ -46,7 +47,9 @@ func NewServer(ctx context.Context, endpoints []*Endpoint, address string, port 
 func (s *Server) Run() error {
 	// with handler set to nil, it will use the handlers alreay setup
 	// http.ListenAndServe(s.Address+":"+s.Port, nil)
-	return s.server.ListenAndServe()
+	// return s.server.ListenAndServe()
+	fmt.Println("use https")
+	return s.server.ListenAndServeTLS("cert.pem", "key.pem")
 }
 
 // ShutDown attempts to gracefully shutdown within 5 seconds

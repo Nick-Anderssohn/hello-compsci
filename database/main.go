@@ -4,8 +4,8 @@ package main
 
 import (
 	"fmt"
-	"hello-class/database/class-database"
-	"hello-class/database/data"
+	"hello-compsci/database/class-database"
+	"hello-compsci/database/data"
 
 	"golang.org/x/crypto/bcrypt"
 )

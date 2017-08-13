@@ -6,7 +6,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"hello-class/code-runner/common"
+	"hello-compsci/code-runner/common"
 	"io/ioutil"
 	"os/exec"
 	"path/filepath"

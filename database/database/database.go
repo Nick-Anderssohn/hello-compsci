@@ -31,24 +31,6 @@ func (d *Database) Close() {
 	d.DB.Close()
 }
 
-// GetClass returns the class corresponding to className and a bool indicating if it exists
-// func (d *Database) GetClass(className string) (class *data.Class, exists bool) {
-// 	class = &data.Class{}
-// 	d.DB.First(class, "class_name = ?", className)
-// 	return class, class.ClassName == className
-// }
-
-// // PopulateProblems accepts a class that has already been grabbed from the database, and populates
-// // its Problems field with the corresponding problems found in the database
-// func (d *Database) PopulateProblems(destinationClass *data.Class) {
-// 	d.DB.Model(destinationClass).Related(&destinationClass.Problems) // grab the problem structs
-// 	// grab the settings and submissions for each problem
-// 	for i := range destinationClass.Problems {
-// 		d.DB.Model(&destinationClass.Problems[i]).Related(&destinationClass.Problems[i].Settings)
-// 		d.DB.Model(&destinationClass.Problems[i]).Related(&destinationClass.Problems[i].Submissions)
-// 	}
-// }
-
 // Test exists to test gorm
 func Test() {
 

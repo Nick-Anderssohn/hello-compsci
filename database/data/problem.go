@@ -3,7 +3,7 @@
 package data
 
 import (
-	"hello-class/database/database"
+	"hello-compsci/database/database"
 
 	"github.com/jinzhu/gorm"
 )

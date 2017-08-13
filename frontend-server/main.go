@@ -4,8 +4,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"hello-class/frontend-server/director"
-	"hello-class/frontend-server/rest"
+	"hello-compsci/frontend-server/director"
+	"hello-compsci/frontend-server/rest"
 	"net/http"
 )
 

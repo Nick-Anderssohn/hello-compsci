@@ -4,8 +4,8 @@ package cdb // stands for class database
 
 import (
 	"fmt"
-	"hello-class/database/data"
-	"hello-class/database/database"
+	"hello-compsci/database/data"
+	"hello-compsci/database/database"
 
 	"golang.org/x/crypto/bcrypt"
 )

@@ -19,16 +19,18 @@ EXPOSE 8079
 WORKDIR /go/src
 RUN apk add --update curl
 RUN rm -rf /var/cache/apk/*
-RUN mkdir hello-class
-RUN mkdir hello-class/frontend-server
-WORKDIR /go/src/hello-class/frontend-server
+RUN mkdir hello-compsci
+RUN mkdir hello-compsci/frontend-server
+WORKDIR /go/src/hello-compsci/frontend-server
 COPY . .
 RUN rm -rf client && mkdir client && mkdir client/build
 # copy the version that was compiled in the intermediate container
 COPY --from=0 /client/build ./client/build
 RUN go install
-WORKDIR /go/src/hello-class/frontend-server/client
-WORKDIR /go/src/hello-class/frontend-server
+WORKDIR /go/src/hello-compsci/frontend-server/client
+WORKDIR /go/src/hello-compsci/frontend-server
 RUN rm Dockerfile
 HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1
+COPY cert.pem .
+COPY key.pem .
 CMD frontend-server

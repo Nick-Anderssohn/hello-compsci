@@ -7,16 +7,16 @@ services:
     ports:
       - '8079:8079'
     networks:
-      - hello-class-network
+      - hello-compsci-network
     container_name: 'code-runner'
 
-  hello-class:
+  hello-compsci:
     build: 'frontend-server/.'
-    image: 'hello-class'
+    image: 'hello-compsci'
     ports:
       - '8080:8080'
     networks:
-      - hello-class-network
+      - hello-compsci-network
 
 networks:
-  hello-class-network:
+  hello-compsci-network:
