@@ -30,7 +30,8 @@ RUN go install
 WORKDIR /go/src/hello-compsci/frontend-server/client
 WORKDIR /go/src/hello-compsci/frontend-server
 RUN rm Dockerfile
-HEALTHCHECK CMD curl --fail http://localhost:8080/ || exit 1
+# commented out healthcheck because it appears to have issues with https
+# HEALTHCHECK CMD curl --fail https://localhost:8080/ || exit 1
 COPY cert.pem .
 COPY key.pem .
 CMD frontend-server

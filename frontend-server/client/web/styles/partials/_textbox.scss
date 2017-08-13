@@ -16,5 +16,7 @@
 .session-textbox {
   @extend .textbox;
   top: calc(50% - #{$textbox-height} - 10px);
-  left: calc(50% - #{$textbox-width} / 2);
+  // left: calc(50% - #{$textbox-width} / 2);
+  left: 50%;
+  transform: translateX(-50%);
 }
