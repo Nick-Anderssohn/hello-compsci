@@ -50,68 +50,69 @@ func (d *Database) Close() {
 // }
 
 // Test exists to test gorm
-// func Test() {
-// 	const addr = "postgresql://nick@localhost:26257/helloClass?sslmode=disable"
-// 	db, err := gorm.Open("postgres", addr)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	defer db.Close()
+func Test() {
 
-// 	testClass := data.Class{
-// 		ClassName: "Test Class",
-// 		Email:     "test@test.com",
-// 		Password:  []byte("test"),
-// 		Problems: []data.Problem{
-// 			data.Problem{
-// 				Title:  "Test Problem",
-// 				Prompt: "Test Prompt",
-// 				Settings: []data.Setting{{
-// 					Name:       "Test Setting",
-// 					IsSelected: true,
-// 				},
-// 				},
-// 				Submissions: []data.Submission{
-// 					data.Submission{
-// 						StudentName: "Test Name",
-// 						AnswerText:  "Test answer text",
-// 						Graded:      true,
-// 						Correct:     false,
-// 					},
-// 				},
-// 			},
-// 			data.Problem{
-// 				Title:  "22222222",
-// 				Prompt: "Test Prompt",
-// 				Settings: []data.Setting{{
-// 					Name:       "Test Setting",
-// 					IsSelected: true,
-// 				},
-// 				},
-// 				Submissions: []data.Submission{
-// 					data.Submission{
-// 						StudentName: "Test Name",
-// 						AnswerText:  "Test answer text",
-// 						Graded:      true,
-// 						Correct:     false,
-// 					},
-// 				},
-// 			},
-// 		},
-// 	}
+	// const addr = "postgresql://nick@localhost:26257/helloClass?sslmode=disable"
+	// db, err := gorm.Open("postgres", addr)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer db.Close()
 
-// 	db.AutoMigrate(&data.Class{}, &data.Problem{}, &data.Setting{}, &data.Submission{})
+	// testClass := data.Class{
+	// 	ClassName: "Test Class",
+	// 	Email:     "test@test.com",
+	// 	Password:  []byte("test"),
+	// 	Problems: []data.Problem{
+	// 		data.Problem{
+	// 			Title:  "Test Problem",
+	// 			Prompt: "Test Prompt",
+	// 			Settings: []data.Setting{{
+	// 				Name:       "Test Setting",
+	// 				IsSelected: true,
+	// 			},
+	// 			},
+	// 			Submissions: []data.Submission{
+	// 				data.Submission{
+	// 					StudentName: "Test Name",
+	// 					AnswerText:  "Test answer text",
+	// 					Graded:      true,
+	// 					Correct:     false,
+	// 				},
+	// 			},
+	// 		},
+	// 		data.Problem{
+	// 			Title:  "22222222",
+	// 			Prompt: "Test Prompt",
+	// 			Settings: []data.Setting{{
+	// 				Name:       "Test Setting",
+	// 				IsSelected: true,
+	// 			},
+	// 			},
+	// 			Submissions: []data.Submission{
+	// 				data.Submission{
+	// 					StudentName: "Test Name",
+	// 					AnswerText:  "Test answer text",
+	// 					Graded:      true,
+	// 					Correct:     false,
+	// 				},
+	// 			},
+	// 		},
+	// 	},
+	// }
 
-// 	db.Create(&testClass) // insert a row for this class
-// 	var foundTextClass data.Class
+	// db.AutoMigrate(&data.Class{}, &data.Problem{}, &data.Setting{}, &data.Submission{})
 
-// 	db.Debug().First(&foundTextClass, "class_name = ?", "Test Class")
-// 	db.Debug().Model(&foundTextClass).Related(&foundTextClass.Problems)
+	// db.Create(&testClass) // insert a row for this class
+	// var foundTextClass data.Class
 
-// 	for i := range foundTextClass.Problems {
-// 		db.Debug().Model(&foundTextClass.Problems[i]).Related(&foundTextClass.Problems[i].Settings)
-// 		db.Debug().Model(&foundTextClass.Problems[i]).Related(&foundTextClass.Problems[i].Submissions)
-// 	}
+	// db.Debug().First(&foundTextClass, "class_name = ?", "Test Class")
+	// db.Debug().Model(&foundTextClass).Related(&foundTextClass.Problems)
 
-// 	fmt.Printf("%+v\n", foundTextClass)
-// }
+	// for i := range foundTextClass.Problems {
+	// 	db.Debug().Model(&foundTextClass.Problems[i]).Related(&foundTextClass.Problems[i].Settings)
+	// 	db.Debug().Model(&foundTextClass.Problems[i]).Related(&foundTextClass.Problems[i].Submissions)
+	// }
+
+	// fmt.Printf("%+v\n", foundTextClass)
+}
