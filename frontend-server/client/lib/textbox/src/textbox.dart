@@ -1,16 +1,18 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 import 'dart:html';
+import 'dart:async';
 import '../../button/button.dart';
 
 class TextBox extends ClickWrapper {
     InputElement inputTarget;
     String defaultText;
+    StreamSubscription blurSubscription;
 
     TextBox(this.inputTarget, {this.defaultText = ""}) : super(inputTarget) {
       inputTarget.value = defaultText;
       onClick(_clearIfTextIsDefault);
-      onBlur(_restoreDefaultTextIfBoxIsEmpty);
+      blurSubscription = onBlur(_restoreDefaultTextIfBoxIsEmpty);
     }
 
     _clearIfTextIsDefault(var e) {

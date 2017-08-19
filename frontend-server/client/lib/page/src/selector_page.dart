@@ -13,10 +13,12 @@ class SelectorPage extends Page {
   SimpleStreamRouter _createBackArrowRouter;
   StandardBtn _selectCreatePageBtn;
   StandardBtn _selectJoinPageBtn;
-  StandardBtn _joinSessionBtn;
-  TextBox _joinSessionTextbox;
-  StandardBtn _createSessionBtn;
-  TextBox _createSessionTextbox;
+  StandardBtn _joinClassBtn;
+  StandardBtn _createClassBtn;
+  TextBox _joinClassTextbox;
+  PasswordBox _joinClassPasswordTextbox;
+  TextBox _createClassTextbox;
+  PasswordBox _createPasswordTextbox;
   DivElement _createPage;
   DivElement _joinPage;
   DivElement _selectPage;
@@ -45,10 +47,12 @@ class SelectorPage extends Page {
     _curPage = _selectPage = querySelector('#select-page');
     _selectCreatePageBtn = new StandardBtn(querySelector('#select-create-page-btn'));
     _selectJoinPageBtn = new StandardBtn(querySelector('#select-join-page-btn'));
-    _joinSessionBtn = new StandardBtn(querySelector('#join-session-btn'));
-    _joinSessionTextbox = new TextBox(querySelector('#join-session-textbox'), defaultText: 'Session Name');
-    _createSessionBtn = new StandardBtn(querySelector('#create-session-btn'));
-    _createSessionTextbox = new TextBox(querySelector('#create-session-textbox'), defaultText: 'Session Name');
+    _joinClassBtn = new StandardBtn(querySelector('#join-class-btn'));
+    _joinClassTextbox = new TextBox(querySelector('#join-class-textbox'), defaultText: 'Class Name');
+    _joinClassPasswordTextbox = new PasswordBox(querySelector('#join-class-password-textbox'), defaultText: 'Password (Leave empty if student)');
+    _createClassBtn = new StandardBtn(querySelector('#create-class-btn'));
+    _createClassTextbox = new TextBox(querySelector('#create-class-textbox'), defaultText: 'Class Name');
+    _createPasswordTextbox = new PasswordBox(querySelector('#create-password-textbox'), defaultText: 'Password');
     _joinBackArrowRouter = new SimpleStreamRouter(querySelector('#join-back-arrow').onClick);
     _createBackArrowRouter = new SimpleStreamRouter(querySelector('#create-back-arrow').onClick);
   }

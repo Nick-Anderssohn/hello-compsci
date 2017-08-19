@@ -13,10 +13,14 @@
   }
 }
 
-.session-textbox {
+.password-textbox {
   @extend .textbox;
-  top: calc(50% - #{$textbox-height} - 10px);
-  // left: calc(50% - #{$textbox-width} / 2);
+  top: calc(50% - #{$textbox-height} - 5px);
   left: 50%;
   transform: translateX(-50%);
+}
+
+.join-class-textbox {
+  @extend .password-textbox;
+  top: calc(50% - #{$textbox-height} * 2 - 20px);
 }

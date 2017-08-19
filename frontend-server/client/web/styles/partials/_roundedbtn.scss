@@ -8,7 +8,6 @@
   border-width: 3px;
   text-align: center;
   font-family: $main-font-family;
-  // color: $darkslategray-font;
   &:hover {
     background-color: $silver-snow;
     cursor: pointer;
@@ -31,10 +30,12 @@
   top: calc(50% - #{$rounded-btn-line-height} / 2);
 }
 
-.session-btn {
+.login-btn {
   @extend .rounded-btn;
-  position: absolute;
+  position: relative;
   width: $create-session-btn-width;
   top: calc(50% + #{$rounded-btn-line-height} / 2 + 10px);
-  left: calc(50% - #{$create-session-btn-width} / 2 )
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
 }
