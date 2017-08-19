@@ -26,12 +26,13 @@ COPY . .
 RUN rm -rf client && mkdir client && mkdir client/build
 # copy the version that was compiled in the intermediate container
 COPY --from=0 /client/build ./client/build
+# RUN apk update && apk upgrade && apk add git
+# RUN go get "golang.org/x/crypto/acme/autocert"
 RUN go install
 WORKDIR /go/src/hello-compsci/frontend-server/client
 WORKDIR /go/src/hello-compsci/frontend-server
 RUN rm Dockerfile
 # commented out healthcheck because it appears to have issues with https
 # HEALTHCHECK CMD curl --fail https://localhost:8080/ || exit 1
-COPY cert.pem .
-COPY key.pem .
+COPY selfgen .
 CMD frontend-server

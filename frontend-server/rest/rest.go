@@ -24,11 +24,24 @@ type Server struct {
 	Port      string
 }
 
+// var certManager autocert.Manager
+
+// func init() {
+// 	certManager = autocert.Manager{
+// 		Prompt:     autocert.AcceptTOS,
+// 		HostPolicy: autocert.HostWhitelist("localhost"), //your domain here
+// 		Cache:      autocert.DirCache("certs"),          //folder for storing certificates
+// 	}
+// }
+
 // NewServer returns a new server with the endpoints setup to be handled
 func NewServer(ctx context.Context, endpoints []*Endpoint, address string, port string) *Server {
 	server := &Server{
 		server: &http.Server{
 			Addr: address + ":" + port,
+			// TLSConfig: &tls.Config{
+			// 	GetCertificate: certManager.GetCertificate,
+			// },
 		},
 		Endpoints: endpoints,
 		Address:   address,
@@ -45,7 +58,8 @@ func NewServer(ctx context.Context, endpoints []*Endpoint, address string, port 
 // Run runs the server on address:port
 func (s *Server) Run() error {
 	// return s.server.ListenAndServe()
-	return s.server.ListenAndServeTLS("cert.pem", "key.pem")
+	return s.server.ListenAndServeTLS("selfgen/cert.pem", "selfgen/key.pem")
+	// return s.server.ListenAndServeTLS("", "")
 }
 
 // ShutDown attempts to gracefully shutdown within 5 seconds
