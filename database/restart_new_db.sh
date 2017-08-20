@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker stop classroach
-docker rm classroach
+docker stop hcroach
+docker rm hcroach
 ./create_new_db.sh
 ./run_database_container.sh

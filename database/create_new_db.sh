@@ -17,11 +17,11 @@ sleep 2
 echo "creating user nick"
 docker exec -it build-roach /bin/sh -c "/cockroach/cockroach user set nick --insecure"
 
-echo "creating database helloClass"
-docker exec -it build-roach /bin/sh -c "/cockroach/cockroach sql --insecure -e 'CREATE DATABASE helloClass'"
+echo "creating database helloCompSci"
+docker exec -it build-roach /bin/sh -c "/cockroach/cockroach sql --insecure -e 'CREATE DATABASE helloCompSci'"
 
-echo "granting user nick access to database helloClass"
-docker exec -it build-roach /bin/sh -c "/cockroach/cockroach sql --insecure -e 'GRANT ALL ON DATABASE helloClass TO nick'"
+echo "granting user nick access to database helloCompSci"
+docker exec -it build-roach /bin/sh -c "/cockroach/cockroach sql --insecure -e 'GRANT ALL ON DATABASE helloCompSci TO nick'"
 
 echo "stopping cockroach container"
 docker stop build-roach

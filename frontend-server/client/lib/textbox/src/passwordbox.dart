@@ -9,7 +9,7 @@ class PasswordBox extends TextBox {
   final String typePassword = "password";
   PasswordBox(InputElement inputTarget, {String defaultText = ""}) : super(inputTarget, defaultText: defaultText) {
     onKeyDown(_changeToPasswordType);
-    cancelBlurSub(blurSubscription);
+    cancelBlurSub(blurSubscription); // cancel the parents blur handler which simply changes the text back to the default text
     blurSubscription = onBlur(_changeToTypeTextIfEmpty);
   }
 

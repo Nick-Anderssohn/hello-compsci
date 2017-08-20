@@ -29,7 +29,7 @@ func NewServer(logger *log.Logger, port int) *Server {
 	return newServer
 }
 
-// BuildRun starts the server on 0.0.0.0
+// Run starts the server on 0.0.0.0
 func (cs *Server) Run() {
 	http.HandleFunc("/", cs.handler)
 	http.HandleFunc("/healthcheck", HealthCheck)
@@ -44,7 +44,6 @@ func (cs *Server) handler(w http.ResponseWriter, req *http.Request) {
 	if req.Method == "OPTIONS" {
 		cs.handleOptions(w, req)
 	} else if req.Method == "POST" {
-		//cs.handleCodeReq(w, req)
 		reqInfo := requestqueue.ReqIO{w, req}
 		cs.reqQueue.ProcessRequest(&reqInfo)
 	} else {

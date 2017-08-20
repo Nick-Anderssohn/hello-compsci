@@ -54,27 +54,28 @@ import (
 
 func main() {
 	// ********** Testing ***************
-	classDB := cdb.NewClassDatabase()
-	classDB.Start()
-	defer classDB.Close()
-	fmt.Println("adding new class...")
-	session, err := classDB.AddNewClass("Gopher class", "test@test.com", "test")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	var foundClass data.Class
-	if classDB.ClassExists("Gopher class") {
-		foundClass.PopulateFromDB(&classDB.Database, "Gopher class")
-		fmt.Printf("%+v\n", foundClass)
-		if err = bcrypt.CompareHashAndPassword(foundClass.Password, []byte("test")); err != nil {
-			fmt.Println("passwords do not match!")
-		} else {
-			fmt.Println("passwords match!")
-		}
-	} else {
-		fmt.Println("could not find class")
-	}
-	// **********************************
-	foundSession := classDB.GetSession(session.SessionID)
-	fmt.Printf("foundSession: %+v\n", foundSession)
-}
+// 	classDB := cdb.NewClassDatabase()
+// 	classDB.Start()
+// 	defer classDB.Close()
+// 	fmt.Println("adding new class...")
+// 	session, err := classDB.AddNewClass("Gopher class", "test@test.com", "test")
+// 	if err != nil {
+// 		fmt.Println(err.Error())
+// 	}
+// 	var foundClass data.Class
+// 	if classDB.ClassExists("Gopher class") {
+// 		foundClass.PopulateFromDB(&classDB.Database, "Gopher class")
+// 		fmt.Printf("%+v\n", foundClass)
+// 		if err = bcrypt.CompareHashAndPassword(foundClass.Password, []byte("test")); err != nil {
+// 			fmt.Println("passwords do not match!")
+// 		} else {
+// 			fmt.Println("passwords match!")
+// 		}
+// 	} else {
+// 		fmt.Println("could not find class")
+// 	}
+// 	// **********************************
+// 	foundSession := classDB.GetSession(session.SessionGUID)
+// 	foundSession.PopulateRelatedFields(&classDB.Database)
+// 	fmt.Printf("foundSession: %+v\n", foundSession)
+// }

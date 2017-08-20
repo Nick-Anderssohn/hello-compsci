@@ -18,14 +18,14 @@ type ClassDatabase struct {
 // NewClassDatabase returns a new ClassDatabase
 func NewClassDatabase() *ClassDatabase {
 	return &ClassDatabase{
-		Database: *database.NewDatabase("postgresql://nick@localhost:26257/helloClass?sslmode=disable"),
+		Database: *database.NewDatabase("postgresql://nick@localhost:26257/helloCompSci?sslmode=disable"),
 	}
 }
 
 // Start opens the database and automigrates the class struct, problem struct, settings struct, and submissions struct
 func (classDB *ClassDatabase) Start() {
 	classDB.Open()
-	classDB.DB.AutoMigrate(&data.Session{}, &data.Class{}, &data.Problem{}, &data.Setting{}, &data.Submission{})
+	classDB.DB.AutoMigrate(&data.Session{}, &data.Class{}, &data.Problem{}, &data.Setting{}, &data.Submission{}, &data.ClassNameStorage{})
 }
 
 // ClassExists returns true if there is already a class in the database with className
@@ -36,18 +36,17 @@ func (classDB *ClassDatabase) ClassExists(className string) bool {
 
 // AddNewClass will create a new row in the database for a class with information specified by the arguments.
 // The password will be hashed via bcrypt before storing in the database
-// This will also create a new session and return it
-func (classDB *ClassDatabase) AddNewClass(className, email, password string) (*data.Session, error) {
+func (classDB *ClassDatabase) AddNewClass(className, email, password string) error {
 	// Make sure the class does not already exist
 	if classDB.ClassExists(className) {
-		return nil, fmt.Errorf("error: class %s already exists", className)
+		return fmt.Errorf("error: class %s already exists", className)
 	}
 
 	// Use bcrypt to create a hash of the password
 	// Automatically creates a good salt for you!
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	// Create a new class
@@ -59,9 +58,7 @@ func (classDB *ClassDatabase) AddNewClass(className, email, password string) (*d
 
 	classDB.DB.Create(&newClass)
 
-	newSession := classDB.CreateNewSessionInDB(className)
-
-	return newSession, nil
+	return nil
 }
 
 // CreateNewSessionInDB creates a session and ensure there is not already a session with the same ID.
@@ -69,7 +66,7 @@ func (classDB *ClassDatabase) AddNewClass(className, email, password string) (*d
 func (classDB *ClassDatabase) CreateNewSessionInDB(className string) *data.Session {
 	// Create a session and ensure there is not already a session with the same ID
 	newSession := data.NewSession(className)
-	for ; classDB.SessionExists(newSession.SessionID); newSession = data.NewSession(className) {
+	for ; classDB.SessionExists(newSession.SessionGUID); newSession = data.NewSession(className) {
 	}
 
 	classDB.DB.Create(newSession)
@@ -77,10 +74,11 @@ func (classDB *ClassDatabase) CreateNewSessionInDB(className string) *data.Sessi
 }
 
 // GetSession returns returns the session that corresponds to sessionID or nil if it is not found
-func (classDB *ClassDatabase) GetSession(sessionID string) *data.Session {
+func (classDB *ClassDatabase) GetSession(sessionGUID string) *data.Session {
 	var destinationSession data.Session
-	classDB.DB.First(&destinationSession, "session_id = ?", sessionID)
-	if destinationSession.SessionID == sessionID {
+	classDB.DB.First(&destinationSession, "session_guid = ?", sessionGUID)
+	if destinationSession.SessionGUID == sessionGUID {
+		destinationSession.PopulateRelatedFields(&classDB.Database)
 		return &destinationSession
 	}
 	return nil
@@ -89,4 +87,9 @@ func (classDB *ClassDatabase) GetSession(sessionID string) *data.Session {
 // SessionExists returns true if their is a session in the database with the corresponding sessionID
 func (classDB *ClassDatabase) SessionExists(sessionID string) bool {
 	return classDB.GetSession(sessionID) != nil
+}
+
+// Save updates assumes obj is already in the database and updates it.
+func (classDB *ClassDatabase) Save(obj interface{}) {
+	classDB.DB.Save(obj)
 }
