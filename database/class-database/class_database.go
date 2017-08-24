@@ -18,13 +18,16 @@ type ClassDatabase struct {
 // NewClassDatabase returns a new ClassDatabase
 func NewClassDatabase() *ClassDatabase {
 	return &ClassDatabase{
-		Database: *database.NewDatabase("postgresql://nick@localhost:26257/helloCompSci?sslmode=disable"),
+		Database: *database.NewDatabase("postgresql://nick@hcroach:26257/helloCompSci?sslmode=disable"),
 	}
 }
 
 // Start opens the database and automigrates the class struct, problem struct, settings struct, and submissions struct
 func (classDB *ClassDatabase) Start() {
-	classDB.Open()
+	if err := classDB.Open(); err != nil {
+		fmt.Println("classDB Start(): ", err.Error())
+		return
+	}
 	classDB.DB.AutoMigrate(&data.Session{}, &data.Class{}, &data.Problem{}, &data.Setting{}, &data.Submission{}, &data.ClassNameStorage{})
 }
 

@@ -4,21 +4,25 @@ package cdb // stands for class database
 import (
 	"hello-compsci/database/data"
 	"net/http"
+	"strconv"
 )
 
 // Server offers a REST API for accessing a class database
 type Server struct {
 	classDB *ClassDatabase
+	port    int
 }
 
 // NewServer creates a server with along with a fresh ClassDatabse
-func NewServer() *Server {
-	return &Server{NewClassDatabase()}
+func NewServer(port int) *Server {
+	return &Server{classDB: NewClassDatabase(), port: port}
 }
 
 // Run opens a connection to the database and starts the server for the REST api
 func (s *Server) Run() {
 	s.classDB.Start()
+	http.HandleFunc("/createclass", s.createNewClassHandler)
+	http.ListenAndServe(":"+strconv.Itoa(s.port), nil)
 }
 
 func (s *Server) createNewClassHandler(w http.ResponseWriter, req *http.Request) {

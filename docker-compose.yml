@@ -7,7 +7,9 @@ services:
     ports:
       - '8079:8079'
     networks:
-      - hello-compsci-network
+      hello-compsci-network:
+        aliases:
+          - code-runner
     container_name: 'code-runner'
 
   hello-compsci:
@@ -16,7 +18,20 @@ services:
     ports:
       - '8080:8080'
     networks:
-      - hello-compsci-network
+      hello-compsci-network:
+  
+  hc-database:
+    build: 'database/.'
+    image: 'hc-database'
+    ports:
+      - '8078:8078'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - hc-database
+    container_name: 'hc-database'
 
 networks:
   hello-compsci-network:
+  roachnet:
+    external: true

@@ -3,6 +3,7 @@
 import 'page.dart';
 import '../../button/button.dart';
 import '../../textbox/textbox.dart';
+import 'create_comm_handler.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:simple_streams/simple_streams.dart';
@@ -19,6 +20,7 @@ class SelectorPage extends Page {
   PasswordBox _joinClassPasswordTextbox;
   TextBox _createClassTextbox;
   PasswordBox _createPasswordTextbox;
+  CreateCommHandler _createCommHandler;
   DivElement _createPage;
   DivElement _joinPage;
   DivElement _selectPage;
@@ -63,6 +65,7 @@ class SelectorPage extends Page {
 
   _setupCreatePage() {
     _selectCreatePageBtn.onClick(_selectCreatePageBtnClick);
+    _createCommHandler = new CreateCommHandler(_createClassBtn, _createClassTextbox, _createPasswordTextbox, '/');
   }
 
   _selectJoinPageBtnClick(var e) {

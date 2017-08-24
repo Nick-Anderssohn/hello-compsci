@@ -11,6 +11,7 @@ dependencies:
   image: any
   simple_streams: any
   codemirror: any
+  cookie: "0.0.4"
 transformers:
 - $dart2js:
     minify: true
