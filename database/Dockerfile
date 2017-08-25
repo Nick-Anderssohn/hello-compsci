@@ -12,6 +12,7 @@ RUN go get "github.com/jinzhu/gorm"
 RUN go get "golang.org/x/crypto/bcrypt"
 RUN go get "github.com/lib/pq"
 RUN go get "github.com/lib/pq/hstore"
+RUN go get "github.com/golang/protobuf/proto"
 RUN CGO_ENABLED=0 go build -o hcdatabase
 
 # Final container to run service

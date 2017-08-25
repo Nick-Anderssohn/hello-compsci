@@ -12,6 +12,7 @@ dependencies:
   simple_streams: any
   codemirror: any
   cookie: "0.0.4"
+  protobuf: "^0.5.5"
 transformers:
 - $dart2js:
     minify: true

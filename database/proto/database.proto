@@ -1,0 +1,14 @@
+syntax = "proto3";
+package pb;
+
+message NewClassReq {
+    string className = 1;
+    string email = 2;
+    string password = 3;
+    string sessionGUID = 4;
+}
+
+message SessionResp {
+    string sessionGUID = 1;
+    bool success = 2;
+}

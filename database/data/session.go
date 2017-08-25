@@ -38,3 +38,8 @@ func NewSession(existingClassName string) *Session {
 func (s *Session) PopulateRelatedFields(db *database.Database) {
 	db.DB.Model(s).Related(&s.ClassNames)
 }
+
+// AppendClassName adds another class name to the session. It does not save to the database.
+func (s *Session) AppendClassName(className string) {
+	s.ClassNames = append(s.ClassNames, ClassNameStorage{ClassName: className})
+}

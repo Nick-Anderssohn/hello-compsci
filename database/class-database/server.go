@@ -2,10 +2,17 @@
 
 package cdb // stands for class database
 import (
+	"fmt"
 	"hello-compsci/database/data"
+	"hello-compsci/database/pb"
+	"io/ioutil"
 	"net/http"
 	"strconv"
+
+	"github.com/golang/protobuf/proto"
 )
+
+const commandKey = "Command"
 
 // Server offers a REST API for accessing a class database
 type Server struct {
@@ -21,11 +28,11 @@ func NewServer(port int) *Server {
 // Run opens a connection to the database and starts the server for the REST api
 func (s *Server) Run() {
 	s.classDB.Start()
-	http.HandleFunc("/createclass", s.createNewClassHandler)
+	http.HandleFunc("/", s.handleCommand)
 	http.ListenAndServe(":"+strconv.Itoa(s.port), nil)
 }
 
-func (s *Server) createNewClassHandler(w http.ResponseWriter, req *http.Request) {
+func (s *Server) handleCommand(w http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 	s.formCreateClassResponseHeader(w, req)
 	// browsers will first send a request of type OPTIONS to verify that they are okay to send
@@ -34,18 +41,17 @@ func (s *Server) createNewClassHandler(w http.ResponseWriter, req *http.Request)
 		// TODO: potentially should check if req will be malformed
 		w.WriteHeader(http.StatusOK)
 	} else if req.Method == "POST" {
-		s.createNewClass(w, req)
+		switch req.Header.Get(commandKey) {
+		case "CreateClass":
+			s.createNewClass(w, req)
+		}
 	}
 }
 
 func (s *Server) formCreateClassResponseHeader(w http.ResponseWriter, req *http.Request) {
 	w.Header().Add("Access-Control-Allow-Origin", req.Header.Get("Origin"))
 	w.Header().Add("Access-Control-Allow-Methods", "POST")
-	w.Header().Add("Access-Control-Allow-Headers", "ClassName")
-	w.Header().Add("Access-Control-Allow-Headers", "Email")
-	w.Header().Add("Access-Control-Allow-Headers", "Password")
-	w.Header().Add("Access-Control-Allow-Headers", "CreateSuccess")
-	w.Header().Add("Access-Control-Allow-Headers", "SessionGUID")
+	w.Header().Add("Access-Control-Allow-Headers", commandKey)
 }
 
 // createNewClass creates a new class if it doesn't exist.
@@ -53,39 +59,63 @@ func (s *Server) formCreateClassResponseHeader(w http.ResponseWriter, req *http.
 // The response also contains a session guid if it was successful when creating the class.
 func (s *Server) createNewClass(w http.ResponseWriter, req *http.Request) {
 	// Prepare the response by setting the header
-	s.formCreateClassResponseHeader(w, req)
+	sessionResp := &pb.SessionResp{}
 
-	// Get values from header
-	className := req.Header["ClassName"][0]
-	email := req.Header["Email"][0]
-	password := req.Header["Password"][0]
+	// get the NewClassReq struct
+	classInfo := &pb.NewClassReq{}
+	rawData, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	if err = proto.Unmarshal(rawData, classInfo); err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+
+	fmt.Printf("Class Info received:\n%+v\n", classInfo)
 
 	// Check if class already exists
-	if s.classDB.ClassExists(className) {
-		w.Header().Add("CreateSuccess", "false")
-		w.Write(nil)
+	if s.classDB.ClassExists(classInfo.ClassName) {
+		fmt.Println("class already exists")
+		sendPB(sessionResp, w)
 		return
 	}
 
 	// Create new class
-	s.classDB.AddNewClass(className, email, password)
+	if err = s.classDB.AddNewClass(classInfo.ClassName, classInfo.Email, classInfo.Password); err != nil {
+		fmt.Println(err.Error())
+		sendPB(sessionResp, w)
+		return
+	}
 
-	// Add the class to a session
+	// Add the class to a session and prepare response
 	var session *data.Session
 
 	// Grab existing session if req has one
-	if sessionGUIDSlice, found := req.Header["SessionGUID"]; found && len(sessionGUIDSlice) > 0 {
-		session = s.classDB.GetSession(sessionGUIDSlice[0])
+	if sessionGUID := classInfo.SessionGUID; sessionGUID != "" {
+		session = s.classDB.GetSession(sessionGUID)
+		session.AppendClassName(classInfo.ClassName)
 	}
 
 	// session is nil if no existing one was found
 	if session == nil {
-		session = s.classDB.CreateNewSessionInDB(className)
+		session = s.classDB.CreateNewSessionInDB(classInfo.ClassName)
 	} else {
 		s.classDB.Save(session)
 	}
 
-	w.Header().Add("CreateSuccess", "true")
-	w.Header().Add("SessionGUID", session.SessionGUID)
-	w.WriteHeader(http.StatusOK)
+	sessionResp.Success = true
+	sessionResp.SessionGUID = session.SessionGUID
+	fmt.Printf("Send sessionResp:\n%+v\n", sessionResp)
+	sendPB(sessionResp, w)
+}
+
+func sendPB(protoStruct proto.Message, w http.ResponseWriter) {
+	marshalledResp, err := proto.Marshal(protoStruct)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	w.Write(marshalledResp)
 }

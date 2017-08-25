@@ -9,7 +9,7 @@ echo "starting cockroach container"
 docker run -d \
 --name=build-roach \
 -v ${PWD}/cockroach-data:/cockroach/cockroach-data  \
-cockroachdb/cockroach:v1.0.4 start --insecure
+cockroachdb/cockroach:v1.0.5 start --insecure
 
 echo 'wait 2 seconds for container to start completely'
 sleep 2

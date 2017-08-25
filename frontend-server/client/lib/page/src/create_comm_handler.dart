@@ -1,10 +1,12 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 import 'dart:html';
+import 'dart:typed_data';
 import 'package:cookie/cookie.dart' as cookie;
 import '../../button/button.dart';
 import '../../textbox/textbox.dart';
 import '../../connector/connector.dart';
+import '../../pb/database.pb.dart';
 
 class CreateCommHandler {
   TextBox _classBox;
@@ -13,24 +15,31 @@ class CreateCommHandler {
   String _curEndpoint;
   Connector _connector = new Connector();
   final String sessionGUIDKey = 'SessionGUID';
-  final String successKey = 'CreateSuccess';
-
 
   CreateCommHandler(this._createClassBtn, this._classBox, this._passwordBox, this._curEndpoint) {
     _createClassBtn.onClick(_createClass);
   }
 
   _createClass(StandardBtn createBTN) {
-    _connector.sendCreateClassReq(_classBox.value, '', _passwordBox.value, _curEndpoint).then((HttpRequest response) {
-      String createSuccess = response.responseHeaders[successKey];
-
-      if (createSuccess == 'true') {
-        _setCookie(response.responseHeaders[sessionGUIDKey]);
+    _connector.sendCreateClassReq(_classBox.value, '', _passwordBox.value, _curEndpoint).then((HttpRequest req) {
+      print("handling response");
+      var sessionResp;
+      try {
+        List<int> bytes = new Uint8List.view(req.response);
+        // print("bytes: $bytes");
+        sessionResp = new SessionResp.fromBuffer(bytes);
+      } catch (e) {
+        print(e);
+      }
+      if (sessionResp.success) {
+        print('guid: ${sessionResp.sessionGUID}');
+        _setCookie(sessionResp.sessionGUID);
         print('great success');
         // TODO: load educator home
       } else {
-
+        print("fail");
       }
+      
     }).catchError((var e) => window.alert('There was an error while creating the class.'));
   }
 
@@ -41,5 +50,5 @@ class CreateCommHandler {
       cookie.remove(sessionGUIDKey, path: '/');
     
     cookie.set(sessionGUIDKey, responseSessionGUID, domain: 'hellocompsci.com', path: '/');
-  }
+}
 }

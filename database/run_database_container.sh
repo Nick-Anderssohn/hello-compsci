@@ -10,5 +10,6 @@ docker run -d \
 --name hcroach \
 --hostname hcroach \
 --net roachnet \
+-p 8000:8080 \
 -v "${PWD}/cockroach-data:/cockroach/cockroach-data"  \
-cockroachdb/cockroach:v1.0.4 start --insecure
+cockroachdb/cockroach:v1.0.5 start --insecure

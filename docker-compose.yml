@@ -29,6 +29,7 @@ services:
       hello-compsci-network:
         aliases:
           - hc-database
+      roachnet:
     container_name: 'hc-database'
 
 networks:

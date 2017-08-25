@@ -2,6 +2,7 @@
 
 import 'dart:html';
 import '../../strconv/strconv.dart';
+import '../../pb/database.pb.dart';
 
 class Connector {
   /// Sends the [filename] and [code].
@@ -18,10 +19,13 @@ class Connector {
   /// guid will be the same as the current one if it already exists.
   sendCreateClassReq(String className, String email, String password, String curEndpoint) {
     var createClassURL = StrConv.getNewURL(window.location.href, curEndpoint, "/createclass");
+    var newClassReq = new NewClassReq();
+    newClassReq
+      ..className = className
+      ..email = email
+      ..password = password;
     return HttpRequest.request(createClassURL, method: 'POST', requestHeaders: {
-      "ClassName": className,
-      "Email": email,
-      "Password": password
-    });
+      "Command": "CreateClass"
+    }, sendData: newClassReq.writeToBuffer(), responseType: 'arraybuffer');
   }
 }
