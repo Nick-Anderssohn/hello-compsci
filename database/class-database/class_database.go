@@ -54,9 +54,10 @@ func (classDB *ClassDatabase) AddNewClass(className, email, password string) err
 
 	// Create a new class
 	newClass := data.Class{
-		ClassName: className,
-		Email:     email,
-		Password:  hashedPassword,
+		ClassName:           className,
+		Email:               email,
+		Password:            hashedPassword,
+		CurrentProblemIndex: -1,
 	}
 
 	classDB.DB.Create(&newClass)

@@ -4,6 +4,7 @@ package data
 
 import (
 	"hello-compsci/database/database"
+	"hello-compsci/database/pb"
 
 	"github.com/jinzhu/gorm"
 )
@@ -30,4 +31,34 @@ type Problem struct {
 func (p *Problem) PopulateRelatedFields(db *database.Database) {
 	db.DB.Model(p).Related(&p.Settings)
 	db.DB.Model(p).Related(&p.Submissions)
+}
+
+func (p *Problem) ToPBStruct() *pb.Problem {
+	pbProblem := &pb.Problem{
+		Id:          uint64(p.ID),
+		Title:       p.Title,
+		Prompt:      p.Prompt,
+		Success:     true,
+		Submissions: make([]*pb.Submission, 0, len(p.Submissions)),
+		Settings:    make([]*pb.Setting, 0, len(p.Settings)),
+	}
+	//submissions
+	for _, sub := range p.Submissions {
+		pbProblem.Submissions = append(pbProblem.Submissions, sub.ToPBStruct())
+	}
+
+	//settings
+	for _, setting := range p.Settings {
+		pbProblem.Settings = append(pbProblem.Settings, setting.ToPBStruct())
+	}
+	return pbProblem
+}
+
+func (s *Setting) ToPBStruct() *pb.Setting {
+	return &pb.Setting{
+		Name:       s.Name,
+		IsSelected: s.IsSelected,
+		Success:    true,
+		Id:         uint64(s.ID),
+	}
 }

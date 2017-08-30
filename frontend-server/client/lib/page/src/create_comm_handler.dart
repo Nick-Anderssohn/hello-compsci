@@ -53,6 +53,5 @@ class CreateCommHandler {
     // NOTE: If we specify domain, we must add that to remove func as well
     // cookie.set(sessionGUIDKey, responseSessionGUID, domain: 'hellocompsci.com', path: '/');
     cookie.set(sessionGUIDKey, responseSessionGUID, path: '/', secure: true);
-
   }
 }

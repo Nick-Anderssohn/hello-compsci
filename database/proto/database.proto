@@ -1,3 +1,5 @@
+// Copyright (C) 2017  Nicholas Anderssohn
+
 syntax = "proto3";
 package pb;
 
@@ -12,4 +14,46 @@ message SessionResp {
     string sessionGUID = 1;
     bool success = 2;
     string message = 3;
+}
+
+message Submission {
+    string studentName = 1;
+    string answerText = 2;
+    bool graded = 3;
+    bool correct = 4;
+    bool success = 5;
+    string message = 6;
+    uint64 id = 7;
+}
+
+message Setting {
+    string name = 1;
+    bool isSelected = 2;
+    bool success = 3;
+    string message = 4;
+    uint64 id = 5;
+}
+
+message Problem {
+    uint64 id = 1;
+    string title = 2;
+    string prompt = 3;
+    repeated Submission submissions = 4;
+    repeated Setting settings = 5;
+    bool success = 6;
+    string message = 7;
+}
+
+message EducatorHomeData {
+    string className = 1;
+    repeated string problemTitles = 2;
+    repeated uint64 problemIDs = 3;
+    Problem currentProblem = 4;
+    bool success = 5;
+    string message = 6;
+}
+
+message EducatorHomeDataRequest {
+    string className = 1;
+    string sessionGUID = 2;
 }

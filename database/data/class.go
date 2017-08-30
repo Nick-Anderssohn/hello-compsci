@@ -11,10 +11,11 @@ import (
 // Class contains information related to a class.
 type Class struct {
 	gorm.Model
-	ClassName string `gorm:"primary_key"`
-	Email     string
-	Password  []byte // use bcrypt
-	Problems  []Problem
+	ClassName           string `gorm:"primary_key"`
+	Email               string
+	Password            []byte // use bcrypt
+	Problems            []Problem
+	CurrentProblemIndex int
 }
 
 // PopulateFromDB accepts a database and className. It tries to populate this struct by grabbing the data from

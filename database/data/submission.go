@@ -3,6 +3,8 @@
 package data
 
 import (
+	"hello-compsci/database/pb"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -14,4 +16,15 @@ type Submission struct {
 	Graded      bool
 	Correct     bool
 	ProblemID   int
+}
+
+func (s *Submission) ToPBStruct() *pb.Submission {
+	return &pb.Submission{
+		StudentName: s.StudentName,
+		AnswerText:  s.AnswerText,
+		Graded:      s.Graded,
+		Correct:     s.Correct,
+		Success:     true,
+		Id:          uint64(s.ID),
+	}
 }
