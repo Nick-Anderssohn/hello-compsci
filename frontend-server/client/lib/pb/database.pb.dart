@@ -62,6 +62,7 @@ class SessionResp extends GeneratedMessage {
   static final BuilderInfo _i = new BuilderInfo('SessionResp')
     ..a<String>(1, 'sessionGUID', PbFieldType.OS)
     ..a<bool>(2, 'success', PbFieldType.OB)
+    ..a<String>(3, 'message', PbFieldType.OS)
     ..hasRequiredFields = false
   ;
 
@@ -90,6 +91,11 @@ class SessionResp extends GeneratedMessage {
   set success(bool v) { $_setBool(1, 2, v); }
   bool hasSuccess() => $_has(1, 2);
   void clearSuccess() => clearField(2);
+
+  String get message => $_get(2, 3, '');
+  set message(String v) { $_setString(2, 3, v); }
+  bool hasMessage() => $_has(2, 3);
+  void clearMessage() => clearField(3);
 }
 
 class _ReadonlySessionResp extends SessionResp with ReadonlyMessageMixin {}

@@ -37,7 +37,7 @@ class CreateCommHandler {
         print('great success');
         // TODO: load educator home
       } else {
-        print("fail");
+        window.alert(sessionResp.message);
       }
       
     }).catchError((var e) => window.alert('There was an error while creating the class.'));
@@ -45,10 +45,14 @@ class CreateCommHandler {
 
   _setCookie(String responseSessionGUID) {
     String existingSessionGUID = cookie.get(sessionGUIDKey);
+    print('Existing key: $existingSessionGUID');
 
     if (existingSessionGUID != null)
       cookie.remove(sessionGUIDKey, path: '/');
     
-    cookie.set(sessionGUIDKey, responseSessionGUID, domain: 'hellocompsci.com', path: '/');
+    // NOTE: If we specify domain, we must add that to remove func as well
+    // cookie.set(sessionGUIDKey, responseSessionGUID, domain: 'hellocompsci.com', path: '/');
+    cookie.set(sessionGUIDKey, responseSessionGUID, path: '/');
+
 }
 }

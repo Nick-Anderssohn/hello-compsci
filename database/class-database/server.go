@@ -78,6 +78,7 @@ func (s *Server) createNewClass(w http.ResponseWriter, req *http.Request) {
 	// Check if class already exists
 	if s.classDB.ClassExists(classInfo.ClassName) {
 		fmt.Println("class already exists")
+		sessionResp.Message = "Class already exists."
 		sendPB(sessionResp, w)
 		return
 	}
@@ -85,6 +86,7 @@ func (s *Server) createNewClass(w http.ResponseWriter, req *http.Request) {
 	// Create new class
 	if err = s.classDB.AddNewClass(classInfo.ClassName, classInfo.Email, classInfo.Password); err != nil {
 		fmt.Println(err.Error())
+		sessionResp.Message = "Database error."
 		sendPB(sessionResp, w)
 		return
 	}
@@ -107,7 +109,6 @@ func (s *Server) createNewClass(w http.ResponseWriter, req *http.Request) {
 
 	sessionResp.Success = true
 	sessionResp.SessionGUID = session.SessionGUID
-	fmt.Printf("Send sessionResp:\n%+v\n", sessionResp)
 	sendPB(sessionResp, w)
 }
 

@@ -20,6 +20,7 @@ const SessionResp$json = const {
   '2': const [
     const {'1': 'sessionGUID', '3': 1, '4': 1, '5': 9, '10': 'sessionGUID'},
     const {'1': 'success', '3': 2, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'message', '3': 3, '4': 1, '5': 9, '10': 'message'},
   ],
 };
 

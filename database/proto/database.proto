@@ -11,4 +11,5 @@ message NewClassReq {
 message SessionResp {
     string sessionGUID = 1;
     bool success = 2;
+    string message = 3;
 }
