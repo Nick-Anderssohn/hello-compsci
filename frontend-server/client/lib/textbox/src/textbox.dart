@@ -8,12 +8,13 @@ class TextBox extends ClickWrapper {
     InputElement inputTarget;
     String defaultText;
     StreamSubscription blurSubscription;
+    StreamSubscription focusSubscription;
 
     String get value => inputTarget.value;
 
     TextBox(this.inputTarget, {this.defaultText = ""}) : super(inputTarget) {
       inputTarget.value = defaultText;
-      onClick(_clearIfTextIsDefault);
+      focusSubscription = onFocus(_clearIfTextIsDefault);
       blurSubscription = onBlur(_restoreDefaultTextIfBoxIsEmpty);
     }
 
