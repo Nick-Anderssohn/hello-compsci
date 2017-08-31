@@ -18,9 +18,28 @@ services:
     ports:
       - '8080:8080'
     networks:
-      hello-compsci-network:
+      hello-compsci-network: 
   
+  hcroach:
+    image: 'cockroachdb/cockroach:v1.0.5'
+    ports:
+      - '8000:8080'
+      - '26257:26257'
+    container_name: 'hcroach'
+    volumes:
+      - "./database/cockroach-data:/cockroach/cockroach-data"
+    entrypoint:
+      - /cockroach/cockroach
+      - start
+      - --insecure
+    networks:
+      roachnet:
+        aliases:
+          - hcroach
+
   hc-database:
+    depends_on:
+      - hcroach
     build: 'database/.'
     image: 'hc-database'
     ports:
@@ -35,4 +54,3 @@ services:
 networks:
   hello-compsci-network:
   roachnet:
-    external: true
