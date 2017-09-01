@@ -20,7 +20,7 @@ class Connector {
   /// Whether or not it successfully created the class and a session guid. The session
   /// guid will be the same as the current one if it already exists.
   sendCreateClassReq(String className, String email, String password, String curEndpoint) {
-    var createClassURL = StrConv.getNewURL(window.location.href, curEndpoint, "/createclass");
+    var databaseURL = StrConv.getNewURL(window.location.href, curEndpoint, "/database");
     String existingSessionGUID = cookie.get(sessionGUIDKey);
     print("guid to send to server: $existingSessionGUID");
 
@@ -31,8 +31,21 @@ class Connector {
       ..password = password
       ..sessionGUID = existingSessionGUID != null ? existingSessionGUID : "";
 
-    return HttpRequest.request(createClassURL, method: 'POST', requestHeaders: {
+    return HttpRequest.request(databaseURL, method: 'POST', requestHeaders: {
       "Command": "CreateClass"
     }, sendData: newClassReq.writeToBuffer(), responseType: 'arraybuffer');
+  }
+
+  sendGetEdHomeReq(String className, String curEndpoint) {
+    var databaseURL = StrConv.getNewURL(window.location.href, curEndpoint, "/database");
+    String existingSessionGUID = cookie.get(sessionGUIDKey);
+    var edHomeDataReq = new EducatorHomeDataRequest();
+    edHomeDataReq
+      ..className = className
+      ..sessionGUID = existingSessionGUID;
+
+    return HttpRequest.request(databaseURL, method: 'POST', requestHeaders: {
+      'Command': "GetEdHomeInfo"
+    }, sendData: edHomeDataReq.writeToBuffer(), responseType: 'arraybuffer');
   }
 }

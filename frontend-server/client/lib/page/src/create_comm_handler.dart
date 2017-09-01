@@ -7,6 +7,7 @@ import '../../button/button.dart';
 import '../../textbox/textbox.dart';
 import '../../connector/connector.dart';
 import '../../pb/database.pb.dart';
+import '../../strconv/strconv.dart';
 
 class CreateCommHandler {
   TextBox _classBox;
@@ -22,20 +23,13 @@ class CreateCommHandler {
 
   _createClass(StandardBtn createBTN) {
     _connector.sendCreateClassReq(_classBox.value, '', _passwordBox.value, _curEndpoint).then((HttpRequest req) {
-      print("handling response");
-      var sessionResp;
-      try {
-        List<int> bytes = new Uint8List.view(req.response);
-        // print("bytes: $bytes");
-        sessionResp = new SessionResp.fromBuffer(bytes);
-      } catch (e) {
-        print(e);
-      }
+      List<int> bytes = new Uint8List.view(req.response);
+      var sessionResp = new SessionResp.fromBuffer(bytes);
       if (sessionResp.success) {
-        print('guid: ${sessionResp.sessionGUID}');
         _setCookie(sessionResp.sessionGUID);
-        print('great success');
-        // TODO: load educator home
+        var edHomeURL = Uri.encodeFull(StrConv.getNewURL(window.location.href, _curEndpoint, '/educator/home/') + '?classname=${_classBox.value}');
+        print("edHomeURL: $edHomeURL");
+        window.location.assign(edHomeURL);
       } else {
         window.alert(sessionResp.message);
       }
@@ -45,7 +39,6 @@ class CreateCommHandler {
 
   _setCookie(String responseSessionGUID) {
     String existingSessionGUID = cookie.get(sessionGUIDKey);
-    print('Existing key: $existingSessionGUID');
 
     if (existingSessionGUID != null)
       cookie.remove(sessionGUIDKey, path: '/', secure: true);
