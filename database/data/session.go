@@ -43,3 +43,12 @@ func (s *Session) PopulateRelatedFields(db *database.Database) {
 func (s *Session) AppendClassName(className string) {
 	s.ClassNames = append(s.ClassNames, ClassNameStorage{ClassName: className})
 }
+
+func (s *Session) ContainsClass(className string) bool {
+	for _, classNameStorage := range s.ClassNames {
+		if classNameStorage.ClassName == className {
+			return true
+		}
+	}
+	return false
+}

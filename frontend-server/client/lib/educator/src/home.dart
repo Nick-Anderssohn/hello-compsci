@@ -5,7 +5,7 @@ import '../../table/table.dart';
 import '../../connector/connector.dart';
 import '../../pb/database.pb.dart';
 import 'dart:typed_data';
-
+import '../../constants.dart';
 
 class EducatorHome {
   final String _curEndpoint = '/educator/home/';
@@ -15,7 +15,7 @@ class EducatorHome {
   load() {
     problemTable = new ProblemTable(querySelector('#problem-table'));
     // get query params
-    String className = Uri.base.queryParameters['classname'];
+    String className = Uri.base.queryParameters[Constants.classNameQueryParam];
     // ask server for class information
     connector.sendGetEdHomeReq(className, _curEndpoint).then((HttpRequest req) {
       List<int> bytes = new Uint8List.view(req.response);

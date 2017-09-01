@@ -43,6 +43,8 @@ func (s *Server) handleCommand(w http.ResponseWriter, req *http.Request) {
 			s.createNewClass(w, req)
 		case "GetEdHomeInfo":
 			s.getEducatorHomeInfo(w, req)
+		case "Login":
+			s.handleRequestLogin(w, req)
 		}
 	}
 }

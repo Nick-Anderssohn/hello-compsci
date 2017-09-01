@@ -371,3 +371,93 @@ class EducatorHomeDataRequest extends GeneratedMessage {
 
 class _ReadonlyEducatorHomeDataRequest extends EducatorHomeDataRequest with ReadonlyMessageMixin {}
 
+class LoginRequest extends GeneratedMessage {
+  static final BuilderInfo _i = new BuilderInfo('LoginRequest')
+    ..a<String>(1, 'className', PbFieldType.OS)
+    ..a<String>(2, 'password', PbFieldType.OS)
+    ..a<String>(3, 'sessionGUID', PbFieldType.OS)
+    ..hasRequiredFields = false
+  ;
+
+  LoginRequest() : super();
+  LoginRequest.fromBuffer(List<int> i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  LoginRequest.fromJson(String i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  LoginRequest clone() => new LoginRequest()..mergeFromMessage(this);
+  BuilderInfo get info_ => _i;
+  static LoginRequest create() => new LoginRequest();
+  static PbList<LoginRequest> createRepeated() => new PbList<LoginRequest>();
+  static LoginRequest getDefault() {
+    if (_defaultInstance == null) _defaultInstance = new _ReadonlyLoginRequest();
+    return _defaultInstance;
+  }
+  static LoginRequest _defaultInstance;
+  static void $checkItem(LoginRequest v) {
+    if (v is! LoginRequest) checkItemFailed(v, 'LoginRequest');
+  }
+
+  String get className => $_get(0, 1, '');
+  set className(String v) { $_setString(0, 1, v); }
+  bool hasClassName() => $_has(0, 1);
+  void clearClassName() => clearField(1);
+
+  String get password => $_get(1, 2, '');
+  set password(String v) { $_setString(1, 2, v); }
+  bool hasPassword() => $_has(1, 2);
+  void clearPassword() => clearField(2);
+
+  String get sessionGUID => $_get(2, 3, '');
+  set sessionGUID(String v) { $_setString(2, 3, v); }
+  bool hasSessionGUID() => $_has(2, 3);
+  void clearSessionGUID() => clearField(3);
+}
+
+class _ReadonlyLoginRequest extends LoginRequest with ReadonlyMessageMixin {}
+
+class LoginResponse extends GeneratedMessage {
+  static final BuilderInfo _i = new BuilderInfo('LoginResponse')
+    ..a<String>(1, 'className', PbFieldType.OS)
+    ..a<bool>(2, 'success', PbFieldType.OB)
+    ..a<String>(3, 'sessionGUID', PbFieldType.OS)
+    ..a<String>(4, 'message', PbFieldType.OS)
+    ..hasRequiredFields = false
+  ;
+
+  LoginResponse() : super();
+  LoginResponse.fromBuffer(List<int> i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  LoginResponse.fromJson(String i, [ExtensionRegistry r = ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  LoginResponse clone() => new LoginResponse()..mergeFromMessage(this);
+  BuilderInfo get info_ => _i;
+  static LoginResponse create() => new LoginResponse();
+  static PbList<LoginResponse> createRepeated() => new PbList<LoginResponse>();
+  static LoginResponse getDefault() {
+    if (_defaultInstance == null) _defaultInstance = new _ReadonlyLoginResponse();
+    return _defaultInstance;
+  }
+  static LoginResponse _defaultInstance;
+  static void $checkItem(LoginResponse v) {
+    if (v is! LoginResponse) checkItemFailed(v, 'LoginResponse');
+  }
+
+  String get className => $_get(0, 1, '');
+  set className(String v) { $_setString(0, 1, v); }
+  bool hasClassName() => $_has(0, 1);
+  void clearClassName() => clearField(1);
+
+  bool get success => $_get(1, 2, false);
+  set success(bool v) { $_setBool(1, 2, v); }
+  bool hasSuccess() => $_has(1, 2);
+  void clearSuccess() => clearField(2);
+
+  String get sessionGUID => $_get(2, 3, '');
+  set sessionGUID(String v) { $_setString(2, 3, v); }
+  bool hasSessionGUID() => $_has(2, 3);
+  void clearSessionGUID() => clearField(3);
+
+  String get message => $_get(3, 4, '');
+  set message(String v) { $_setString(3, 4, v); }
+  bool hasMessage() => $_has(3, 4);
+  void clearMessage() => clearField(4);
+}
+
+class _ReadonlyLoginResponse extends LoginResponse with ReadonlyMessageMixin {}
+

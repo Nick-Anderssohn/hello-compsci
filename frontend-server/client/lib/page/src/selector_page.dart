@@ -4,6 +4,7 @@ import 'page.dart';
 import '../../button/button.dart';
 import '../../textbox/textbox.dart';
 import 'create_comm_handler.dart';
+import 'login_comm_handler.dart';
 import 'dart:html';
 import 'dart:async';
 import 'package:simple_streams/simple_streams.dart';
@@ -14,13 +15,15 @@ class SelectorPage extends Page {
   SimpleStreamRouter _createBackArrowRouter;
   StandardBtn _selectCreatePageBtn;
   StandardBtn _selectJoinPageBtn;
-  StandardBtn _joinClassBtn;
+  StandardBtn _educatorLoginBtn;
+  StandardBtn _studentLoginBtn;
   StandardBtn _createClassBtn;
   TextBox _joinClassTextbox;
   PasswordBox _joinClassPasswordTextbox;
   TextBox _createClassTextbox;
   PasswordBox _createPasswordTextbox;
   CreateCommHandler _createCommHandler;
+  LoginCommHandler _loginCommHandler;
   DivElement _createPage;
   DivElement _joinPage;
   DivElement _selectPage;
@@ -49,7 +52,8 @@ class SelectorPage extends Page {
     _curPage = _selectPage = querySelector('#select-page');
     _selectCreatePageBtn = new StandardBtn(querySelector('#select-create-page-btn'));
     _selectJoinPageBtn = new StandardBtn(querySelector('#select-join-page-btn'));
-    _joinClassBtn = new StandardBtn(querySelector('#join-class-btn'));
+    _educatorLoginBtn = new StandardBtn(querySelector('#educator-login-btn'));
+    _studentLoginBtn = new StandardBtn(querySelector('#student-login-btn'));
     _joinClassTextbox = new TextBox(querySelector('#join-class-textbox'), defaultText: 'Class Name');
     _joinClassPasswordTextbox = new PasswordBox(querySelector('#join-class-password-textbox'), defaultText: 'Password (Leave empty if student)');
     _createClassBtn = new StandardBtn(querySelector('#create-class-btn'));
@@ -61,6 +65,7 @@ class SelectorPage extends Page {
 
   _setupJoinPage() {
     _selectJoinPageBtn.onClick(_selectJoinPageBtnClick);
+    _loginCommHandler = new LoginCommHandler(_joinClassTextbox, _joinClassPasswordTextbox, _educatorLoginBtn, _studentLoginBtn, '/');
   }
 
   _setupCreatePage() {

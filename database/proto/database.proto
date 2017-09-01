@@ -57,3 +57,16 @@ message EducatorHomeDataRequest {
     string className = 1;
     string sessionGUID = 2;
 }
+
+message LoginRequest {
+    string className = 1;
+    string password = 2;
+    string sessionGUID = 3;
+}
+
+message LoginResponse {
+    string className = 1;
+    bool success = 2;
+    string sessionGUID = 3;
+    string message = 4;
+}

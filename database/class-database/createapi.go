@@ -16,7 +16,6 @@ import (
 // Its response sends back a bool indicating if it was able to create the class.
 // The response also contains a session guid if it was successful when creating the class.
 func (s *Server) createNewClass(w http.ResponseWriter, req *http.Request) {
-	// Prepare the response by setting the header
 	sessionResp := &pb.SessionResp{}
 
 	// get the NewClassReq struct

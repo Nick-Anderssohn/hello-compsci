@@ -79,6 +79,10 @@ func (classDB *ClassDatabase) CreateNewSessionInDB(className string) *data.Sessi
 
 // GetSession returns returns the session that corresponds to sessionID or nil if it is not found
 func (classDB *ClassDatabase) GetSession(sessionGUID string) *data.Session {
+	if sessionGUID == "" {
+		return nil
+	}
+
 	var destinationSession data.Session
 	classDB.DB.First(&destinationSession, "session_guid = ?", sessionGUID)
 	if destinationSession.SessionGUID == sessionGUID {
@@ -96,4 +100,10 @@ func (classDB *ClassDatabase) SessionExists(sessionID string) bool {
 // Save updates assumes obj is already in the database and updates it.
 func (classDB *ClassDatabase) Save(obj interface{}) {
 	classDB.DB.Save(obj)
+}
+
+func (classDB *ClassDatabase) PasswordMatchesClassName(className, password string) bool {
+	class := &data.Class{}
+	class.PopulateFromDB(&classDB.Database, className)
+	return bcrypt.CompareHashAndPassword(class.Password, []byte(password)) == nil
 }
