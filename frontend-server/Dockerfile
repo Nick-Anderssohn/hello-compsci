@@ -13,7 +13,7 @@ RUN cp -R build/web/packages/codemirror build/web/play/packages/
 RUN cp -R build/web/packages/codemirror build/web/question/packages/
 
 # The final container
-FROM golang:1.8.3-alpine
+FROM golang:1.9.0-alpine
 EXPOSE 8080
 EXPOSE 8079
 WORKDIR /go/src

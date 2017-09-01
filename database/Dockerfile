@@ -1,7 +1,7 @@
 #  Copyright (C) 2017  Nicholas Anderssohn
 
 # Intermediate container to build service
-FROM golang:1.8.3
+FROM golang:1.9.0
 EXPOSE 26257
 EXPOSE 8078
 RUN mkdir -p /go/src/hello-compsci/database

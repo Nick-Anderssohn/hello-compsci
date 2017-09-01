@@ -1,5 +1,5 @@
 #  Copyright (C) 2017  Nicholas Anderssohn
-FROM golang:1.8.3-alpine
+FROM golang:1.9.0-alpine
 EXPOSE 8079
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm
 RUN apk --update add --no-cache openjdk7 && ln -sf "${JAVA_HOME}/bin/"* "/usr/bin/"

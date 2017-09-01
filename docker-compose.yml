@@ -1,16 +1,115 @@
 version: '3'
 
 services:
-  code-runner:
+  code-runner1:
     build: 'code-runner/.'
     image: 'code-runner'
-    ports:
-      - '8079:8079'
     networks:
       hello-compsci-network:
         aliases:
-          - code-runner
-    container_name: 'code-runner'
+          - code-runner1
+    container_name: 'code-runner1'
+
+  code-runner2:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner2
+    container_name: 'code-runner2'
+
+  code-runner3:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner3
+    container_name: 'code-runner3'
+
+  code-runner4:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner4
+    container_name: 'code-runner4'
+
+  code-runner5:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner5
+    container_name: 'code-runner5'
+
+  code-runner6:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner6
+    container_name: 'code-runner6'
+
+  code-runner7:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner7
+    container_name: 'code-runner7'
+
+  code-runner8:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner8
+    container_name: 'code-runner8'
+
+  code-runner9:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner9
+    container_name: 'code-runner9'
+
+  code-runner10:
+    build: 'code-runner/.'
+    image: 'code-runner'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-runner10
+    container_name: 'code-runner10'
+
+  code-director:
+    depends_on:
+      - code-runner1
+      - code-runner2
+      - code-runner3
+      - code-runner4
+      - code-runner5
+      - code-runner6
+      - code-runner7
+      - code-runner8
+      - code-runner9
+      - code-runner10
+    build: 'code-director/.'
+    image: 'code-director'
+    networks:
+      hello-compsci-network:
+        aliases:
+          - code-director
+    container_name: 'code-director'
 
   hello-compsci:
     build: 'frontend-server/.'
