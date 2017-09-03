@@ -10,38 +10,39 @@
   <body class="body">
       <div id="title" class="title">Hello, CompSci!</div>
       <div id="top-bar" class="top-bar">
-        <div id="home-option" class="top-bar-option">Home</div>
-        <div id="play-option" class="top-bar-option">Play</div>
-        <div id="about-option" class="top-bar-option">About</div>
+        <a id="home-option" class="top-bar-option">Home</a>
+        <a id="play-option" class="top-bar-option">Play</a>
+        <a id="about-option" class="top-bar-option">About</a>
       </div>
       <div id="left-menu" class="left-menu"></div>
       <div id="page" class="page-scrollable">
         <div style="margin: 10px;">
           <div class="problem-menu-container">
-            <div id="problem-table" class="table-container">
-              <table class="std-table">
+            <div class="table-container">
+              <table id="problem-table" class="std-table">
                 <tr>
                   <th>Problem</th>
                 </tr>
               </table>
             </div>
-            <div id="new-problem-btn" class="problem-menu-btn">New Problem</div>
-            <div id="edit-btn" class="problem-menu-btn">Edit</div>
-            <div id="view-submissions-btn" class="problem-menu-btn">View Submissions</div>
-            <div id="post-problem-btn" class="problem-menu-btn">Post</div>
+            <a id="new-problem-btn" class="problem-menu-btn">New Problem</a>
+            <a id="edit-btn" class="problem-menu-btn">Edit</a>
+            <a id="view-submissions-btn" class="problem-menu-btn">View Submissions</a>
+            <a id="post-problem-btn" class="problem-menu-btn">Post</a>
           </div>
           <div class="posted-title">Problem Currently Posted:</div>
-          <div class="posted-problem-name">Title Here</div>
+          <div id="problem-title" class="posted-problem-name">Title Here</div>
           <div id="problem-text" class="silver-snow-problem-box">Problem text here.</div>
           <div class="options-header">Options:</div>
           <div class="options-wrapper">
             <form>
-              <div class="checkbox-option option-position"><input type="checkbox" name="auto-grade" value="true">auto-grade<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="c" value="true">C<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="c++" value="true">C++<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="python3" value="true">Python 3<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="go" value="true">Go<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="java" value="true">Java<br></div>
+              <div class="checkbox-option option-position"><input type="checkbox" name="auto-grade" value="true" onclick="return false;">auto-grade<br></div>
+              <div class="checkbox-option option-position"><input type="checkbox" name="c" value="true" onclick="return false;">C<br></div>
+              <div class="checkbox-option option-position"><input type="checkbox" name="c++" value="true" onclick="return false;">C++<br></div>
+              <div class="checkbox-option option-position"><input type="checkbox" name="python3" value="true" onclick="return false;">Python 3<br></div>
+              <div class="checkbox-option option-position"><input type="checkbox" name="go" value="true" onclick="return false;">Go<br></div>
+              <div class="checkbox-option option-position"><input type="checkbox" name="java" value="true" onclick="return false;">Java<br></div>
+              <div class="checkbox-option option-position"><input type="checkbox" name="trim-edge-space" value="true" onclick="return false;">Trim leading and trailing space<br></div>
             </form>
           </div>
           <div class="problem-menu-container">
@@ -55,7 +56,7 @@
             <div id="num-submitted" class="float-right-label">Submitted: 0</div>
             <div id="num-correct" class="float-right-label">Correct: 0</div>
             <div id="num-incorrect" class="float-right-label">Incorrect: 0</div>
-            <div id="view-submission-btn" class="problem-menu-btn">View Submission</div>
+            <a id="view-submission-btn" class="problem-menu-btn">View Submission</a>
           </div>
         </div>
       </div>

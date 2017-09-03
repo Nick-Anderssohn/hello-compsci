@@ -17,7 +17,7 @@
   width: 100%;
   height: $top-bar-height;
   padding-left: 10px;
-  padding-right: 100px;
+  margin-right: 10px;
   padding-top: $top-bar-padding-top;
   padding-bottom: $top-bar-padding-bottom;
   border-width: 1px;
@@ -40,6 +40,12 @@
   &:hover {
     background-color: $dark-silver-snow;
   }
+}
+
+.right-top-bar-option {
+  @extend .top-bar-option;
+  float: right;
+  padding-right: 20px;
 }
 
 .selected-option {

@@ -18,6 +18,18 @@ type Submission struct {
 	ProblemID   int
 }
 
+// NewSubmissionFromPBStruct creates a new Submission from the protobuf version.
+// Note: This does NOT set ProblemID
+func NewSubmissionFromPBStruct(pbSubmission *pb.Submission) *Submission {
+	return &Submission{
+		StudentName: pbSubmission.StudentName,
+		AnswerText:  pbSubmission.AnswerText,
+		Graded:      pbSubmission.Graded,
+		Correct:     pbSubmission.Correct,
+		//ProblemID:   int(pbSubmission.ProblemID),
+	}
+}
+
 func (s *Submission) ToPBStruct() *pb.Submission {
 	return &pb.Submission{
 		StudentName: s.StudentName,

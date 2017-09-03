@@ -77,7 +77,7 @@ func (classDB *ClassDatabase) CreateNewSessionInDB(className string) *data.Sessi
 	return newSession
 }
 
-// GetSession returns returns the session that corresponds to sessionID or nil if it is not found
+// GetSession returns the session that corresponds to sessionGUID or nil if it is not found
 func (classDB *ClassDatabase) GetSession(sessionGUID string) *data.Session {
 	if sessionGUID == "" {
 		return nil

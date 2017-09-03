@@ -110,6 +110,7 @@ class Submission extends GeneratedMessage {
     ..a<bool>(5, 'success', PbFieldType.OB)
     ..a<String>(6, 'message', PbFieldType.OS)
     ..a<Int64>(7, 'id', PbFieldType.OU6, Int64.ZERO)
+    ..a<Int64>(8, 'problemID', PbFieldType.OU6, Int64.ZERO)
     ..hasRequiredFields = false
   ;
 
@@ -163,6 +164,11 @@ class Submission extends GeneratedMessage {
   set id(Int64 v) { $_setInt64(6, 7, v); }
   bool hasId() => $_has(6, 7);
   void clearId() => clearField(7);
+
+  Int64 get problemID => $_get(7, 8, null);
+  set problemID(Int64 v) { $_setInt64(7, 8, v); }
+  bool hasProblemID() => $_has(7, 8);
+  void clearProblemID() => clearField(8);
 }
 
 class _ReadonlySubmission extends Submission with ReadonlyMessageMixin {}
@@ -230,6 +236,9 @@ class Problem extends GeneratedMessage {
     ..pp<Setting>(5, 'settings', PbFieldType.PM, Setting.$checkItem, Setting.create)
     ..a<bool>(6, 'success', PbFieldType.OB)
     ..a<String>(7, 'message', PbFieldType.OS)
+    ..a<String>(8, 'className', PbFieldType.OS)
+    ..a<String>(9, 'sessionGUID', PbFieldType.OS)
+    ..a<String>(10, 'expectedOutput', PbFieldType.OS)
     ..hasRequiredFields = false
   ;
 
@@ -277,6 +286,21 @@ class Problem extends GeneratedMessage {
   set message(String v) { $_setString(6, 7, v); }
   bool hasMessage() => $_has(6, 7);
   void clearMessage() => clearField(7);
+
+  String get className => $_get(7, 8, '');
+  set className(String v) { $_setString(7, 8, v); }
+  bool hasClassName() => $_has(7, 8);
+  void clearClassName() => clearField(8);
+
+  String get sessionGUID => $_get(8, 9, '');
+  set sessionGUID(String v) { $_setString(8, 9, v); }
+  bool hasSessionGUID() => $_has(8, 9);
+  void clearSessionGUID() => clearField(9);
+
+  String get expectedOutput => $_get(9, 10, '');
+  set expectedOutput(String v) { $_setString(9, 10, v); }
+  bool hasExpectedOutput() => $_has(9, 10);
+  void clearExpectedOutput() => clearField(10);
 }
 
 class _ReadonlyProblem extends Problem with ReadonlyMessageMixin {}

@@ -3,20 +3,20 @@
 import 'package:simple_streams/simple_streams.dart';
 import 'dart:html';
 
-class ProblemRow {
+class Row {
   SimpleStreamRouter _clickStreamRouter;
 
   TableRowElement target = new TableRowElement();
   TableCellElement _content = new TableCellElement();
 
-  set problemName(String value) => _content.text = value;
-  get problemName => _content.text;
+  set text(String value) => _content.text = value;
+  get text => _content.text;
 
-  int get problemID => _problemID;
-  int _problemID = 0;
+  int get id => _id;
+  int _id = 0;
 
-  ProblemRow(String problemName, this._problemID) {
-    this.problemName = problemName;
+  Row(String text, this._id) {
+    this.text = text;
     _clickStreamRouter = new SimpleStreamRouter(target.onClick);
     target.children.add(_content);
   }

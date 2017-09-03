@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"io/ioutil"
+
 	"github.com/golang/protobuf/proto"
 )
 
@@ -45,6 +47,8 @@ func (s *Server) handleCommand(w http.ResponseWriter, req *http.Request) {
 			s.getEducatorHomeInfo(w, req)
 		case "Login":
 			s.handleRequestLogin(w, req)
+		case "AddProblem":
+			s.handleAddProblemReq(w, req)
 		}
 	}
 }
@@ -62,4 +66,17 @@ func sendPB(protoStruct proto.Message, w http.ResponseWriter) {
 		return
 	}
 	w.Write(marshalledResp)
+}
+
+func unmarshalPB(req *http.Request, pbStruct proto.Message) bool {
+	rawData, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		fmt.Println(err.Error())
+		return false
+	}
+	if err = proto.Unmarshal(rawData, pbStruct); err != nil {
+		fmt.Println(err.Error())
+		return false
+	}
+	return true
 }

@@ -1,32 +1,31 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
-import 'problemrow.dart';
+import 'row.dart';
 import 'package:simple_streams/simple_streams.dart';
 import 'dart:html';
 
-class ProblemTable {
+class Table {
   TableElement target;
 
   int get selectedID => _selectedID;
   int _selectedID = -1;
-  List<ProblemRow> _rows = [];
+  List<Row> _rows = [];
   SimpleStream _rowSelectedStreamer = new SimpleStream();
 
-  ProblemTable(this.target);
+  Table(this.target);
 
-  populate(List<String> problemNames, List<int> ids) {
-    if (problemNames.length == ids.length) {
+  populate(List<String> rowTexts, List<int> ids) {
+    if (rowTexts != null && ids != null && rowTexts.length == ids.length) {
       for (int i = 0; i < ids.length; i++) {
-        addRow(problemNames[i], ids[i]);
+        addRow(rowTexts[i], ids[i]);
       }
     }
   }
 
-  addRow(String problemName, int id) {
-    var row = new ProblemRow(problemName, id);
-
+  addRow(String text, int id) {
+    var row = new Row(text, id);
     row.onClick((e) {
-      _selectedID = row.problemID;
+      _selectedID = row.id;
       _rowSelectedStreamer.add(_selectedID);
     });
 

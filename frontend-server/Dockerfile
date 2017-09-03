@@ -1,5 +1,5 @@
 # intermediate container used to build the dart/scss code
-FROM nickanderssohn/dart-sass:1.0
+FROM nickanderssohn/dart-sass:1.0 as client-builder
 
 # Copy project over
 RUN mkdir /client
@@ -25,7 +25,7 @@ WORKDIR /go/src/hello-compsci/frontend-server
 COPY . .
 RUN rm -rf client && mkdir client && mkdir client/build
 # copy the version that was compiled in the intermediate container
-COPY --from=0 /client/build ./client/build
+COPY --from=client-builder /client/build ./client/build
 # RUN apk update && apk upgrade && apk add git
 # RUN go get "golang.org/x/crypto/acme/autocert"
 RUN go install

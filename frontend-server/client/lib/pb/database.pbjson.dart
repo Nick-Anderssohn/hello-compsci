@@ -34,6 +34,7 @@ const Submission$json = const {
     const {'1': 'success', '3': 5, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'message', '3': 6, '4': 1, '5': 9, '10': 'message'},
     const {'1': 'id', '3': 7, '4': 1, '5': 4, '10': 'id'},
+    const {'1': 'problemID', '3': 8, '4': 1, '5': 4, '10': 'problemID'},
   ],
 };
 
@@ -58,6 +59,9 @@ const Problem$json = const {
     const {'1': 'settings', '3': 5, '4': 3, '5': 11, '6': '.pb.Setting', '10': 'settings'},
     const {'1': 'success', '3': 6, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'message', '3': 7, '4': 1, '5': 9, '10': 'message'},
+    const {'1': 'className', '3': 8, '4': 1, '5': 9, '10': 'className'},
+    const {'1': 'sessionGUID', '3': 9, '4': 1, '5': 9, '10': 'sessionGUID'},
+    const {'1': 'expectedOutput', '3': 10, '4': 1, '5': 9, '10': 'expectedOutput'},
   ],
 };
 

@@ -33,7 +33,7 @@ func (s *Server) handleRequestLogin(w http.ResponseWriter, req *http.Request) {
 		}
 		loginResp.Success = true
 	} else {
-		loginResp.Message = "Incorrect password."
+		loginResp.Message = "Bad class name or password."
 	}
 	sendPB(loginResp, w)
 }

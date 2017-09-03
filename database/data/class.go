@@ -22,6 +22,7 @@ type Class struct {
 // the database based off of className. It returns a bool indicating if it succeeded.
 // This does NOT populate related fields such as the Problems fields
 func (c *Class) PopulateFromDB(db *database.Database, className string) (existsInDB bool) {
+	c.CurrentProblemIndex = -1
 	db.DB.First(c, "class_name = ?", className)
 	return c.ClassName == className
 }

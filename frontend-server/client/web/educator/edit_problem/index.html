@@ -3,11 +3,6 @@
 <html>
   <head>
     <title >Hello, CompSci!</title>
-    <link href="packages/codemirror/codemirror.css" rel="stylesheet">
-    <script src="packages/codemirror/codemirror.js"></script>
-    <script src="packages/codemirror/mode/clike/clike.js"></script>
-    <script src="packages/codemirror/mode/go/go.js"></script>
-    <script src="packages/codemirror/mode/python/python.js"></script>
     <link rel="stylesheet" type="text/css" href="../../../styles/main.css">
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
@@ -15,42 +10,46 @@
   <body class="body">
       <div id="title" class="title">Hello, CompSci!</div>
       <div id="top-bar" class="top-bar">
-        <div id="home-option" class="top-bar-option">Home</div>
-        <div id="play-option" class="top-bar-option">Play</div>
-        <div id="about-option" class="top-bar-option">About</div>
+        <a id="home-option" class="top-bar-option">Home</a>
+        <a id="play-option" class="top-bar-option">Play</a>
+        <a id="about-option" class="top-bar-option">About</a>
+        <a id="ed-home-option" class="top-bar-option">Educator Home</a>
+        <a id="save-option" class="right-top-bar-option">Save Problem</a>
       </div>
       <div id="left-menu" class="left-menu"></div>
       <div id="page" class="page-scrollable">
         <div style="margin: 10px;">
-          <div class="posted-problem-name">Title Here</div>
-          <div id="problem-text" class="silver-snow-problem-box">Problem text here.</div>
+          <div id="problem-title" class="posted-problem-name" contenteditable="true">Create A Title Here</div>
+          <div class="left-label">Prompt:</div>
+          <div id="problem-text" class="silver-snow-problem-box" contenteditable="true"></div>
           <div class="problem-menu-container">
             <div class="table-container" style="margin-top: 10px;">
-              <table class="std-table">
+              <table id="argument-table" class="std-table">
                 <tr>
                   <th>Main Arguments</th>
                 </tr>
               </table>
             </div>
-            <div id="view-submission-btn" class="problem-menu-btn">Add Argument</div>
-            <div id="view-submission-btn" class="problem-menu-btn">Delete Argument</div>
-            <div id="view-submission-btn" class="problem-menu-btn">View Submission</div>
+            <a id="add-argument-btn" class="problem-menu-btn">Add Argument</a>
+            <a id="delete-argument-btn" class="problem-menu-btn">Delete Argument</a>
           </div>
-          <div id="problem-text" class="expected-output-box">Expected output here.</div>
+          <div class="left-label">Expected Output:</div>
+          <div id="output-text" class="expected-output-box" contenteditable="true"></div>
           <div class="options-header">Options:</div>
           <div class="options-wrapper">
             <form>
-              <div class="checkbox-option option-position"><input type="checkbox" name="auto-grade" value="true">auto-grade<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="c" value="true">C<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="c++" value="true">C++<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="python3" value="true">Python 3<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="go" value="true">Go<br></div>
-              <div class="checkbox-option option-position"><input type="checkbox" name="java" value="true">Java<br></div>
+              <div class="checkbox-option option-position"><input id="auto-grade-checkbox"type="checkbox" name="auto-grade" value="true">auto-grade<br></div>
+              <div class="checkbox-option option-position"><input id="lang-c-checkbox" type="checkbox" name="c" value="true">C<br></div>
+              <div class="checkbox-option option-position"><input id="lang-cpp-checkbox" type="checkbox" name="c++" value="true">C++<br></div>
+              <div class="checkbox-option option-position"><input id="lang-python3-checkbox" type="checkbox" name="python3" value="true">Python 3<br></div>
+              <div class="checkbox-option option-position"><input id="lang-go-checkbox" type="checkbox" name="go" value="true">Go<br></div>
+              <div class="checkbox-option option-position"><input id="lang-java-checkbox" type="checkbox" name="java" value="true">Java<br></div>
+              <div class="checkbox-option option-position"><input id="trim-edge-space-checkbox" type="checkbox" name="trim-edge-space" value="true">Trim leading and trailing space<br></div>
             </form>
           </div>
           <div class="problem-menu-container">
             <div class="table-container" style="margin-top: 10px;">
-              <table class="std-table">
+              <table id="submission-table" class="std-table">
                 <tr>
                   <th>Student Submissions</th>
                 </tr>
@@ -59,7 +58,7 @@
             <div id="num-submitted" class="float-right-label">Submitted: 0</div>
             <div id="num-correct" class="float-right-label">Correct: 0</div>
             <div id="num-incorrect" class="float-right-label">Incorrect: 0</div>
-            <div id="view-submission-btn" class="problem-menu-btn">View Submission</div>
+            <a id="view-submission-btn" class="problem-menu-btn">View Submission</a>
           </div>
         </div>
       </div>

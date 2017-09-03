@@ -69,4 +69,24 @@ class Connector {
       Constants.commandKey: Constants.loginCommand
     }, sendData: loginReq.writeToBuffer(), responseType: Constants.responseTypeArrayBuffer);
   }
+
+  addProblemReq(String className, String problemTitle, String prompt, List<Setting> settings, String expectedOutput, String curEndpoint) {
+    print("in addProblemReq");
+    var databaseURL = StrConv.getNewURL(window.location.href, curEndpoint, Constants.databaseEndpoint);
+    String existingSessionGUID = cookie.get(Constants.sessionGUIDKey);
+    print("create new problem");
+    var problem = new Problem();
+    print("created problem");
+    problem
+      ..className = className
+      ..title = problemTitle
+      ..prompt = prompt
+      ..settings.addAll(settings)
+      ..expectedOutput = expectedOutput
+      ..sessionGUID = existingSessionGUID != null ? existingSessionGUID : "";
+    print("sending problem");
+    return HttpRequest.request(databaseURL, method: Constants.post, requestHeaders: {
+      Constants.commandKey: Constants.addProblemCommand
+    }, sendData: problem.writeToBuffer(), responseType: Constants.responseTypeArrayBuffer);
+  }
 }

@@ -12,4 +12,9 @@ class Constants {
   static final String createClassCommand = 'CreateClass';
   static final String getEdHomeInfoCommand = 'GetEdHomeInfo';
   static final String loginCommand = 'Login';
+  static final String newProblemQueryParam = 'newProblem';
+  static final String problemIDQueryParam = 'problemID';
+  static final String stringTrue = 'true';
+  static final String stringFalse = 'false';
+  static final String addProblemCommand = 'AddProblem';
 }

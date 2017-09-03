@@ -3,7 +3,7 @@ import "../../../lib/compatibility/compatibility.dart";
 import "../../../lib/topbar/topbar.dart";
 import "../../../lib/educator/educator.dart";
 
-final String curEndpoint = '/educator/home';
+final String curEndpoint = '/educator/home/';
 CompatibilityChecker compatibilityChecker = new CompatibilityChecker();
 TopBar topBar;
 EducatorHome home = new EducatorHome();

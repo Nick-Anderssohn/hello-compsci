@@ -27,6 +27,34 @@ type Problem struct {
 	ClassID     int
 }
 
+// NewProblemFromPBStruct creates a new Problem from the protobuf version.
+// Note: This does NOT populate the ClassID field
+func NewProblemFromPBStruct(pbProblem *pb.Problem) *Problem {
+	submissions := make([]Submission, 0)
+	for _, submission := range pbProblem.Submissions {
+		submissions = append(submissions, *NewSubmissionFromPBStruct(submission))
+	}
+
+	settings := make([]Setting, 0)
+	for _, setting := range pbProblem.Settings {
+		settings = append(settings, *NewSettingFromPBStruct(setting))
+	}
+
+	return &Problem{
+		Title:       pbProblem.Title,
+		Prompt:      pbProblem.Prompt,
+		Submissions: submissions,
+		Settings:    settings,
+	}
+}
+
+func NewSettingFromPBStruct(pbSetting *pb.Setting) *Setting {
+	return &Setting{
+		Name:       pbSetting.Name,
+		IsSelected: pbSetting.IsSelected,
+	}
+}
+
 // PopulateRelatedFields uses the database to populate related fields such as Submissions and Settings
 func (p *Problem) PopulateRelatedFields(db *database.Database) {
 	db.DB.Model(p).Related(&p.Settings)
