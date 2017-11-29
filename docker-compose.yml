@@ -28,81 +28,81 @@ services:
           - code-runner3
     container_name: 'code-runner3'
 
-  code-runner4:
-    build: 'code-runner/.'
-    image: 'code-runner'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - code-runner4
-    container_name: 'code-runner4'
-
-  code-runner5:
-    build: 'code-runner/.'
-    image: 'code-runner'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - code-runner5
-    container_name: 'code-runner5'
-
-  code-runner6:
-    build: 'code-runner/.'
-    image: 'code-runner'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - code-runner6
-    container_name: 'code-runner6'
-
-  code-runner7:
-    build: 'code-runner/.'
-    image: 'code-runner'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - code-runner7
-    container_name: 'code-runner7'
-
-  code-runner8:
-    build: 'code-runner/.'
-    image: 'code-runner'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - code-runner8
-    container_name: 'code-runner8'
-
-  code-runner9:
-    build: 'code-runner/.'
-    image: 'code-runner'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - code-runner9
-    container_name: 'code-runner9'
-
-  code-runner10:
-    build: 'code-runner/.'
-    image: 'code-runner'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - code-runner10
-    container_name: 'code-runner10'
+#  code-runner4:
+#    build: 'code-runner/.'
+#    image: 'code-runner'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - code-runner4
+#    container_name: 'code-runner4'
+#
+#  code-runner5:
+#    build: 'code-runner/.'
+#    image: 'code-runner'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - code-runner5
+#    container_name: 'code-runner5'
+#
+#  code-runner6:
+#    build: 'code-runner/.'
+#    image: 'code-runner'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - code-runner6
+#    container_name: 'code-runner6'
+#
+#  code-runner7:
+#    build: 'code-runner/.'
+#    image: 'code-runner'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - code-runner7
+#    container_name: 'code-runner7'
+#
+#  code-runner8:
+#    build: 'code-runner/.'
+#    image: 'code-runner'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - code-runner8
+#    container_name: 'code-runner8'
+#
+#  code-runner9:
+#    build: 'code-runner/.'
+#    image: 'code-runner'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - code-runner9
+#    container_name: 'code-runner9'
+#
+#  code-runner10:
+#    build: 'code-runner/.'
+#    image: 'code-runner'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - code-runner10
+#    container_name: 'code-runner10'
 
   code-director:
     depends_on:
       - code-runner1
       - code-runner2
       - code-runner3
-      - code-runner4
-      - code-runner5
-      - code-runner6
-      - code-runner7
-      - code-runner8
-      - code-runner9
-      - code-runner10
+#      - code-runner4
+#      - code-runner5
+#      - code-runner6
+#      - code-runner7
+#      - code-runner8
+#      - code-runner9
+#      - code-runner10
     build: 'code-director/.'
     image: 'code-director'
     networks:
@@ -119,37 +119,37 @@ services:
     networks:
       hello-compsci-network: 
   
-  hcroach:
-    image: 'cockroachdb/cockroach:v1.0.5'
-    ports:
-      - '8000:8080'
-      - '26257:26257'
-    container_name: 'hcroach'
-    volumes:
-      - "./database/cockroach-data:/cockroach/cockroach-data"
-    entrypoint:
-      - /cockroach/cockroach
-      - start
-      - --insecure
-    networks:
-      roachnet:
-        aliases:
-          - hcroach
+#  hcroach:
+#    image: 'cockroachdb/cockroach:v1.0.5'
+#    ports:
+#      - '8000:8080'
+#      - '26257:26257'
+#    container_name: 'hcroach'
+#    volumes:
+#      - "./database/cockroach-data:/cockroach/cockroach-data"
+#    entrypoint:
+#      - /cockroach/cockroach
+#      - start
+#      - --insecure
+#    networks:
+#      roachnet:
+#        aliases:
+#          - hcroach
 
-  hc-database:
-    depends_on:
-      - hcroach
-    build: 'database/.'
-    image: 'hc-database'
-    ports:
-      - '8078:8078'
-    networks:
-      hello-compsci-network:
-        aliases:
-          - hc-database
-      roachnet:
-    container_name: 'hc-database'
+#  hc-database:
+#    depends_on:
+#      - hcroach
+#    build: 'database/.'
+#    image: 'hc-database'
+#    ports:
+#      - '8078:8078'
+#    networks:
+#      hello-compsci-network:
+#        aliases:
+#          - hc-database
+#      roachnet:
+#    container_name: 'hc-database'
 
 networks:
   hello-compsci-network:
-  roachnet:
+#  roachnet:

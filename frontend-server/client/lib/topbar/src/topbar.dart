@@ -10,9 +10,9 @@ class TopBar {
 
   TopBar(this.curEndpoint) {
     _topBarOptions = [
-      new StandardBtn(querySelector('#home-option'), tags: ['/']),
+//      new StandardBtn(querySelector('#home-option'), tags: ['/']),
       new StandardBtn(querySelector('#play-option'), tags: ['/play']),
-      new StandardBtn(querySelector('#about-option'), tags: ['/about'])
+//      new StandardBtn(querySelector('#about-option'), tags: ['/about'])
     ];
     _topBarOptions.forEach((StandardBtn btn) => btn.onClick(_handleTopBarOnClick));
   }

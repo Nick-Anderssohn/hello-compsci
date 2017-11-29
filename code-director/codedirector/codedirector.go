@@ -18,25 +18,25 @@ func init() {
 	url1, _ := url.Parse("http://code-runner1:8079")
 	url2, _ := url.Parse("http://code-runner2:8079")
 	url3, _ := url.Parse("http://code-runner3:8079")
-	url4, _ := url.Parse("http://code-runner4:8079")
-	url5, _ := url.Parse("http://code-runner5:8079")
-	url6, _ := url.Parse("http://code-runner6:8079")
-	url7, _ := url.Parse("http://code-runner7:8079")
-	url8, _ := url.Parse("http://code-runner8:8079")
-	url9, _ := url.Parse("http://code-runner9:8079")
-	url10, _ := url.Parse("http://code-runner10:8079")
+	//url4, _ := url.Parse("http://code-runner4:8079")
+	//url5, _ := url.Parse("http://code-runner5:8079")
+	//url6, _ := url.Parse("http://code-runner6:8079")
+	//url7, _ := url.Parse("http://code-runner7:8079")
+	//url8, _ := url.Parse("http://code-runner8:8079")
+	//url9, _ := url.Parse("http://code-runner9:8079")
+	//url10, _ := url.Parse("http://code-runner10:8079")
 
 	runners = []*httputil.ReverseProxy{
 		httputil.NewSingleHostReverseProxy(url1),
 		httputil.NewSingleHostReverseProxy(url2),
 		httputil.NewSingleHostReverseProxy(url3),
-		httputil.NewSingleHostReverseProxy(url4),
-		httputil.NewSingleHostReverseProxy(url5),
-		httputil.NewSingleHostReverseProxy(url6),
-		httputil.NewSingleHostReverseProxy(url7),
-		httputil.NewSingleHostReverseProxy(url8),
-		httputil.NewSingleHostReverseProxy(url9),
-		httputil.NewSingleHostReverseProxy(url10),
+		//httputil.NewSingleHostReverseProxy(url4),
+		//httputil.NewSingleHostReverseProxy(url5),
+		//httputil.NewSingleHostReverseProxy(url6),
+		//httputil.NewSingleHostReverseProxy(url7),
+		//httputil.NewSingleHostReverseProxy(url8),
+		//httputil.NewSingleHostReverseProxy(url9),
+		//httputil.NewSingleHostReverseProxy(url10),
 	}
 
 	http.HandleFunc("/", handleReq)
