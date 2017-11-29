@@ -8,15 +8,15 @@ import '../../button/button.dart';
 const String startingCCode = """#include "stdio.h"
 
 int main() {
-  printf("Hello, C!\\n");
-  return 0;
+      printf("Hello, C!\\n");
+      return 0;
 }""";
 
 const String startingCPPCode = """#include <iostream>
 
 int main() {
-  std::cout << "Hello, C++!" << std::endl;
-  return 0;
+      std::cout << "Hello, C++!" << std::endl;
+      return 0;
 }""";
 
 const String startingPython3Code = """print("Hello, Python 3!")""";
@@ -26,7 +26,7 @@ const String startingGoCode = """package main
 import "fmt"
 
 func main() {
-  fmt.Println("Hello, Go!")
+      fmt.Println("Hello, Go!")
 }""";
 
 const String startingJavaCode = """// Do not change the name of this class
@@ -80,6 +80,7 @@ class CodeEditor {
     'autoCloseTags': true,
     'mode': 'clike',
     'matchBrackets': true,
+    'indentUnit': 4,
     'extraKeys': {
       'Ctrl-Space': 'autocomplete',
       'Cmd-/': 'toggleComment',
@@ -95,7 +96,7 @@ class CodeEditor {
       ..contentEditable = "false";
     textArea.classes.add('code-editor-text-area');
     target.children..add(runBtn)..add(output);
-    if (options != null) this.options = options;
+    this.options = options == null ? this.options : options;
     _editor = new CodeMirror.fromTextArea(textArea, options: this.options);
     output
       ..text = "output"
