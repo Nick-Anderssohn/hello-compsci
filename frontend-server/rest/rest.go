@@ -57,8 +57,8 @@ func NewServer(ctx context.Context, endpoints []*Endpoint, address string, port 
 
 // Run runs the server on address:port
 func (s *Server) Run() error {
-	// return s.server.ListenAndServe()
-	return s.server.ListenAndServeTLS("selfgen/cert.pem", "selfgen/key.pem")
+	return s.server.ListenAndServe()
+	//return s.server.ListenAndServeTLS("selfgen/cert.pem", "selfgen/key.pem")
 	// return s.server.ListenAndServeTLS("", "")
 }
 
