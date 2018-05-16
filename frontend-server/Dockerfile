@@ -34,5 +34,5 @@ WORKDIR /go/src/hello-compsci/frontend-server
 RUN rm Dockerfile
 # commented out healthcheck because it appears to have issues with https
 # HEALTHCHECK CMD curl --fail https://localhost:8080/ || exit 1
-COPY selfgen .
+#COPY selfgen .
 CMD frontend-server

@@ -5,12 +5,12 @@ import (
 	"context"
 	"fmt"
 	"hello-compsci/frontend-server/director"
-	"hello-compsci/frontend-server/rest"
+	"hello-compsci/frontend-server/server"
 	"net/http"
 )
 
 func main() {
-	endpoints := []*rest.Endpoint{
+	endpoints := []*server.Endpoint{
 		{
 			Path:        "/",
 			HandlerFunc: http.FileServer(http.Dir("client/build/web")),

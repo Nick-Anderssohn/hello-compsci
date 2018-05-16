@@ -7,13 +7,14 @@ environment:
 dependencies:
   browser: any
   js: any
-  sass: any
+  dart_sass_transformer: any
   image: any
   simple_streams: any
   codemirror: any
   cookie: "0.0.4"
   protobuf: "^0.5.5"
+  barback: any
 transformers:
 - $dart2js:
     minify: true
-- sass
+- dart_sass_transformer

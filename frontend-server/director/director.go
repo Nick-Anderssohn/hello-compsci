@@ -6,7 +6,7 @@ package director
 
 import (
 	"context"
-	"hello-compsci/frontend-server/rest"
+	"hello-compsci/frontend-server/server"
 	"net/http/httputil"
 	"net/url"
 )
@@ -18,24 +18,24 @@ const (
 
 // HelloClassServer is specifically for hello class. keeps track of sessions and ports
 type HelloClassServer struct {
-	rest.Server
+	server.Server
 }
 
 // NewHelloClassServer returns a pointer to a HelloClassServer
-func NewHelloClassServer(ctx context.Context, endpoints []*rest.Endpoint, address string, port string) *HelloClassServer {
-	server := &HelloClassServer{}
+func NewHelloClassServer(ctx context.Context, endpoints []*server.Endpoint, address string, port string) *HelloClassServer {
+	hcServer := &HelloClassServer{}
 	codeDirectorURL, _ := url.Parse("http://code-director:8050")
 	databaseURL, _ := url.Parse("http://hc-database:8078/database")
 	endpoints = append(
 		endpoints,
-		&rest.Endpoint{
+		&server.Endpoint{
 			Path:        playPath,
 			HandlerFunc: httputil.NewSingleHostReverseProxy(codeDirectorURL),
 		},
-		&rest.Endpoint{
+		&server.Endpoint{
 			Path:        databasePath,
 			HandlerFunc: httputil.NewSingleHostReverseProxy(databaseURL),
 		})
-	server.Server = *rest.NewServer(ctx, endpoints, address, port)
-	return server
+	hcServer.Server = *server.NewServer(ctx, endpoints, address, port)
+	return hcServer
 }

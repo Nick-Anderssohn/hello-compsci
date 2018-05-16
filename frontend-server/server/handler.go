@@ -1,7 +1,7 @@
 // Copyright (C) 2017  Nicholas Anderssohn
 
 // Package rest contains a basic rest server
-package rest
+package server
 
 import "net/http"
 
